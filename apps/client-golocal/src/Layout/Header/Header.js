@@ -24,7 +24,7 @@ export default function Header() {
         {
             label:'Sécurité',
             icon:'pi pi-fw pi-shield',
-            command: () => {window.location.href="./security"}
+            command: () => {window.open('https://localhost:3000/', '_blank');}
         },
         {
             label:'Commandes',

@@ -17,26 +17,26 @@ export default function MyAccountMenuItem({ typeMenuItem }) {
     function getName() {
         switch(typeMenuItem) {
             case "security" :
-                return {title:"Connexion & Sécurité", url: "/security"};
+                return {title:"Connexion & Sécurité", url: "https://localhost:3000/", target:"_self"};
                 break;
 
             case "orders" :
-                return {title:"Vos Commandes", url: "/orders"};
+                return {title:"Vos Commandes", url: "/orders", target:"_self"};
                 break;
 
             case "basket":
-                return {title:"Votre Panier", url: "/basket"};
+                return {title:"Votre Panier", url: "/basket", target:"_self"};
                 break;
 
             case "messages":
-                return {title:"Messagerie", url: "/messages"};
+                return {title:"Messagerie", url: "/messages", target:"_self"};
                 break;
 
             case "seller":
-                return {title:"Devenir vendeur", url: "/seller"};
+                return {title:"Devenir vendeur", url: "https://localhost:3002/", target:"_self"};
                 break;
             case "faq":
-                return {title:"FAQ", url: "/faq"};
+                return {title:"FAQ", url: "/faq", target:"_self"};
                 break;
                 default:
                     return "Undefinied";
@@ -73,7 +73,7 @@ export default function MyAccountMenuItem({ typeMenuItem }) {
 
         return (
             <div className="border-blue-rounded wrapitem">
-            <a style={{textDecoration:"none"}} href={getName().url}>
+            <a style={{textDecoration:"none"}} href={getName().url} target={getName().target}>
 
             <div className="container-menuitem" >
                 <h4 className="text-item">{getName().title}</h4>

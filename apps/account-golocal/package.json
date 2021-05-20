@@ -7,6 +7,8 @@
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "image-to-base64": "^2.2.0",
+    "jsonwebtoken": "^8.5.1",
     "oidc-client": "^1.11.5",
     "primeflex": "^2.0.0",
     "primeicons": "^4.1.0",

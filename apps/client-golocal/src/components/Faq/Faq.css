@@ -1,0 +1,39 @@
+
+
+h1 {
+    padding-top: 0.5em;
+    padding-bottom:0.2em;
+    text-align: center;
+    font-size: 5em;
+    margin: 0;
+    color:#47525E;
+    font-family: lato;
+}
+
+.page {
+    margin-left: 2em;
+    margin-right: 2em;
+    padding-bottom: 5em;
+}
+
+.color a /* Header */ { /* Content */
+    color: white  !important;
+    background-color: #5988ff  !important;
+}
+
+.color .p-accordion-content {
+    color: black;
+    background-color: #91ECF8;
+}
+
+h2 {
+    margin-left: 1em;
+    font-family: lato;
+    color:#343F4B;
+}
+
+p {
+    word-wrap: break-word;
+    font-family: lato;
+}
+

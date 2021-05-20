@@ -1,0 +1,12 @@
+{
+  "client_id": "golocal.client",
+  "redirect_uri": "https://localhost:3001/authentication/callback",
+  "response_type": "code",
+  "post_logout_redirect_uri": "https://localhost:5000",
+  "authority": "https://localhost:5000",
+  "scope": "openid client.api",
+  "silent_redirect_uri": "https://localhost:3001/authentication/silent_callback",
+  "automaticSilentRenew": true,
+  "loadUserInfo": false
+}
+

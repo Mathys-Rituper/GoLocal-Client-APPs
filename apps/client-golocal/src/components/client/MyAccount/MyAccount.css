@@ -1,0 +1,52 @@
+.border-blue-rounded {
+    border : 0.35rem solid #2196F3;
+    border-radius: 1.5rem;
+    width:35%;
+}
+
+.border-blue-rounded > a {
+    padding:0;
+}
+
+.container-menuitem {
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+}
+
+.border-blue-rounded > a > * {
+    padding:.6rem;
+    text-decoration:none;
+}
+.border-blue-rounded h4 {
+    text-align:center;
+    flex-basis:0;
+    flex-grow:0;
+}
+
+.border-blue-rounded img {
+    width : 80%;
+}
+
+.myaccount-container {
+    margin:auto;
+    width:65%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.wrapitem {
+    background-color: #fff;;
+    flex-basis: 23%;
+    flex-grow:0;
+    flex-shrink: 0;
+    margin:1.5rem;
+}
+
+.text-item {
+    text-decoration : none;
+    color:#47525E;
+    font-weight: 700;
+    font-size : 1.3rem;
+    margin:0.8rem;
+}

@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6dea0f05.chunk.css",
+    "main.js": "/static/js/main.d6d6bafe.chunk.js",
+    "main.js.map": "/static/js/main.d6d6bafe.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.89aa6683.js",
+    "runtime-main.js.map": "/static/js/runtime-main.89aa6683.js.map",
+    "static/css/2.8e016076.chunk.css": "/static/css/2.8e016076.chunk.css",
+    "static/js/2.00bb3ae4.chunk.js": "/static/js/2.00bb3ae4.chunk.js",
+    "static/js/2.00bb3ae4.chunk.js.map": "/static/js/2.00bb3ae4.chunk.js.map",
+    "static/js/3.3784727e.chunk.js": "/static/js/3.3784727e.chunk.js",
+    "static/js/3.3784727e.chunk.js.map": "/static/js/3.3784727e.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.8e016076.chunk.css.map": "/static/css/2.8e016076.chunk.css.map",
+    "static/css/main.6dea0f05.chunk.css.map": "/static/css/main.6dea0f05.chunk.css.map",
+    "static/js/2.00bb3ae4.chunk.js.LICENSE.txt": "/static/js/2.00bb3ae4.chunk.js.LICENSE.txt",
+    "static/media/erreur-page-404.c238ff37.png": "/static/media/erreur-page-404.c238ff37.png",
+    "static/media/primeicons.css": "/static/media/primeicons.e61f3495.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.89aa6683.js",
+    "static/css/2.8e016076.chunk.css",
+    "static/js/2.00bb3ae4.chunk.js",
+    "static/css/main.6dea0f05.chunk.css",
+    "static/js/main.d6d6bafe.chunk.js"
+  ]
+}

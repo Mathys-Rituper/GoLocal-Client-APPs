@@ -1,15 +1,20 @@
 import React from 'react';
 import Header from "../../Layout/Header/Header";
 import MyAccount from "../../components/client/MyAccount/MyAccount";
+import { useReactOidc } from '@axa-fr/react-oidc-context';
 
 export default function Account() {
-
-    return(
-        <div>
-            <Header/>
+    const { oidcUser } = useReactOidc();
+    if (!oidcUser){
+        window.location.href='./'
+    }else{
+        return(
             <div>
-                <MyAccount/>
+                <Header/>
+                <div>
+                    <MyAccount/>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }

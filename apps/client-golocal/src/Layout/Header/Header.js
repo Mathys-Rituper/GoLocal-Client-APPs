@@ -24,17 +24,17 @@ export default function Header() {
         {
             label:'Sécurité',
             icon:'pi pi-fw pi-shield',
-            command: () => {window.location.replace("./security")}
+            command: () => {window.location.href="./security"}
         },
         {
             label:'Commandes',
             icon:'pi pi-fw pi-shopping-cart',
-            command: () => {window.location.replace("./basket")}
+            command: () => {window.location.href="./basket"}
         },
         {
             label:'Message',
             icon:'pi pi-fw pi-send',
-            command: () => {window.location.replace("./messages")}
+            command: () => {window.location.href="./messages}"}
         },
         {
             label:'Artisan',
@@ -43,12 +43,12 @@ export default function Header() {
                 {
                     label:'Panel',
                     icon:'pi pi-fw pi-table',
-                    command: () => {window.location.replace("./artisan/dashboard")}
+                    command: () => {window.location.href="./artisan/dashboard"}
                 },
                 {
                     label:'Informations',
                     icon:'pi pi-fw pi-info-circle',
-                    command: () => {window.location.replace("./artisan/become-artisan")}
+                    command: () => {window.location.href="./artisan/become-artisan"}
                 }
             ]
         },
@@ -62,7 +62,7 @@ export default function Header() {
         }
     ];
     function goHome(){
-        window.location.replace("./");
+        window.location.href="./";
     }
     return(
         <div style={{width:"100%"}}>
@@ -78,7 +78,7 @@ export default function Header() {
                             {props.oidcUser ? (
                                 <div style={{width:"25%", display:"flex", flexDirection:"row", alignContent:"center", marginLeft:"8%"}}>
                                     <TieredMenu model={items} popup ref={menu} style={{width:"8%"}}/>
-                                    <Avatar onClick={() => {window.location.replace("/account")}} image={AvatarDefault} style={{cursor:"pointer"}} className="p-mr-2" size="large" shape="circle" />
+                                    <Avatar onClick={() => {window.location.href="/account"}} image={AvatarDefault} style={{cursor:"pointer"}} className="p-mr-2" size="large" shape="circle" />
                                     <a style={{fontSize:"100%"}}>
                                         Bonjour {decodedToken.name} <br/> <b><span onClick={(event) => menu.current.toggle(event)}  style={{cursor:"pointer"}}>Mon Compte ▾</span></b>
                                     </a>
@@ -86,7 +86,7 @@ export default function Header() {
                                 </div>
                             ) : (
                                 <div style={{width:"15%", marginLeft:"13%"}}>
-                                    <Button onClick={() => {window.location.replace("https://localhost:5000/account/register")}} className="p-button-outlined" style={{borderRadius:"50px", marginRight:"7%", borderColor:"#5988ff", color:"#5988ff"}}>Inscription</Button>
+                                    <Button onClick={() => {window.location.href="https://localhost:5000/account/register"}} className="p-button-outlined" style={{borderRadius:"50px", marginRight:"7%", borderColor:"#5988ff", color:"#5988ff"}}>Inscription</Button>
                                     <Button onClick={props.login} className="p-button-outlined" style={{borderRadius:"50px", borderColor:"#5988ff", color:"#5988ff"}}>Connexion</Button>
                                 </div>
                             )}

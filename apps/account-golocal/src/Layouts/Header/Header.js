@@ -66,7 +66,7 @@ export default function Header() {
         }
     ];
     function goHome(){
-        window.location.href="./";
+        window.location.href="https://localhost:3001/";
     }
     return(
         <div style={{width:"100%"}}>

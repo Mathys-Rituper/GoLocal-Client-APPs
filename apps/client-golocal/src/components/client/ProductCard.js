@@ -6,13 +6,15 @@ import 'primeflex/primeflex.css';
 import React from 'react';
 import { Rating } from 'primereact/rating';
 
-export default function ProductCard(name, image, price,rating){
-    if (!name) name = "Produit sans nom";
-    if (!price) price = "0.00";
-    if (!image) image = "https://i.pinimg.com/originals/fb/40/19/fb4019c2f05bab822ec72082735ba697.png"
-    if (!rating) rating = 0;
+export default function ProductCard(product){
 
 
+    if (!product) product = {nom: "Test", image: "test.jpg", price: "55", rating: "5.0"}
+
+    let name = product.nom;
+    let image = product.image;
+    let price = product.price;
+    let rating = product.rating
 
     function RenderCard() {
         return (<div style={{"width":"18rem"}}>

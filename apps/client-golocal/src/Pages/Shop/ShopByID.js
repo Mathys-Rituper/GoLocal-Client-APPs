@@ -6,8 +6,8 @@ import Shop from "../../components/client/Shop/Shop";
 export default function ShopByID() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const shopID = urlParams.get('ID')
-    console.log(shopID);
+    const shopID = urlParams.get('ID');
+
     if (!shopID){
         window.location.href="./"
         return (

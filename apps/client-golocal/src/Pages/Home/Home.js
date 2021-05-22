@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from "../../Layout/Header/Header";
-import MyAccount from "../../components/client/MyAccount/MyAccount";
-import Shop from "../../components/client/Shop/Shop";
+import Shops from "../../components/client/Shops/Shops";
 
 export default function Home() {
 
@@ -9,8 +8,7 @@ export default function Home() {
         <div>
             <Header/>
             <div>
-                {/*Push Architecture de base de l'application web -> Artaud Alexandre*/}
-                <Shop />
+                <Shops />
             </div>
         </div>
     );

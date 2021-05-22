@@ -11,6 +11,7 @@ import Header from "../../Layout/Header/Header";
 import Home from "../../Pages/Home/Home";
 import Account from "../../Pages/Account/Account";
 import Faq from "../Faq/Faq";
+import Shop from "../../Pages/Shop/ShopByID";
 
 function App() {
 
@@ -22,6 +23,9 @@ function App() {
                 <Switch>
                     <Route exact path="/">
                         <Home/>
+                    </Route>
+                    <Route exact path="/shop">
+                        <Shop/>
                     </Route>
                     <Route exact path="/account">
                         <Account/>

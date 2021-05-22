@@ -16,7 +16,7 @@ export default function Header() {
     let decodedToken;
     if (oidcUser){
         decodedToken = decode(oidcUser.access_token)
-
+        console.log(oidcUser.access_token)
     }
     const menu = useRef(null);
     const [value3, setValue3] = useState('');

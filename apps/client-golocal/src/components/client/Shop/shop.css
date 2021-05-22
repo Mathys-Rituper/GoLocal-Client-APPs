@@ -45,13 +45,32 @@ h4 {
     color:#47525E;
     font-family: lato;
 }
-
+.p-carousel-items-container{
+    padding-left: 6%;
+}
 .items p {
     margin : .25rem 0;
     font-size:1.1rem;
-    font-family: lato;
+
 }
 td {
     padding : .2rem;
-    font-family:lato;
+
+}
+.p-carousel-header{
+    font-family: Lato, sans-serif;
+    font-size: 120%;
+}
+
+@media screen and (max-width: 1140px){
+    .shop-first-container {
+        display:flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+}
+@media screen and (max-width: 380px){
+    .shop-first-container {
+        padding-left: 8%;
+    }
 }

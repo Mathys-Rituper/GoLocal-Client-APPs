@@ -16,6 +16,7 @@ import {Rating} from "primereact/rating";
 import './shop.css'
 
 function renderCarousel(articles, responsiveOptions){
+
     const template = (product) => {
         return (
             <ProductCard product={product}/>
@@ -48,7 +49,7 @@ export default function Shop({name, owner, date, category, coords, articles}) {
         coords = {lng: 5.7169, lat: 45.1915};
     }
     if (!articles) {
-        articles = [{nom: "Test", image: "test.jpg", price: "55", rating: "5.0"},{nom: "Test", image: "test.jpg", price: "55", rating: "5.0"},{nom: "Test", image: "test.jpg", price: "55", rating: "5.0"},{nom: "Test", image: "test.jpg", price: "55", rating: "5.0"},{nom: "Test", image: "test.jpg", price: "55", rating: "5.0"},{nom: "Test", image: "test.jpg", price: "55", rating: "5.0"},{nom: "Test", image: "test.jpg", price: "55", rating: "5.0"},{nom: "Test", image: "test.jpg", price: "55", rating: "5.0"},{nom: "Test", image: "test.jpg", price: "55", rating: "5.0"},{nom: "Test", image: "test.jpg", price: "55", rating: "5.0"}];
+        articles = [{nom: "Test", image: "test.jpg", price: "55", rating: "5"},{nom: "Test", image: "test.jpg", price: "55", rating: "5"},{nom: "Test", image: "test.jpg", price: "55", rating: "5"},{nom: "Test", image: "test.jpg", price: "55", rating: "5"},{nom: "Test", image: "test.jpg", price: "55", rating: "5"},{nom: "Test", image: "test.jpg", price: "55", rating: "5"},{nom: "Test", image: "test.jpg", price: "55", rating: "5"},{nom: "Test", image: "test.jpg", price: "55", rating: "5"},{nom: "Test", image: "test.jpg", price: "55", rating: "5"},{nom: "Test", image: "test.jpg", price: "55", rating: "5"}];
     }
 
     const mapContainer = useRef(null);
@@ -99,7 +100,7 @@ export default function Shop({name, owner, date, category, coords, articles}) {
         <div className="shop-container">
             <h4>{name}</h4>
             <div className="shop-first-container">
-            <div className="items">
+            <div className="items" style={{fontFamily:"Lato"}}>
                 <p>Propriétaire : {owner}</p>
                 <p>Sur GoLocal depuis : {date}</p>
                 <p>Catégorie : {category}</p>
@@ -135,7 +136,7 @@ export default function Shop({name, owner, date, category, coords, articles}) {
                     <td>Fermé</td>
                 </tr>
             </div>
-                <div className="items">
+            <div className="items">
                     <h5>Contact :</h5>
                     <p>Téléphone : 04 44 44 44 44</p>
                     <p>Email : <a href="mailto:toto@gmail.com">toto@gmail.com</a></p>

@@ -1,0 +1,16 @@
+{
+  "client_id": "golocal.artisan",
+  "redirect_uri": "https://localhost:3002/authentication/callback",
+  "response_type": "code",
+  "post_logout_redirect_uri": "https://localhost:5000",
+  "authority": "https://localhost:5000",
+  "scope": "openid artisan.api",
+  "silent_redirect_uri": "https://localhost:3002/authentication/silent_callback",
+  "automaticSilentRenew": true,
+  "loadUserInfo": true,
+  "filterProtocolClaims": false,
+  "extraQueryParams": {
+    "grant_type": "password"
+  }
+}
+

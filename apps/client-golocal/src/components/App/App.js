@@ -13,6 +13,7 @@ import Account from "../../Pages/Account/Account";
 import Faq from "../Faq/Faq";
 import Shop from "../../Pages/Shop/ShopByID";
 import ShopWithFilter from "../../Pages/Shop/ShopWithFilter";
+import Login from "../../Pages/Login/Login";
 
 function App() {
 
@@ -33,6 +34,9 @@ function App() {
                     </Route>
                     <Route exact path="/account">
                         <Account/>
+                    </Route>
+                    <Route path="/login">
+                        <Login/>
                     </Route>
                     <Route path="/header">
                         <Header/>

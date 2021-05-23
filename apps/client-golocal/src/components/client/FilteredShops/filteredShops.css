@@ -6,14 +6,28 @@
     flex-direction: row;
     flex-wrap: wrap;
     margin-top: 1%;
-    margin-left: 2%;
+    margin-left: 5%;
     min-height: 100%;
 }
 .customSidebar{
+    width: 20%;
     min-height: 100%;
-    border-right: 1px solid rgb(170, 179, 179);
+    border-right: 2px solid rgb(170, 179, 179);
 }
-
+.filter-title{
+    margin-left: 5%;
+    margin-top: 10%;
+    margin-bottom: 2%;
+    text-align: center;
+    font-family: Lato, sans-serif;
+    font-size: 150%;
+    font-weight: bold;
+}
+.filters{
+    text-align: center;
+    margin-left: 20%;
+    margin-right: 15%;
+}
 
 .scrollpanel-demo .p-scrollpanel p {
     padding: .5rem;
@@ -54,4 +68,14 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+}
+.p-slider .p-slider-handle{
+    color: #5988ff;
+}
+.p-slider .p-slider-range{
+    background-color: #5988ff;
+}
+.p-selectbutton .p-button.p-highlight{
+    background-color: #5988ff;
+    border-color: #5988ff;
 }

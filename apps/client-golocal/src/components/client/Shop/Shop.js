@@ -30,7 +30,7 @@ function renderCarousel(articles, responsiveOptions){
     )
 }
 
-export default function Shop({name, owner, date, category, coords, articles}) {
+export default function Shop({name, owner, date, category, coords, articles }) {
 
     mapboxgl.accessToken = "pk.eyJ1IjoibWF0aHlzcml0dXBlciIsImEiOiJja295Y3hxdDQwaGcyMnhtYzhwMWoza3Y2In0.QzL6Cl3sFAFoMi_StxgMNw";
     if (!name) {

@@ -12,6 +12,7 @@ import Home from "../../Pages/Home/Home";
 import Account from "../../Pages/Account/Account";
 import Faq from "../Faq/Faq";
 import Shop from "../../Pages/Shop/ShopByID";
+import ShopWithFilter from "../../Pages/Shop/ShopWithFilter";
 
 function App() {
 
@@ -26,6 +27,9 @@ function App() {
                     </Route>
                     <Route exact path="/shop">
                         <Shop/>
+                    </Route>
+                    <Route exact path="/shop/filtered">
+                        <ShopWithFilter/>
                     </Route>
                     <Route exact path="/account">
                         <Account/>

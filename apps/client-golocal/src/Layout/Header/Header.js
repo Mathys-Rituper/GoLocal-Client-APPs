@@ -62,10 +62,10 @@ export default function Header() {
         }
     ];
     function goHome(){
-        window.location.href="./";
+        window.location.href="https://localhost:3001/";
     }
     return(
-        <div style={{width:"100%"}}>
+        <div style={{width:"100%", marginBottom:"0.4%"}}>
             <AuthenticationContext.Consumer>
                 {props => {
                     return (

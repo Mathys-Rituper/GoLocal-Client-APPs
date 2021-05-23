@@ -1,0 +1,57 @@
+.body {
+    width: 100%;
+}
+.filteredContent {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 1%;
+    margin-left: 2%;
+    min-height: 100%;
+}
+.customSidebar{
+    min-height: 100%;
+    border-right: 1px solid rgb(170, 179, 179);
+}
+
+
+.scrollpanel-demo .p-scrollpanel p {
+    padding: .5rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.scrollpanel-demo .p-scrollpanel.custombar1 .p-scrollpanel-wrapper {
+    border-right: 10px solid var(--surface-b);
+}
+
+.scrollpanel-demo .p-scrollpanel.custombar1 .p-scrollpanel-bar {
+    background-color: var(--primary-color);
+    opacity: 1;
+    transition: background-color .2s;
+}
+
+.scrollpanel-demo .p-scrollpanel.custombar1 .p-scrollpanel-bar:hover {
+    background-color: #007ad9;
+}
+
+.scrollpanel-demo .p-scrollpanel.custombar2 .p-scrollpanel-wrapper {
+    border-right: 10px solid var(--surface-b);
+    border-bottom: 10px solid var(--surface-b);
+}
+
+.scrollpanel-demo .p-scrollpanel.custombar2 .p-scrollpanel-bar {
+    background-color: var(--surface-d);
+    border-radius: 0;
+    opacity: 1;
+    transition: background-color .2s;
+}
+
+.scrollpanel-demo .p-col-12 {
+    padding: 2rem;
+}
+.p-scrollpanel-content{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

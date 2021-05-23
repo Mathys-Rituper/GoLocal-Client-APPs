@@ -1,6 +1,9 @@
 .body {
     width: 100%;
 }
+.hiddenFilters{
+    display: none;
+}
 .filteredContent {
     display: flex;
     flex-direction: row;
@@ -78,4 +81,14 @@
 .p-selectbutton .p-button.p-highlight{
     background-color: #5988ff;
     border-color: #5988ff;
+}
+
+@media screen and (max-width: 1460px)
+{
+    .customSidebar{
+        display: none;
+    }
+    .hiddenFilters{
+        display: initial;
+    }
 }

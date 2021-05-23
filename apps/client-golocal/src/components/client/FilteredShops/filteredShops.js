@@ -13,6 +13,7 @@ import {SelectButton} from "primereact/selectbutton";
 import {MultiSelect} from "primereact/multiselect";
 import {InputText} from "primereact/inputtext";
 import {Button} from "primereact/button";
+import {Sidebar} from "primereact/sidebar";
 
 
 
@@ -22,6 +23,7 @@ export default function FilteredShops() {
     const [value1, setValue1] = useState('Croissant');
     const [value2, setValue2] = useState('');
     const [value3, setValue3] = useState(5);
+    const [visibleFullScreen, setVisibleFullScreen] = useState(false);
     const [selectedCategories, setSelectedCategories] = useState(null);
     const categories = [
         {name: 'Accessoires'},
@@ -75,6 +77,51 @@ export default function FilteredShops() {
 
     return (
         <div className="body p-grid" style={{marginTop:"0px"}}>
+            <div className="hiddenFilters">
+                <Sidebar visible={visibleFullScreen} fullScreen onHide={() => setVisibleFullScreen(false)}>
+                    <span className="filter-title">FILTRES</span>
+                    <div className="filters">
+                        <h3 style={{marginTop:"10%", textAlign:"left", borderBottom:"2px solid black"}}>Nom</h3>
+                        <span className="p-input-icon-left">
+                        <i className="pi pi-search" />
+                        <InputText value={value2} onChange={(e) => setValue2(e.target.value)} placeholder="Recherche" />
+                    </span>
+                    </div>
+                    <div className="filters">
+                        <h3 style={{marginTop:"10%", textAlign:"left", borderBottom:"2px solid black"}}>Catégories</h3>
+                        <MultiSelect style={{width:"90%"}} value={selectedCategories} options={categories} onChange={(e) => setSelectedCategories(e.value)} optionLabel="name" placeholder="Choisir catégorie(s)" filter className="multiselect-custom" itemTemplate={categoriesTemplate} selectedItemTemplate={selectedCategoriesTemplate} panelFooterTemplate={panelFooterTemplate}/>
+                    </div>
+                    <h3 style={{marginLeft:"10%", marginRight:"15%",marginTop:"8%", marginBottom:"0%", textAlign:"left", borderBottom:"2px solid black"}}>Prix</h3>
+                    <div className="filters">
+                        <p style={{ textAlign:"left"}}>De {value[0]} à {value[1]} €</p>
+                        <Slider value={value} onChange={(e) => setValue(e.value)} range  max={2000}/>
+                    </div>
+                    <div className="filters">
+                        <p style={{marginTop:"10%", textAlign:"left"}}>Ordre</p>
+                        <SelectButton value={value1} options={options} onChange={(e) => {setValue1(e.value);}}/>
+                    </div>
+                    <h3 style={{marginLeft:"10%", marginRight:"15%",marginTop:"8%", marginBottom:"0%", textAlign:"left", borderBottom:"2px solid black"}}>Distance</h3>
+                    <div className="filters">
+                        <p style={{ textAlign:"left"}}>Jusqu'à {value3} Km</p>
+                        <Slider value={value3} onChange={(e) => setValue3(e.value)} max={50} step={5}/>
+                    </div>
+                    <div className="filters" style={{display:"flex", justifyContent:"space-between", marginTop:"15%", flexWrap:"wrap"}}>
+                        <Button label="Appliquer" className="p-button-raised" style={{backgroundColor: "#5988ff"}} />
+                        <Button label="Supprimer" onClick={() => {
+                            setValue([500,1500]);
+                            setValue1(options[0]);
+                            setValue2("");
+                            setValue3(5);
+                            setSelectedCategories(null);
+                        }} className="p-button-raised p-button-secondary" />
+                    </div>
+
+                </Sidebar>
+            </div>
+
+
+
+
             <div className="customSidebar p-col-fixed p-grid p-dir-col">
                 <span className="filter-title">FILTRES</span>
                 <div className="filters">
@@ -115,7 +162,8 @@ export default function FilteredShops() {
 
 
             </div>
-            <div className="filteredContent p-col">
+            <div className="filteredContent p-col" style={{display :  visibleFullScreen ? 'none' : 'initial'}}>
+                <Button icon="pi pi-filter" style={{width:"50%", marginLeft:"23%"}} onClick={() => {setVisibleFullScreen(true)}} className="p-button-raised p-button-secondary hiddenFilters">Afficher les filtres</Button>
                 <ScrollPanel style={{ width: '100%', height: '790px'}} className="custombar1">
                     <FilteredShopCard/>
                     <FilteredShopCard/>

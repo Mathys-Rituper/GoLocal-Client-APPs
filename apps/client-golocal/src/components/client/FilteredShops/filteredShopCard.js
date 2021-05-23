@@ -5,7 +5,7 @@ import 'primeflex/primeflex.css';
 import React from 'react';
 import { Rating } from 'primereact/rating';
 import placeHolder from "../../../assets/product-image-placeholder.jpg"
-export default function FilteredProductCard({product}){
+export default function FilteredShopCard({product}){
 
 
     if (!product) product = {nom: "Test", image: "test.jpg", price: "55", rating: "5"}

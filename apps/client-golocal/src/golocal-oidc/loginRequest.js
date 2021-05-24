@@ -1,20 +1,16 @@
 import React from 'react';
-
 import { AxiosProvider, Request, Get, Delete, Head, Post, Put, Patch, withAxios } from 'react-axios'
 import axios from "axios";
-import querystring from 'querystring'
-
-
 
 
 export default function LoginRequest({userName, Password, setLoading, setResponse, setError}) {
+    console.log("Log Request")
     const instance = axios.create({
         baseURL: 'https://localhost:5000/',
         timeout: 1000,
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     });
-    const username = userName.replace(" ", "%20")
-    // "grant_type=password&username=Alex&password=Alex19112001*&client_id=golocal&scope=artisan.api%20client.api"
+    const username = userName;
     const password = Password;
 
         return(
@@ -29,6 +25,7 @@ export default function LoginRequest({userName, Password, setLoading, setRespons
                 isReady={true}
                 onSuccess={(response)=>{
                     setLoading(false)
+                    localStorage.setItem("access_token", response.data.access_token)
                     setResponse(response);
                 }}
                 onLoading={()=>{

@@ -33,10 +33,11 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "set HTTPS=true&set PORT=3001& react-scripts start",
+    "start": "export HTTPS=true&&export PORT=3001&&react-scripts start --port 3001",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "demarrer": "react-scripts start"
   },
   "eslintConfig": {
     "extends": [

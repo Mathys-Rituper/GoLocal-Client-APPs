@@ -2,39 +2,26 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
-
-import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
-
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 
 import {Carousel} from 'primereact/carousel';
 
-import ProductCard from "../ProductCard";
-import {Rating} from "primereact/rating";
+import BoutiqueCard from "../BoutiqueCard";
 
 import './shops.css'
 
-function renderCarousel(articles, responsiveOptions){
-    const template = (product) => {
+function renderShops(shops,responsiveOptions){
+    const template = (shop) => {
         return (
-            <ProductCard product={product}/>
+            <BoutiqueCard boutique={shop}/>
         )
     }
     return (
-        <div>
-            <Carousel value={articles} numVisible={5} numScroll={3} responsiveOptions={responsiveOptions} itemTemplate={template} header={<h3>Produits de la boutique</h3>} />
-        </div>
-    )
-}
-function renderShops(shops, responsiveOptions){
-    return (
-        <div>
-            <span>{shops.category}</span>
-            <div className="card">
-                {renderCarousel(shops.shops, responsiveOptions)}
-            </div>
-        </div>
+
+                <div className="card" style={{width:"100%"}}>
+                    <Carousel value={shops.shops} numVisible={5} numScroll={3} responsiveOptions={responsiveOptions} itemTemplate={template} header={<h3>Boutiques de la catégorie {shops.category} :</h3>} />
+                </div>
+
     )
 }
 
@@ -63,7 +50,7 @@ export default function Shops() {
         }
     ];
     const object = [
-        {id:0, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:1, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:2, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:3, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:4, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:5, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:6, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:7, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:8, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:9, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:0, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:1, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:2, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:3, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:4, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:5, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:6, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:7, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:8, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:9, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:0, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:1, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:2, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:3, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:4, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:5, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:6, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:7, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:8, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:9, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:0, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:1, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:2, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:3, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:4, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:5, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:6, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:7, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:8, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:9, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:0, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"},{id:1, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"},{id:2, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"},{id:3, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"},{id:4, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"},{id:5, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"},{id:6, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"},{id:7, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"},{id:8, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"},{id:9, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"}
+        {id:0, nom: "Courgette", image: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:1, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:2, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:3, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:4, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:5, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:6, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:7, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:8, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:9, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Informatique", localisation: "null"},{id:0, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:1, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:2, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:3, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:4, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:5, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:6, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:7, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:8, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:9, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Culture", localisation: "null"},{id:0, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:1, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:2, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:3, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:4, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:5, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:6, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:7, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:8, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:9, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Art", localisation: "null"},{id:0, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:1, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:2, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:3, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:4, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:5, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:6, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:7, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:8, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:9, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Cuisine", localisation: "null"},{id:0, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"},{id:1, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"},{id:2, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"},{id:3, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"},{id:4, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"},{id:5, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"},{id:6, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"},{id:7, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"},{id:8, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"},{id:9, nom: "Courgette", description: "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png", category:"Bijouterie", localisation: "null"}
     ]
     const categories = [];
     object.forEach((shop) => {
@@ -88,20 +75,21 @@ export default function Shops() {
     })
     console.log(shopsByCategory);
 
+    let caroussels = [];
+
+    if (shopsByCategory.length!=0) {
+        for (const category of shopsByCategory) {
+            caroussels.push(renderShops(category,responsiveOptions))
+            console.log(category.category);
+            console.log(category.shops)
+        }
+    } else {
+        caroussels.push(<p>Pas de boutiques</p>);
+    }
+
     return (
         <div className="shop-container">
-            {shopsByCategory ? (
-                shopsByCategory.forEach((shops) => {
-                    console.log(shops);
-                    return (
-                        <div>
-                            {renderShops(shops, responsiveOptions)}
-                        </div>
-                    )
-                })
-            ) : (
-                <div>Pas de Shops disponibles</div>
-            )}
+            {caroussels}
         </div>
 
 

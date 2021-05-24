@@ -15,6 +15,8 @@ import Shop from "../../Pages/Shop/ShopByID";
 import ShopWithFilter from "../../Pages/Shop/ShopWithFilter";
 import Login from "../../Pages/Login/Login";
 import Register from "../../Pages/Register/Register";
+import BecomeVendor from "../../Pages/BecomeVendor/BecomeVendor";
+import Product from "../../Pages/Product/Product";
 
 function App() {
 
@@ -39,6 +41,12 @@ function App() {
                     </Route>
                     <Route path="/register">
                         <Register/>
+                    </Route>
+                    <Route path="/product">
+                        <Product/>
+                    </Route>
+                    <Route path="/artisan/become-artisan">
+                        <BecomeVendor/>
                     </Route>
                     <Route path="/header">
                         <Header/>

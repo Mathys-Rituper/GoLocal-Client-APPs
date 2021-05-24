@@ -54,18 +54,25 @@ export function goLocalRegister(userName, email, Password, passwordConfirmation,
         baseURL: 'https://localhost:5000',
         method: "post",
         timeout: 1000,
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
     });
 
-    let data = `email=${email}&username=${userName}&password=${Password}&passwordConfirmation=${passwordConfirmation}`
+    let data = {
+        "email" : email,
+        "username": userName,
+        "password": Password,
+        "passwordConfirmation": passwordConfirmation
+    }
     return instance
-        .post('/register', data)
+        .post('/account/register', data)
         .then((response) => {
-            console.log("Success");
-            window.location.replace("https://localhost:3001/");
-            return response.data;
+            console.log(response);
+            if (response.status !== 200){
+                errorShow("Erreur : " + response.status)
+            }else{
+                window.location.replace("https://localhost:3001/");
+                return response.data;
+            }
+
         })
         .catch((error) => {
             return errorShow(error);
@@ -101,4 +108,26 @@ export function goLocalGetUserInfo(){
         return undefined;
     }
 }
-
+export function getShopByID(id){
+    if (middleware() === true){
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5001',
+            method: "get",
+            timeout: 1000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            data: {}
+        });
+        return instance
+            .get(`/api/shops/${id}`)
+            .then(res => res.data)
+            .catch(error =>{
+                console.log(error);
+                // oidcLogin();
+            })
+    }else{
+        return undefined;
+    }
+}

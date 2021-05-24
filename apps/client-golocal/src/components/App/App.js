@@ -21,8 +21,6 @@ function App() {
   return (
     <div>
         <Router>
-            <AuthenticationProvider configuration={oidcConfiguration} loggerLevel={oidcLog.DEBUG}>
-                {/*<AuthenticationProvider configuration={oidcConfiguration} loggerLevel={oidcLog.DEBUG}>*/}
                 <Switch>
                     <Route exact path="/">
                         <Home/>
@@ -52,7 +50,6 @@ function App() {
                         <NoMatch/>
                     </Route>
                 </Switch>
-            </AuthenticationProvider>
         </Router>
     </div>
   );

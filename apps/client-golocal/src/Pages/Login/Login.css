@@ -24,6 +24,7 @@
     margin-bottom: 8%;
 }
 .logo{
+    cursor: pointer;
     width: 20%;
     height: 20%;
     margin-top: 5%

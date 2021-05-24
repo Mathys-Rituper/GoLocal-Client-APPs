@@ -14,6 +14,7 @@
     "jsonwebtoken": "^8.5.1",
     "jsx": "^0.9.89",
     "mapbox-gl": "^2.2.0",
+    "node-geocoder": "^3.27.0",
     "oidc-client": "^1.11.5",
     "primeflex": "^2.0.0",
     "primeicons": "^4.1.0",
@@ -26,6 +27,7 @@
     "react-axios-hook": "^2.0.2",
     "react-dom": "^17.0.2",
     "react-final-form": "^6.5.3",
+    "react-geocode": "^0.2.3",
     "react-jsx": "^1.0.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
@@ -33,11 +35,10 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "export HTTPS=true&&export PORT=3001&&react-scripts start --port 3001",
+    "start": "export HTTPS=true&&export PORT=3001&&react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "demarrer": "react-scripts start"
   },
   "eslintConfig": {
     "extends": [

@@ -77,11 +77,13 @@ export default function Register() {
             </ul>
         </React.Fragment>
     );
-
+    function goHome(){
+        window.location.href="https://localhost:3001/";
+    }
 
     return(
         <div className="formContainer">
-            <img src={logo} className="logo"/>
+            <img src={logo} className="logo" onClick={() => {goHome()}}/>
             <div className="card">
                 <p className="p-text-center">Créez un compte</p>
                 <Form onSubmit={onSubmit} initialValues={{ name: '', password: ''}} validate={validate} render={({ handleSubmit }) => (

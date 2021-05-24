@@ -13,7 +13,9 @@ import logo from "../../assets/goLocal.png"
 import {goLocalLogin, oidcRegister} from "../../golocal-oidc/functions";
 import {Messages} from "primereact/messages";
 
-
+function goBackHome(){
+    window.location.location=("https://localhost:3001/")
+}
 export default function Login() {
     let previousPage =  localStorage.getItem("previousPage")
     if (previousPage === null){
@@ -47,10 +49,12 @@ export default function Login() {
         // console.log(data)
         await goLocalLogin(data.name,data.password, errorShow,previousPage)
     };
-
+    function goHome(){
+        window.location.href="https://localhost:3001/";
+    }
     return(
         <div className="formContainer">
-            <img src={logo} className="logo"/>
+            <img  src={logo} className="logo" onClick={() => {goHome()}}/>
             <div className="card">
                 <p className="p-text-center">Connectez-vous à votre compte</p>
                 <Form onSubmit={onSubmit} initialValues={{ name: '', password: ''}} validate={validate} render={({ handleSubmit }) => (

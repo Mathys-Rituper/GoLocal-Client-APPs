@@ -1,46 +1,96 @@
+import React, {useEffect, useRef, useState} from 'react';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
-
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-
-import React, {useEffect, useRef, useState} from 'react';
-
 import {Carousel} from 'primereact/carousel';
-
 import ProductCard from "../ProductCard";
-import {Rating} from "primereact/rating";
-
 import './shop.css'
+import {useLocation} from "react-router-dom";
+import {getShopByID, goLocalGetUserInfo} from "../../../golocal-oidc/functions";
+import {Button} from "primereact/button";
+import Geocode from "react-geocode";
+
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
 
 function renderCarousel(articles, responsiveOptions){
-
     const template = (product) => {
-        return (
-            <ProductCard product={product}/>
-        )
+        return (<ProductCard product={product}/>)
     }
     return (
         <div>
             <Carousel value={articles} numVisible={5} numScroll={3} responsiveOptions={responsiveOptions} itemTemplate={template} header={<h3>Produits de la boutique</h3>} />
         </div>
-
     )
 }
 
-export default function Shop({name, owner, date, category, coords, articles }) {
-
+function goHome(){
+    window.location.href="https://localhost:3001/";
+}
+async function geocode(geocoder){
+    return await geocoder.geocode('29 champs elysée paris');
+}
+export default function Shop() {
     mapboxgl.accessToken = "pk.eyJ1IjoibWF0aHlzcml0dXBlciIsImEiOiJja295Y3hxdDQwaGcyMnhtYzhwMWoza3Y2In0.QzL6Cl3sFAFoMi_StxgMNw";
-    if (!name) {
-        name = "Nom de la boutique"
-    };
-    if (!owner) {
-        owner = "Propriétaire";
+    Geocode.setApiKey("AIzaSyBQOKYdqMp1Cne9eY3oSdHOdlrsHxAEq88");
+    Geocode.setLanguage("fr");
+    Geocode.setRegion("fr");
+    Geocode.setLocationType("ROOFTOP");
+
+    let name, owner, date, dateNotParsed, category, mail, phone, adress, coords, articles;
+    const params = useQuery();
+    const id = params.get("ID")
+    if (id === null || id === undefined || id === ""){
+        window.location.href="https://localhost:3001/";
     }
-    if  (!date) {
-        date = "15/04/2002";
+    const [shop, setShop] = useState(null);
+    const [display, setDisplay] = useState("none")
+    if (shop === null){
+        getShopByID(id).then(data => setShop(data));
+    }
+    if (shop){
+        name = shop.name
+        owner = shop.user.userName;
+        dateNotParsed = shop.creation.split("T");
+        dateNotParsed = dateNotParsed[0].split("-")
+        date = dateNotParsed[2] + "/" + dateNotParsed[1] + "/" + dateNotParsed[0];
+        mail = shop.contact.email;
+        phone = shop.contact.phone;
+        Geocode.fromAddress(`${shop.address} ${shop.street} ${shop.zip} ${shop.city} ${shop.country}`).then(
+            (response) => {
+                const { lat, lng } = response.results[0].geometry.location;
+                console.log({ lat, lng })
+            },
+            (error) => {
+                console.error(error);
+            }
+        )
+        adress = {
+            address: shop.location.address,
+            street: shop.location.street,
+            zip: shop.location.zip,
+            city: shop.location.city,
+            country: shop.location.country
+        }
+        articles = shop.products;
+        if(display === "none"){
+            setDisplay("")
+        }
+
+        console.log(articles);
+    }
+    if (!adress) {
+        adress = {
+            adress: "undefined",
+            street: "undefined",
+            zip: "undefined",
+            city: "undefined",
+            country: "undefined"
+        }
     }
     if (!category) {
         category = "Cat par défaut";
@@ -100,18 +150,27 @@ export default function Shop({name, owner, date, category, coords, articles }) {
         }
     ];
 
-
     return (
         <div className="shop-container">
-            <h4>{name}</h4>
-            <div className="shop-first-container">
-            <div className="items" style={{fontFamily:"Lato"}}>
-                <p>Propriétaire : {owner}</p>
-                <p>Sur GoLocal depuis : {date}</p>
-                <p>Catégorie : {category}</p>
+            {shop ? (
+                <div/>
+            ) : (
+                <div style={{width:"100%",textAlign:"center", fontSize:"300%"}}>
+                    <div>Ce magasin n'existe pas</div>
+                    {() => setDisplay("none")}
+                    <Button onClick={() => {goHome()}}>Retour à l'accueil</Button>
+                </div>
+
+            )}
+            <h4 style={{display : display}}>{name}</h4>
+            <div style={{display : display}} className="shop-first-container">
+            <div style={{display : display}} className="items" style={{fontFamily:"Lato"}}>
+                <p style={{display : display}} >Propriétaire : {owner}</p>
+                <p style={{display : display}}>Date création : {date}</p>
+                <p style={{display : display}}>Catégorie : {category}</p>
                 <br/>
-                <h5>Horaires d'ouverture :</h5>
-                <table></table>
+                <h5 style={{display : display}}>Horaires d'ouverture :</h5>
+                <table style={{display : display}}>
                 <tr>
                     <td>Lundi :</td>
                     <td>8:00-12:00 14:00-18:00</td>
@@ -140,20 +199,22 @@ export default function Shop({name, owner, date, category, coords, articles }) {
                     <td>Dimanche :</td>
                     <td>Fermé</td>
                 </tr>
+                </table>
             </div>
-            <div className="items">
+            <div style={{display : display}} className="items">
                     <h5>Contact :</h5>
-                    <p>Téléphone : 04 44 44 44 44</p>
-                    <p>Email : <a href="mailto:toto@gmail.com">toto@gmail.com</a></p>
+                    <p>Téléphone : {phone}</p>
+                    <p>Email : <a href={`mailto:${mail}`}>{mail}</a></p>
                     <h5>Adresse</h5>
-                    <p>Place Doyen Gosse</p>
-                    <p>38000 Grenoble</p>
+                    <p>{adress.address} {adress.street}</p>
+                    <p>{adress.zip} {adress.city}</p>
+                    <p>{adress.country}</p>
                 </div>
-            <div ref={mapContainer} className="map-container"/>
+            <div style={{display : display}} ref={mapContainer} className="map-container"/>
             </div>
 
-            <div className="card">
-                {renderCarousel(articles, responsiveOptions)}
+            <div style={{display : display}}>
+                {shop ? (renderCarousel(articles, responsiveOptions)) : (<div/>)}
             </div>
         </div>
 

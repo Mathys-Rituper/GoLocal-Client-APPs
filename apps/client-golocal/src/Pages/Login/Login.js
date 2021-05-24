@@ -15,10 +15,12 @@ import {Messages} from "primereact/messages";
 
 
 export default function Login() {
-    const previousPage =  localStorage.getItem("previousPage")
-    console.log(previousPage)
+    let previousPage =  localStorage.getItem("previousPage")
     if (previousPage === null){
         window.location.href="https://localhost:3001/"
+    }
+    if (previousPage === "https://localhost:3001/register"){
+        previousPage = "https://localhost:3001/"
     }
     const msgs1 = useRef(null);
     const isFormFieldValid = (meta) => !!(meta.touched && meta.error);

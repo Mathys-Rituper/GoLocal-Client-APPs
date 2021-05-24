@@ -6,7 +6,7 @@ import {Button} from "primereact/button";
 import {TieredMenu} from "primereact/tieredmenu";
 import Logo from './../../assets/goLocal.png'
 import AvatarDefault from './../../assets/avatarDef.jpg'
-import {goLocalGetUserInfo ,goLocalLogout, oidcLogin} from "../../golocal-oidc/functions";
+import {goLocalGetUserInfo, goLocalLogout, oidcLogin, oidcRegister} from "../../golocal-oidc/functions";
 
 
 
@@ -91,7 +91,7 @@ export default function Header() {
                     </div>
                 ) : (
                     <div style={{width:"15%", marginLeft:"13%"}}>
-                        <Button onClick={() => {window.location.href="https://localhost:5000/account/register"}} className="p-button-outlined" style={{borderRadius:"50px", marginRight:"7%", borderColor:"#5988ff", color:"#5988ff"}}>Inscription</Button>
+                        <Button onClick={oidcRegister} className="p-button-outlined" style={{borderRadius:"50px", marginRight:"7%", borderColor:"#5988ff", color:"#5988ff"}}>Inscription</Button>
                         <Button onClick={oidcLogin} className="p-button-outlined" style={{borderRadius:"50px", borderColor:"#5988ff", color:"#5988ff"}}>Connexion</Button>
                     </div>
                 )}

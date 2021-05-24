@@ -10,7 +10,7 @@ import { Button } from 'primereact/button';
 import { Password } from 'primereact/password';
 import { classNames } from 'primereact/utils';
 import logo from "../../assets/goLocal.png"
-import {goLocalLogin, goLocalRegister} from "../../golocal-oidc/functions";
+import {goLocalLogin, goLocalRegister, oidcLogin, oidcRegister} from "../../golocal-oidc/functions";
 import {Toast} from "primereact/toast";
 import {Messages} from "primereact/messages";
 import {useLocation} from "react-router-dom";
@@ -134,6 +134,9 @@ export default function Register() {
                         <Button type="submit" style={{backgroundColor: "rgb(89, 136, 255)"}} label="Connexion" className="p-mt-2" disabled={buttonState} />
                     </form>
                 )}/>
+            </div>
+            <div style={{display:"flex", flexDirection:"row"}}>
+                <p>Déjà un compte ? </p><p style={{color: "rgb(89, 136, 255)", cursor:"pointer", marginLeft:"5px"}} onClick={oidcLogin}>Connexion</p>
             </div>
         </div>
     );

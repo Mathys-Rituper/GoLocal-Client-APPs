@@ -19,10 +19,7 @@ function getToken(){
 // AUTHENTIFICATION //
 
 export function oidcLogin(){
-    let previousPage = window.location.href;
-    if (previousPage === "https://localhost:3001/login"){
-        previousPage = "https://localhost:3001/"
-    }
+    const previousPage = window.location.href;
     localStorage.setItem("previousPage", previousPage);
     window.location.href=`https://localhost:3001/login`
 }
@@ -66,8 +63,8 @@ export function goLocalRegister(userName, email, Password, passwordConfirmation,
     return instance
         .post('/register', data)
         .then((response) => {
-            window.location.replace("https://localhost:3001/");
             console.log("Success");
+            window.location.replace("https://localhost:3001/");
             return response.data;
         })
         .catch((error) => {

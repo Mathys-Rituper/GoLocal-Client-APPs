@@ -14,6 +14,7 @@ import Faq from "../Faq/Faq";
 import Shop from "../../Pages/Shop/ShopByID";
 import ShopWithFilter from "../../Pages/Shop/ShopWithFilter";
 import Login from "../../Pages/Login/Login";
+import Register from "../../Pages/Register/Register";
 
 function App() {
 
@@ -37,6 +38,9 @@ function App() {
                     </Route>
                     <Route path="/login">
                         <Login/>
+                    </Route>
+                    <Route path="/register">
+                        <Register/>
                     </Route>
                     <Route path="/header">
                         <Header/>

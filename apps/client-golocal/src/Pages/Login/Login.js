@@ -10,16 +10,11 @@ import { Button } from 'primereact/button';
 import { Password } from 'primereact/password';
 import { classNames } from 'primereact/utils';
 import logo from "../../assets/goLocal.png"
-import {goLocalLogin} from "../../golocal-oidc/functions";
-import {Toast} from "primereact/toast";
+import {goLocalLogin, oidcRegister} from "../../golocal-oidc/functions";
 import {Messages} from "primereact/messages";
-import {useLocation} from "react-router-dom";
-
-
 
 
 export default function Login() {
-
     const previousPage =  localStorage.getItem("previousPage")
     console.log(previousPage)
     if (previousPage === null){
@@ -40,7 +35,6 @@ export default function Login() {
         }
         return errors;
     };
-
     function errorShow(){
         msgs1.current.show([
             { severity: 'warn', summary: '', detail: 'Mauvais mot de passe ou nom d\'utilisateur', sticky: true },
@@ -48,16 +42,9 @@ export default function Login() {
     }
     const onSubmit = async (data, form) => {
         form.restart();
-        console.log(data)
+        // console.log(data)
         await goLocalLogin(data.name,data.password, errorShow,previousPage)
     };
-
-    // if (error){
-    //     errorShow()
-    // }
-
-
-
 
     return(
         <div className="formContainer">
@@ -89,6 +76,9 @@ export default function Login() {
                         <Button type="submit" label="Connexion" className="p-mt-2" />
                     </form>
                 )}/>
+            </div>
+            <div style={{display:"flex", flexDirection:"row"}}>
+                <p>Besoin d'un compte ? </p><p style={{color: "rgb(89, 136, 255)", cursor:"pointer", marginLeft:"5px"}} onClick={oidcRegister}>S'enregistrer</p>
             </div>
         </div>
     );

@@ -4,14 +4,17 @@ import MyAccount from "../../components/client/MyAccount/MyAccount";
 import { useReactOidc } from '@axa-fr/react-oidc-context';
 import {Redirect} from "react-router-dom";
 import {Button} from "primereact/button";
+import {goLocalGetUserInfo} from "../../golocal-oidc/functions";
 
 
 function redirect(){
     window.location.replace("./")
 }
 export default function Account() {
-    const { oidcUser } = useReactOidc();
-
+    const [oidcUser, setOidcUser] = useState(null);
+    if (oidcUser === null ){
+        goLocalGetUserInfo().then(data => setOidcUser(data));
+    }
     return(
         <div>
             {!oidcUser ? (

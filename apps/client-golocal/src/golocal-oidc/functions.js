@@ -19,9 +19,15 @@ function getToken(){
 // AUTHENTIFICATION //
 
 export function oidcLogin(){
-    const previousPage = window.location.href;
+    let previousPage = window.location.href;
+    if (previousPage === "https://localhost:3001/login"){
+        previousPage = "https://localhost:3001/"
+    }
     localStorage.setItem("previousPage", previousPage);
     window.location.href=`https://localhost:3001/login`
+}
+export function oidcRegister(){
+    window.location.href=`https://localhost:3001/register`
 }
 export function goLocalLogin(userName,Password, errorShow, previousPage){
     const instance = axios.create({
@@ -46,6 +52,28 @@ export function goLocalLogin(userName,Password, errorShow, previousPage){
             return errorShow();
         });
 }
+export function goLocalRegister(userName, email, Password, passwordConfirmation, errorShow){
+    const instance = axios.create({
+        baseURL: 'https://localhost:5000',
+        method: "post",
+        timeout: 1000,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    });
+
+    let data = `email=${email}&username=${userName}&password=${Password}&passwordConfirmation=${passwordConfirmation}`
+    return instance
+        .post('/register', data)
+        .then((response) => {
+            window.location.replace("https://localhost:3001/");
+            console.log("Success");
+            return response.data;
+        })
+        .catch((error) => {
+            return errorShow(error);
+        });
+}
 export function goLocalLogout(){
     localStorage.removeItem("access_token");
     window.location.href="https://localhost:3001/"
@@ -53,7 +81,7 @@ export function goLocalLogout(){
 
 
 // CLIENT REQUESTS //
-export function getUserInfo(){
+export function goLocalGetUserInfo(){
     if (middleware() === true){
         const token = getToken();
         const instance = axios.create({
@@ -61,18 +89,19 @@ export function getUserInfo(){
             method: "get",
             timeout: 1000,
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
                 Authorization: `Bearer ${token}`
             },
             data: {}
         });
         return instance
-            .post('/connect/userinfo')
-            .then((response) => {
-                return response;
+            .get('/connect/userinfo')
+            .then(res => res.data)
+            .catch(error =>{
+                oidcLogin();
             })
-    }else{
-        return null;
-    }
 
+    }else{
+        return undefined;
+    }
 }
+

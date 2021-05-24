@@ -1,6 +1,24 @@
 .p-button-icon{
    margin-right: 5%;
 }
+.sidebar-title{
+   font-size: 200%;
+   margin-bottom: 15%
+}
+.customSidebarHeader{
+   text-align: center;
+}
+.sidebar-container{
+   display:flex;
+   flex-direction:column;
+   align-items: center;
+}
+.p-menuitem-text{
+   font-size: 110%
+}
+.p-tieredmenu {
+   border: 0px;
+}
 .account-cart{
    width: 25%;
    display: flex;

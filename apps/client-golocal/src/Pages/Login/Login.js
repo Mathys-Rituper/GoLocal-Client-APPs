@@ -84,7 +84,7 @@ export default function Login() {
                 )}/>
             </div>
             <div style={{display:"flex", flexDirection:"row"}}>
-                <p>Besoin d'un compte ? </p><p style={{color: "rgb(89, 136, 255)", cursor:"pointer", marginLeft:"5px"}} onClick={oidcRegister}>S'enregistrer</p>
+                <p style={{marginLeft:"0px", marginRight:"0px"}}>Besoin d'un compte ? </p><p style={{color: "rgb(89, 136, 255)", cursor:"pointer", marginLeft:"5px"}} onClick={oidcRegister}>S'enregistrer</p>
             </div>
         </div>
     );

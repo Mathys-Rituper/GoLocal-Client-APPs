@@ -133,12 +133,12 @@ export default function Register() {
                             </div>
                         )} />
 
-                        <Button type="submit" style={{backgroundColor: "rgb(89, 136, 255)"}} label="Connexion" className="p-mt-2" disabled={buttonState} />
+                        <Button type="submit" style={{backgroundColor: "rgb(89, 136, 255)"}} label="S'inscrire" className="p-mt-2" disabled={buttonState} />
                     </form>
                 )}/>
             </div>
             <div style={{display:"flex", flexDirection:"row"}}>
-                <p>Déjà un compte ? </p><p style={{color: "rgb(89, 136, 255)", cursor:"pointer", marginLeft:"5px"}} onClick={oidcLogin}>Connexion</p>
+                <p style={{marginLeft:"0px", marginRight:"0px"}}>Déjà un compte ? </p><p style={{color: "rgb(89, 136, 255)", cursor:"pointer", marginLeft:"5px"}} onClick={oidcLogin}>Connexion</p>
             </div>
         </div>
     );

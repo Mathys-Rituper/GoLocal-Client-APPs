@@ -41,7 +41,8 @@ export default function Shop() {
     Geocode.setRegion("fr");
     Geocode.setLocationType("ROOFTOP");
 
-    let name, owner, date, dateNotParsed, category, mail, phone, adress, coords, articles;
+    let name, owner, date, dateNotParsed, category, mail, phone, adress, articles;
+    let [coords, setCoords] = useState(null);
     const params = useQuery();
     const id = params.get("ID")
     if (id === null || id === undefined || id === ""){
@@ -63,6 +64,8 @@ export default function Shop() {
         Geocode.fromAddress(`${shop.address} ${shop.street} ${shop.zip} ${shop.city} ${shop.country}`).then(
             (response) => {
                 const { lat, lng } = response.results[0].geometry.location;
+                coords.lat = lat;
+                coords.lng = lng;
                 console.log({ lat, lng })
             },
             (error) => {
@@ -94,38 +97,11 @@ export default function Shop() {
     if (!category) {
         category = "Cat par défaut";
     }
-    if (!coords) {
-        coords = {lng: 5.7169, lat: 45.1915};
-    }
     if (!articles) {
         articles = [{nom: "Test", image: "test.jpg", price: "55", rating: "5"},{nom: "Test", image: "test.jpg", price: "55", rating: "5"},{nom: "Test", image: "test.jpg", price: "55", rating: "5"},{nom: "Test", image: "test.jpg", price: "55", rating: "5"},{nom: "Test", image: "test.jpg", price: "55", rating: "5"},{nom: "Test", image: "test.jpg", price: "55", rating: "5"},{nom: "Test", image: "test.jpg", price: "55", rating: "5"},{nom: "Test", image: "test.jpg", price: "55", rating: "5"},{nom: "Test", image: "test.jpg", price: "55", rating: "5"},{nom: "Test", image: "test.jpg", price: "55", rating: "5"}];
     }
 
-    const mapContainer = useRef(null);
-    const map = useRef(null);
-    const [lng, setLng] = useState(coords.lng);
-    const [lat, setLat] = useState(coords.lat);
-    const [zoom, setZoom] = useState(16);
-    useEffect(() => {
-        if (map.current) return; // initialize map only once
-        map.current = new mapboxgl.Map({
-            container: mapContainer.current,
-            style: 'mapbox://styles/mapbox/streets-v11',
-            center: [lng, lat],
-            zoom: zoom
-        });
-        var marker1 = new mapboxgl.Marker()
-            .setLngLat([coords.lng, coords.lat])
-            .addTo(map.current);
-    });
-    useEffect(() => {
-        if (!map.current) return; // wait for map to initialize
-        map.current.on('move', () => {
-            setLng(map.current.getCenter().lng.toFixed(4));
-            setLat(map.current.getCenter().lat.toFixed(4));
-            setZoom(map.current.getZoom().toFixed(2));
-        });
-    });
+
     const responsiveOptions = [
         {
             breakpoint: '1464px',
@@ -148,6 +124,30 @@ export default function Shop() {
             numScroll: 1
         }
     ];
+
+    const mapContainer = useRef(null);
+    const map = useRef(null);
+    const [zoom, setZoom] = useState(16);
+    useEffect(() => {
+        if (map.current) return; // initialize map only once
+        map.current = new mapboxgl.Map({
+            container: mapContainer.current,
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [coords.lng, coords.lat],
+            zoom: zoom
+        });
+        var marker1 = new mapboxgl.Marker()
+            .setLngLat([coords.lng, coords.lat])
+            .addTo(map.current);
+    });
+    useEffect(() => {
+        if (!map.current) return; // wait for map to initialize
+        map.current.on('move', () => {
+            coords.lng  = map.current.getCenter().lng.toFixed(4);
+            coords.lat = map.current.getCenter().lat.toFixed(4);
+            setZoom(map.current.getZoom().toFixed(2));
+        });
+    });
 
     return (
         <div className="shop-container">

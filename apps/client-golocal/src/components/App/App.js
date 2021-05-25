@@ -17,6 +17,7 @@ import Login from "../../Pages/Login/Login";
 import Register from "../../Pages/Register/Register";
 import BecomeVendor from "../../Pages/BecomeVendor/BecomeVendor";
 import Product from "../../Pages/Product/Product";
+import Cart from "../Cart/Cart";
 
 function App() {
 
@@ -53,6 +54,10 @@ function App() {
                     </Route>
                     <Route path="/faq">
                         <Faq/>
+                    </Route>
+                    <Route exact path="/cart">
+                        <Header/>
+                        <Cart></Cart>
                     </Route>
                     <Route path="*">
                         <NoMatch/>

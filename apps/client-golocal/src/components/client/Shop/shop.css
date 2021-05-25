@@ -1,6 +1,6 @@
 .map-container {
     flex : 30%;
-    box-shadow: 3px 4px 5px #dcdcdc;
+
 }
 .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button{
     background-color: rgb(89, 136, 255);

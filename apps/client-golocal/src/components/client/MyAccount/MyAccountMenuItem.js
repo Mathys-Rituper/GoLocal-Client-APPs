@@ -39,7 +39,7 @@ export default function MyAccountMenuItem({ typeMenuItem }) {
                 return {title:"FAQ", url: "/faq", target:"_self"};
                 break;
                 default:
-                    return "Undefinied";
+                    return "Undefined";
                     break;
         }
     }

@@ -80,7 +80,6 @@ export default function Shop() {
         if(display === "none"){
             setDisplay("")
         }
-
         console.log(articles);
     }
     if (!adress) {

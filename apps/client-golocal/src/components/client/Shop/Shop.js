@@ -36,7 +36,7 @@ async function geocode(geocoder){
 }
 export default function Shop() {
     mapboxgl.accessToken = "pk.eyJ1IjoibWF0aHlzcml0dXBlciIsImEiOiJja295Y3hxdDQwaGcyMnhtYzhwMWoza3Y2In0.QzL6Cl3sFAFoMi_StxgMNw";
-    Geocode.setApiKey("AIzaSyBQOKYdqMp1Cne9eY3oSdHOdlrsHxAEq88");
+    Geocode.setApiKey("");
     Geocode.setLanguage("fr");
     Geocode.setRegion("fr");
     Geocode.setLocationType("ROOFTOP");

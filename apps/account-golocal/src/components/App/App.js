@@ -4,27 +4,34 @@ import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import { AuthenticationProvider, oidcLog } from '@axa-fr/react-oidc-context';
-import oidcConfiguration from './config.json';
 import NoMatch from '../NoMatch/NotFound'
 import Home from "../../Pages/Home/Home";
+import ConfirmAccountPage from "../../Pages/ConfirmAccount/ConfirmAccountPage";
+import Login from "../../Pages/Login/Login";
+import ConfirmPasswordPage from "../../Pages/ConfirmPassword/ConfirmPasswordPage"
 
 function App() {
 
     return (
         <div>
             <Router>
-                <AuthenticationProvider configuration={oidcConfiguration} loggerLevel={oidcLog.DEBUG}>
-                    {/*<AuthenticationProvider configuration={oidcConfiguration} loggerLevel={oidcLog.DEBUG}>*/}
-                    <Switch>
-                        <Route exact path="/">
-                            <Home/>
-                        </Route>
-                        <Route path="*">
-                            <NoMatch/>
-                        </Route>
-                    </Switch>
-                </AuthenticationProvider>
+                <Switch>
+                    <Route exact path="/">
+                        <Home/>
+                    </Route>
+                    <Route exact path="/account/register/confirmation">
+                        <ConfirmAccountPage/>
+                    </Route>
+                    <Route exact path="/account/password/confirmation">
+                        <ConfirmPasswordPage/>
+                    </Route>
+                    <Route exact path="/login">
+                        <Login/>
+                    </Route>
+                    <Route path="*">
+                        <NoMatch/>
+                    </Route>
+                </Switch>
             </Router>
         </div>
     );

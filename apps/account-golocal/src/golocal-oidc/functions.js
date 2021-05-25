@@ -1,5 +1,4 @@
 import React from 'react'
-import Login from "../Pages/Login/Login";
 const axios = require('axios');
 const qs = require('qs');
 
@@ -21,10 +20,7 @@ function getToken(){
 export function oidcLogin(){
     const previousPage = window.location.href;
     localStorage.setItem("previousPage", previousPage);
-    window.location.href=`https://localhost:3001/login`
-}
-export function oidcRegister(){
-    window.location.href=`https://localhost:3001/register`
+    window.location.href=`https://localhost:3000/login`
 }
 export function goLocalLogin(userName,Password, errorShow, previousPage){
     const instance = axios.create({
@@ -35,7 +31,7 @@ export function goLocalLogin(userName,Password, errorShow, previousPage){
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     });
-    let data = `grant_type=password&username=${userName}&password=${Password}&client_id=golocal&scope=artisan.api%20client.api`
+    let data = `grant_type=password&username=${userName}&password=${Password}&client_id=golocal&scope=artisan.api%20client.api%20account.api`
     return instance
         .post('/connect/token', data)
         .then((response) => {
@@ -53,39 +49,84 @@ export function goLocalLogin(userName,Password, errorShow, previousPage){
             }
         });
 }
-export function goLocalRegister(userName, email, Password, passwordConfirmation, errorShow){
-    const instance = axios.create({
-        baseURL: 'https://localhost:5000',
-        method: "post",
-        timeout: 3000,
-    });
-
-    let data = {
-        "email" : email,
-        "username": userName,
-        "password": Password,
-        "passwordConfirmation": passwordConfirmation
-    }
-    return instance
-        .post('/account/register', data)
-        .then((response) => {
-                window.location.replace("https://localhost:3001/");
-                return response.data;
-        })
-        .catch((error) => {
-            if (error.response === undefined){
-                return errorShow(error);
-            }else{
-                return errorShow(error.response.data.message);
-            }
-        });
-}
 export function goLocalLogout(){
     localStorage.removeItem("access_token");
     window.location.href="https://localhost:3001/"
 }
 
+// ACCOUNT REQUESTS //
+export function confirmAccountRequest(token, uid){
+    const instance = axios.create({
+        baseURL: 'https://localhost:5000',
+        method: "post",
+        timeout: 1000,
+        params: {
+            "token" : `${token}`,
+            "uid" : `${uid}`
+        },
+        headers: {},
+    });
 
+        return instance
+        .post('/account/register/confirmation')
+        .then(res => res.data)
+        .catch(error =>{
+            if (error.response === undefined){
+                return error;
+            }else{
+                return error.response.data.message;
+            }
+        })
+}
+export function confirmPasswordRequest(token, uid, newPassword, newPasswordConfirmation){
+    const instance = axios.create({
+        baseURL: 'https://localhost:5000',
+        method: "post",
+        timeout: 1000,
+        params: {
+            "token" : `${token}`,
+            "uid" : `${uid}`
+        },
+        data: {
+          "newPassword" : newPassword,
+          "newPasswordConfirmation" : newPasswordConfirmation
+        },
+        headers: {},
+    });
+
+    return instance
+        .post('/account/password/confirmation')
+        .then(res => res.data)
+        .catch(error =>{
+            if (error.response === undefined){
+                return error;
+            }else{
+                return error.response.data.message;
+            }
+        })
+}
+export function resetPasswordRequest(email){
+    const instance = axios.create({
+        baseURL: 'https://localhost:5000',
+        method: "post",
+        timeout: 1000,
+        data: {
+            "email" : email
+        },
+        headers: {},
+    });
+
+    return instance
+        .post('/account/password')
+        .then(res => res.data)
+        .catch(error =>{
+            if (error.response === undefined){
+                return error;
+            }else{
+                return error.response.data.message;
+            }
+        })
+}
 // CLIENT REQUESTS //
 export function goLocalGetUserInfo(){
     if (middleware() === true){

@@ -41,7 +41,7 @@ export default function Header() {
         {
             label:'Commandes',
             icon:'pi pi-fw pi-euro',
-            command: () => {window.location.href="./basket"}
+            command: () => {window.location.href="./orders"}
         },
         {
             label:'Messagerie',
@@ -95,7 +95,7 @@ export default function Header() {
         {
             label:'Commandes',
             icon:'pi pi-fw pi-euro',
-            command: () => {window.location.href="./basket"}
+            command: () => {window.location.href="./orders"}
         },
         {
             separator:true

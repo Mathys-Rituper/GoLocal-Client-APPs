@@ -13,7 +13,7 @@ export default function MyAccount() {
                 <div className="myaccount-container">
                     <MyAccountMenuItem className="wrapitem" typeMenuItem={"security"}/>
                     <MyAccountMenuItem className="wrapitem" typeMenuItem={"orders"}/>
-                    <MyAccountMenuItem className="wrapitem" typeMenuItem={"basket"}/>
+                    <MyAccountMenuItem className="wrapitem" typeMenuItem={"cart"}/>
                     <MyAccountMenuItem className="wrapitem" typeMenuItem={"messages"}/>
                     <MyAccountMenuItem className="wrapitem" typeMenuItem={"seller"}/>
                     <MyAccountMenuItem className="wrapitem" typeMenuItem={"faq"}/>

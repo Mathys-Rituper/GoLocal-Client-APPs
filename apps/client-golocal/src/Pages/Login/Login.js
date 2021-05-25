@@ -39,9 +39,9 @@ export default function Login() {
         }
         return errors;
     };
-    function errorShow(){
+    function errorShow(error){
         msgs1.current.show([
-            { severity: 'warn', summary: '', detail: 'Mauvais mot de passe ou nom d\'utilisateur', sticky: true },
+            { severity: 'warn', summary: '', detail: error, sticky: true },
         ]);
     }
     const onSubmit = async (data, form) => {

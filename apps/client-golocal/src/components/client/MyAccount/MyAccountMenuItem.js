@@ -24,8 +24,8 @@ export default function MyAccountMenuItem({ typeMenuItem }) {
                 return {title:"Vos Commandes", url: "/orders", target:"_self"};
                 break;
 
-            case "basket":
-                return {title:"Votre Panier", url: "/basket", target:"_self"};
+            case "cart":
+                return {title:"Votre Panier", url: "/cart", target:"_self"};
                 break;
 
             case "messages":
@@ -52,7 +52,7 @@ export default function MyAccountMenuItem({ typeMenuItem }) {
             case "orders" :
                 return Box;
                 break;
-            case "basket":
+            case "cart":
                 return Cart;
                 break;
             case "messages":

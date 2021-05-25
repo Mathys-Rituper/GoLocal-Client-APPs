@@ -46,7 +46,7 @@ export function goLocalLogin(userName,Password, errorShow, previousPage){
             return response.data;
         })
         .catch((error) => {
-            return errorShow();
+            return errorShow(error.response.data.error_description);
         });
 }
 export function goLocalRegister(userName, email, Password, passwordConfirmation, errorShow){
@@ -67,7 +67,7 @@ export function goLocalRegister(userName, email, Password, passwordConfirmation,
         .then((response) => {
             console.log(response);
             if (response.status !== 200){
-                errorShow("Erreur : " + response.status)
+                console.log(response.message)
             }else{
                 window.location.replace("https://localhost:3001/");
                 return response.data;
@@ -75,7 +75,7 @@ export function goLocalRegister(userName, email, Password, passwordConfirmation,
 
         })
         .catch((error) => {
-            return errorShow(error);
+            return errorShow(error.response.data.message);
         });
 }
 export function goLocalLogout(){

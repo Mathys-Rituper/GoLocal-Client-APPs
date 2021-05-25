@@ -53,7 +53,7 @@ export default function Register() {
 
     function errorShow(error){
         msgs1.current.show([
-            { severity: 'warn', summary: '', detail: 'error', sticky: true },
+            { severity: 'warn', summary: '', detail: error, sticky: true },
         ]);
     }
     const onSubmit = async (data, form) => {

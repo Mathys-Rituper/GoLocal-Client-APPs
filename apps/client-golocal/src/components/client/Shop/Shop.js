@@ -53,6 +53,7 @@ export default function Shop() {
     if (shop === null){
         getShopByID(id).then(data => setShop(data));
     }
+    let object = null;
     if (shop){
         name = shop.name
         owner = shop.user.userName;

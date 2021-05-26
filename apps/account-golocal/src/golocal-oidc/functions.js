@@ -26,7 +26,7 @@ export function goLocalLogin(userName,Password, errorShow, previousPage){
     const instance = axios.create({
         baseURL: 'https://localhost:5000',
         method: "post",
-        timeout: 1000,
+        timeout: 3000,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -59,17 +59,20 @@ export function confirmAccountRequest(token, uid){
     const instance = axios.create({
         baseURL: 'https://localhost:5000',
         method: "post",
-        timeout: 1000,
-        params: {
-            "token" : `${token}`,
-            "uid" : `${uid}`
-        },
+        timeout: 3000,
         headers: {},
     });
+    const data = {
+        "token" : token,
+        "uid" : uid
+    }
 
         return instance
-        .post('/account/register/confirmation')
-        .then(res => res.data)
+        .post('/account/register/confirmation',data)
+        .then(res => {
+            console.log(res.data)
+            return res.data;
+        })
         .catch(error =>{
             if (error.response === undefined){
                 return error;
@@ -82,48 +85,50 @@ export function confirmPasswordRequest(token, uid, newPassword, newPasswordConfi
     const instance = axios.create({
         baseURL: 'https://localhost:5000',
         method: "post",
-        timeout: 1000,
-        params: {
-            "token" : `${token}`,
-            "uid" : `${uid}`
-        },
-        data: {
-          "newPassword" : newPassword,
-          "newPasswordConfirmation" : newPasswordConfirmation
-        },
+        timeout: 3000,
         headers: {},
     });
-
+    const data = {
+        "token" : token,
+        "uid" : uid,
+        "password" : newPassword,
+        "passwordConfirmation" : newPasswordConfirmation
+    }
     return instance
-        .post('/account/password/confirmation')
+        .post('/account/password/confirmation', data)
         .then(res => res.data)
         .catch(error =>{
             if (error.response === undefined){
+                console.log(1, error)
                 return error;
             }else{
+                console.log(2, error.response.data.message)
                 return error.response.data.message;
             }
         })
 }
-export function resetPasswordRequest(email){
+export function resetPasswordRequest(email, errorShow){
+    console.log("Password Reset Requested")
     const instance = axios.create({
         baseURL: 'https://localhost:5000',
         method: "post",
-        timeout: 1000,
-        data: {
-            "email" : email
-        },
+        timeout: 3000,
         headers: {},
     });
-
+    const data = {
+        "email" : email
+    }
     return instance
-        .post('/account/password')
-        .then(res => res.data)
+        .post('/account/password', data)
+        .then(res => {
+            console.log(res.data);
+            return res.data;
+        })
         .catch(error =>{
             if (error.response === undefined){
-                return error;
+                return errorShow(error);
             }else{
-                return error.response.data.message;
+                return errorShow(error.response.data.message);
             }
         })
 }
@@ -134,7 +139,7 @@ export function goLocalGetUserInfo(){
         const instance = axios.create({
             baseURL: 'https://localhost:5000',
             method: "get",
-            timeout: 1000,
+            timeout: 3000,
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -147,29 +152,6 @@ export function goLocalGetUserInfo(){
                 oidcLogin();
             })
 
-    }else{
-        return undefined;
-    }
-}
-export function getShopByID(id){
-    if (middleware() === true){
-        const token = getToken();
-        const instance = axios.create({
-            baseURL: 'https://localhost:5001',
-            method: "get",
-            timeout: 1000,
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-            data: {}
-        });
-        return instance
-            .get(`/api/shops/${id}`)
-            .then(res => res.data)
-            .catch(error =>{
-                console.log(error);
-                // oidcLogin();
-            })
     }else{
         return undefined;
     }

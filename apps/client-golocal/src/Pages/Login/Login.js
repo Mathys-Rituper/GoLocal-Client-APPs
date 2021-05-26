@@ -70,7 +70,7 @@ export default function Login() {
                             </div>
                         )} />
                         <Field name="password" render={({ input, meta }) => (
-                            <div className="p-field">
+                            <div className="p-field" style={{marginBottom: "3%"}}>
                                     <span className="p-float-label">
                                         <Password id="password" {...input} feedback={false} toggleMask className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
                                         <label htmlFor="password" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Mot de passe*</label>
@@ -78,13 +78,15 @@ export default function Login() {
                                 {getFormErrorMessage(meta)}
                             </div>
                         )} />
-
+                        <div style={{marginBottom: "3%", cursor:"pointer", color:"rgb(89, 136, 255)"}} onClick={() => {
+                            window.location.replace("https://localhost:3000/forgotPassword")
+                        }}>Mot de passe perdu ?</div>
                         <Button type="submit" label="Connexion" className="p-mt-2" />
                     </form>
                 )}/>
             </div>
             <div style={{display:"flex", flexDirection:"row"}}>
-                <p style={{marginLeft:"0px", marginRight:"0px"}}>Besoin d'un compte ? </p><p style={{color: "rgb(89, 136, 255)", cursor:"pointer", marginLeft:"5px"}} onClick={oidcRegister}>S'enregistrer</p>
+                <p className="register-responsive" style={{marginLeft:"0px", marginRight:"0px"}}>Besoin d'un compte ? </p><p className="register-responsive" style={{color: "rgb(89, 136, 255)", cursor:"pointer", marginLeft:"5px", marginRight:"0px"}} onClick={oidcRegister}>S'enregistrer</p>
             </div>
         </div>
     );

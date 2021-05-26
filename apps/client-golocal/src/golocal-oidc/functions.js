@@ -30,7 +30,7 @@ export function goLocalLogin(userName,Password, errorShow, previousPage){
     const instance = axios.create({
         baseURL: 'https://localhost:5000',
         method: "post",
-        timeout: 1000,
+        timeout: 3000,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -93,7 +93,7 @@ export function goLocalGetUserInfo(){
         const instance = axios.create({
             baseURL: 'https://localhost:5000',
             method: "get",
-            timeout: 1000,
+            timeout: 3000,
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -116,7 +116,7 @@ export function getShopByID(id){
         const instance = axios.create({
             baseURL: 'https://localhost:5001',
             method: "get",
-            timeout: 1000,
+            timeout: 3000,
             headers: {
                 Authorization: `Bearer ${token}`
             },

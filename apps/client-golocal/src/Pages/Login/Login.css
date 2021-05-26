@@ -51,6 +51,9 @@
     .card{
         width: 40%;
     }
+    .register-responsive{
+        font-size: 80%;
+    }
 }
 @media screen and (max-width: 645px) {
     .logo {

@@ -15,20 +15,20 @@ function goHome(){
 
 export default function ConfirmPassword() {
     const [activatedButton, setActivatedButton] =useState(true)
-    const [response, setResponse] =useState(true)
+    const [response, setResponse] =useState(null)
     const msgs1 = useRef(null);
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const token = urlParams.get('token');
     const uid = urlParams.get('uid');
     if (token === null || token === undefined || uid === null || uid === undefined){
-        // window.location.replace("https://localhost:3001/");
+        window.location.replace("https://localhost:3001/");
     }
-    // const url = window.location.href
-    // let tokenSliced = url.split("token=")
-    // tokenSliced = tokenSliced[1].split("&uid=")
+    const url = window.location.href
+    let tokenSliced = url.split("token=")
+    tokenSliced = tokenSliced[1].split("&uid=")
     const [formData, setFormData] = useState({});
-    // console.log({tokenSliced,token, uid})
+    console.log({tokenSliced,token, uid})
 
 
     const formik = useFormik({
@@ -54,8 +54,9 @@ export default function ConfirmPassword() {
         onSubmit: (data) => {
             setFormData(data);
             console.log(data);
-            // confirmPasswordRequest(tokenSliced[0], tokenSliced[1], data.password, data.passwordConfirm).then(data => setResponse(data))
+            confirmPasswordRequest(tokenSliced[0], tokenSliced[1], data.password, data.passwordConfirm).then(data => setResponse(data))
             if (response !== null || response !== undefined){
+                console.log(response)
                 errorShow(response);
             }
             formik.resetForm();

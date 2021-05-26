@@ -123,7 +123,7 @@ export default function Header() {
 
 
     return(
-        <div style={{width:"100%", marginBottom:"0.4%"}}>
+        <div style={{width:"100%"}}>
             <Sidebar visible={visible} className="customSidebarHeader" fullScreen onHide={() => setVisible(false)}>
                 <div className="sidebar-container">
                     <span className="sidebar-title">Mon Compte</span>

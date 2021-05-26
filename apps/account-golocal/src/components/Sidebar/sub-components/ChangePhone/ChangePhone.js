@@ -55,13 +55,13 @@ export default function ChangePhone(){
             {phoneBool === false ? (
                 <div className="phoneText">{phone}</div>
             ) : (
-                <div>Votre numéro de téléphone actuel : {phone}</div>
+                <div className="phoneText">Votre numéro de téléphone actuel : {phone}</div>
             )
             }
             <label style={{fontSize:"100%", fontFamily:"Lato,sans-serif"}}>Ajouter / Modifier numéro de téléphone</label>
             <div className="phoneChangeContainer">
 
-                <div style={{display:"flex", flexDirection:"row", flexWrap: "wrap"}}>
+                <div style={{display:"flex", flexDirection:"column", flexWrap: "wrap", width:"100%"}}>
                     <InputText onChange={(e) => {
                         if (e.target.value.length === 10 && regex.test(e.target.value)){
                             setButtonDisabled(false);
@@ -78,7 +78,7 @@ export default function ChangePhone(){
                                 toast.current.show({severity: 'succes', summary: 'Succès', detail: data.message});
                             }
                         })
-                    }} label="Valider" className="p-button-raised" />
+                    }} label="Valider" style={{width:"10%", marginTop:"2%"}} className="p-button-raised" />
                 </div>
             </div>
         </div>

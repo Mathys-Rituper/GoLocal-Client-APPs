@@ -9,6 +9,8 @@ import ChangeA2F from "./sub-components/ChangeA2F/ChangeA2F";
 import GlobalInformation from "./sub-components/GlobalInformation/GlobalInformation";
 import ChangeAvatar from "./sub-components/ChangeAvatar/ChangeAvatar";
 import ChangePhone from "./sub-components/ChangePhone/ChangePhone";
+import ChangeEmail from "./sub-components/ChangeEmail/ChangeEmail";
+import ChangePassword from "./sub-components/ChangePassword/ChangePassword";
 
 
 export default function Sidebar(){
@@ -80,11 +82,11 @@ export default function Sidebar(){
         }
     }
     function changeEmail(){
-        setComponent(<div>Security Email</div>)
+        setComponent(<ChangeEmail/>)
         setDisplayGlobal(false);
     }
     function changePassword(){
-        setComponent(<div>Security Password</div>)
+        setComponent(<ChangePassword/>)
         setDisplayGlobal(false);
     }
     function changeA2F(){

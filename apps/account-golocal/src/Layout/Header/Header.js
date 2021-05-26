@@ -34,11 +34,6 @@ export default function Header() {
     const menu = useRef(null);
     const items = [
         {
-            label:'Sécurité',
-            icon:'pi pi-fw pi-shield',
-            command: () => {window.open('https://localhost:3000/', '_blank');}
-        },
-        {
             label:'Commandes',
             icon:'pi pi-fw pi-euro',
             command: () => {window.location.href="./orders"}
@@ -74,11 +69,6 @@ export default function Header() {
         }
     ];
     const sidebarItems = [
-        {
-            label:'Sécurité',
-            icon:'pi pi-fw pi-shield',
-            command: () => {window.open('https://localhost:3000/', '_blank');}
-        },
         {
             label:'Messagerie',
             icon:'pi pi-fw pi-send',

@@ -224,3 +224,71 @@ export function patchPhone(phone){
         return oidcLogin();
     }
 }
+export function resetEmailWithToken(email){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5000',
+            method: "patch",
+            timeout: 5000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        });
+        const data = {
+            "email" : email
+        }
+        return instance
+            .patch('/security/email', data)
+            .then((response) => {
+                return {statut: 0, message:"Changement effectué"}
+            })
+            .catch((error) => {
+                if (error.status === 401){
+                    oidcLogin();
+                }
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    return {status: 1, message: error.response.data};
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
+export function resetPasswordWithToken(oldPassword, newPassword, newPasswordConfirmation){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5000',
+            method: "patch",
+            timeout: 5000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        });
+        const data = {
+            "oldPassword": oldPassword,
+            "newPassword": newPassword,
+            "newPasswordConfirmation": newPasswordConfirmation
+        }
+        return instance
+            .patch('/security/password', data)
+            .then((response) => {
+                return {statut: 0, message:"Changement effectué"}
+            })
+            .catch((error) => {
+                if (error.status === 401){
+                    oidcLogin();
+                }
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    return {status: 1, message: error.response.data};
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}

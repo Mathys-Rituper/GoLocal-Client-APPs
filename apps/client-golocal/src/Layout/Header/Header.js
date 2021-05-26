@@ -20,7 +20,7 @@ export default function Header() {
     const [oidcUser, setOidcUser] = useState(null);
     const [value3, setValue3] = useState('');
     const [visible, setVisible] = useState(false);
-    if (oidcUser === null ){
+    if (oidcUser === null && window.localStorage.getItem("access_token")){
         goLocalGetUserInfo().then(data => setOidcUser(data));
     }
     let avatar;

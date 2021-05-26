@@ -155,7 +155,6 @@ export function goLocalGetUserInfo(){
         return undefined;
     }
 }
-
 export function patchAvatar(avatar){
     if (middleware() === true) {
         const token = getToken();
@@ -216,9 +215,9 @@ export function patchPhone(phone){
                     oidcLogin();
                 }
                 if (error.response === undefined) {
-                    return {statut: 1, message: error};
+                    return {status: 1, message: error};
                 } else {
-                    return {statut: 1, message: error.response.data};
+                    return {status: 1, message: error.response.data};
                 }
             });
     }else{

@@ -38,7 +38,7 @@ export default function GlobalInformation(){
         }
         name = user.userName;
         email = user.email;
-        if (phone === null){
+        if (user.phoneNumber === null){
             phone = "Pas de numéro enregistré";
         }else{
             phone = user.phoneNumber
@@ -55,11 +55,6 @@ export default function GlobalInformation(){
         phone = "Chargement ...";
         twofactor = "Chargement ...";
     }
-
-
-
-
-
 
 
 

@@ -8,6 +8,7 @@ import { PanelMenu } from 'primereact/panelmenu';
 import ChangeA2F from "./sub-components/ChangeA2F/ChangeA2F";
 import GlobalInformation from "./sub-components/GlobalInformation/GlobalInformation";
 import ChangeAvatar from "./sub-components/ChangeAvatar/ChangeAvatar";
+import ChangePhone from "./sub-components/ChangePhone/ChangePhone";
 
 
 export default function Sidebar(){
@@ -69,7 +70,7 @@ export default function Sidebar(){
         setDisplayGlobal(false);
     }
     function changePhone(){
-        setComponent(<div>Global Phone</div>)
+        setComponent(<ChangePhone/>)
         setDisplayGlobal(false);
     }
     function displaySecurity(){

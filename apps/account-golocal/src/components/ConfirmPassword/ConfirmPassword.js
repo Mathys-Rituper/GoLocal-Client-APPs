@@ -60,6 +60,10 @@ export default function ConfirmPassword() {
                 errorShow(response);
             }
             formik.resetForm();
+            if(!response){
+                window.location.replace("https://localhost:3001/")
+            }
+
             setActivatedButton(true);
         }
     });
@@ -81,9 +85,11 @@ export default function ConfirmPassword() {
         </React.Fragment>
     );
     function errorShow(error){
-        msgs1.current.show([
-            { severity: 'warn', summary: '', detail: error, sticky: false, life: 5000 },
-        ]);
+        if (error){
+            msgs1.current.show([
+                { severity: 'warn', summary: '', detail: error, sticky: false, life: 5000 },
+            ]);
+        }
     }
 
 

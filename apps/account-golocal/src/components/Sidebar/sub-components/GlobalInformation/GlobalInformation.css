@@ -1,0 +1,53 @@
+.container{
+    display: flex;
+    flex-direction: column;
+}
+.title{
+    font-family: Lato, sans-serif;
+    font-weight: bold;
+    font-size: 180%;
+    margin-bottom: 2%;
+}
+.flex-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 4%;
+    margin-left: 2%
+}
+.name{
+    font-family: Lato, sans-serif;
+    font-size: 130%;
+    margin-left: 2%;
+}
+.emailTitle{
+    font-family: Lato, sans-serif;
+    font-weight: bold;
+    font-size: 130%;
+}
+.email{
+    font-family: Lato, sans-serif;
+    font-size: 110%;
+    margin-left : 5.2%
+}
+.phoneTitle{
+    font-family: Lato, sans-serif;
+    font-weight: bold;
+    font-size: 130%;
+}
+.phone{
+    font-family: Lato, sans-serif;
+    font-size: 110%;
+    margin-left : 2%
+}
+.a2fTitle{
+    font-family: Lato, sans-serif;
+    font-weight: bold;
+    font-size: 130%;
+}
+.a2f{
+    font-family: Lato, sans-serif;
+    font-size: 110%;
+    margin-left : 2%
+}

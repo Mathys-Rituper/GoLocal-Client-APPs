@@ -78,7 +78,7 @@ export default function Login() {
                                 {getFormErrorMessage(meta)}
                             </div>
                         )} />
-                        <div style={{marginBottom: "3%", cursor:"pointer", color:"rgb(89, 136, 255)"}} onClick={() => {
+                        <div style={{marginBottom: "3%", cursor:"pointer", color:"rgb(89, 136, 255)", textAlign:"right"}} onClick={() => {
                             window.location.replace("https://localhost:3000/forgotPassword")
                         }}>Mot de passe perdu ?</div>
                         <Button type="submit" label="Connexion" className="p-mt-2" />

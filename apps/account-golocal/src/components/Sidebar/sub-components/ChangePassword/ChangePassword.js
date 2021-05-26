@@ -6,11 +6,11 @@ import React, {useState} from 'react';
 
 
 
-export default function Test2(){
+export default function ChangePassword(){
 
     return (
         <div>
-               Test 2
+               Test 1
         </div>
     )
 }

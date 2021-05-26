@@ -5,20 +5,14 @@ import 'primeflex/primeflex.css';
 import React, {useState} from 'react';
 import "./Sidebar.css"
 import { PanelMenu } from 'primereact/panelmenu';
-import {BrowserRouter, BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import Home from "../../Pages/Home/Home";
-import AccountPage from "../../Pages/Account/Account";
-import ConfirmAccountPage from "../../Pages/ConfirmAccount/ConfirmAccountPage";
-import ResetPasswordPage from "../../Pages/ResetPassword/ResetPasswordPage";
-import ConfirmPasswordPage from "../../Pages/ConfirmPassword/ConfirmPasswordPage";
-import Login from "../../Pages/Login/Login";
-import NoMatch from "../NoMatch/NotFound";
-import Test1 from "../Account/sub-components/Test1";
-import Test2 from "../Account/sub-components/Test2";
+import ChangeA2F from "./sub-components/ChangeA2F/ChangeA2F";
+import GlobalInformation from "./sub-components/GlobalInformation/GlobalInformation";
+import ChangeAvatar from "./sub-components/ChangeAvatar/ChangeAvatar";
+
 
 export default function Sidebar(){
-    const [component, setComponent] = useState(<div>Default</div>)
-    const [displayGlobal, setDisplayGlobal] = useState(false)
+    const [component, setComponent] = useState(<GlobalInformation/>)
+    const [displayGlobal, setDisplayGlobal] = useState(true)
     const [displaySecurityInfo, setDisplaySecurityInfo] = useState(false)
     const items = [
         {
@@ -65,32 +59,36 @@ export default function Sidebar(){
 
     function displayInformation(){
         if (!displayGlobal){
-            setComponent(<div>Global </div>)
+            setComponent(<GlobalInformation/>)
             setDisplayGlobal(true);
             setDisplaySecurityInfo(false);
         }
     }
     function changeAvatar(){
-        setComponent(<div>Global Avatar</div>)
+        setComponent(<ChangeAvatar/>)
+        setDisplayGlobal(false);
     }
     function changePhone(){
         setComponent(<div>Global Phone</div>)
+        setDisplayGlobal(false);
     }
     function displaySecurity(){
         if (!displaySecurityInfo){
-            setComponent(<div>Security</div>)
             setDisplaySecurityInfo(true);
             setDisplayGlobal(false);
         }
     }
     function changeEmail(){
         setComponent(<div>Security Email</div>)
+        setDisplayGlobal(false);
     }
     function changePassword(){
         setComponent(<div>Security Password</div>)
+        setDisplayGlobal(false);
     }
     function changeA2F(){
-        setComponent(<div>A2F</div>)
+        setComponent(<ChangeA2F/>)
+        setDisplayGlobal(false);
     }
 
 
@@ -101,7 +99,7 @@ export default function Sidebar(){
                     <div style={{fontFamily:"Lato, sans-serif", fontSize:"150%", marginLeft:"3%", paddingTop:"5%", marginBottom:"5%", fontWeight:"bold"}}>Panel Client</div>
                     <PanelMenu model={items} multiple={true} />
                 </div>
-                <div style={{padding:"2%"}}>
+                <div style={{padding:"3%", width:"82%"}}>
                     {component}
                 </div>
             </div>

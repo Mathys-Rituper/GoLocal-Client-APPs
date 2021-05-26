@@ -6,11 +6,11 @@ import React, {useState} from 'react';
 
 
 
-export default function Test1(){
+export default function ChangeA2F(){
 
     return (
-        <div>
-               Test 1
+        <div style={{fontFamily:"Lato,sans-serif", fontSize:"170%", textAlign:"center", marginTop:"15%"}}>
+              En Développement
         </div>
     )
 }

@@ -1,4 +1,3 @@
-import React from 'react'
 const axios = require('axios');
 const qs = require('qs');
 
@@ -112,7 +111,7 @@ export function resetPasswordRequest(email, errorShow){
     const instance = axios.create({
         baseURL: 'https://localhost:5000',
         method: "post",
-        timeout: 3000,
+        timeout: 10000,
         headers: {},
     });
     const data = {
@@ -154,5 +153,75 @@ export function goLocalGetUserInfo(){
 
     }else{
         return undefined;
+    }
+}
+
+export function patchAvatar(avatar){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5000',
+            method: "patch",
+            timeout: 10000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        });
+        const data = {
+            "avatar" : avatar
+        }
+        return instance
+            .patch('/account/avatar', data)
+            .then((response) => {
+                console.log(response);
+                return {status: 0, message:"Changement effectué"}
+            })
+            .catch((error) => {
+                if (error.status === 401){
+                    oidcLogin();
+                }
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    return {status: 1, message: error.response.data};
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
+export function patchPhone(phone){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5000',
+            method: "patch",
+            timeout: 5000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        });
+        const data = {
+            "phone" : phone
+        }
+        return instance
+            .patch('/account/phone', data)
+            .then((response) => {
+                console.log(response);
+                return {statut: 0, message:"Changement effectué"}
+            })
+            .catch((error) => {
+                console.log(error.response)
+                if (error.status === 401){
+                    oidcLogin();
+                }
+                if (error.response === undefined) {
+                    return {statut: 1, message: error};
+                } else {
+                    return {statut: 1, message: error.response.data};
+                }
+            });
+    }else{
+        return oidcLogin();
     }
 }

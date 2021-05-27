@@ -19,7 +19,7 @@ function getToken(){
 export function oidcLogin(){
     const previousPage = window.location.href;
     localStorage.setItem("previousPage", previousPage);
-    window.location.href=`https://localhost:3000/login`
+    window.location.href=`https://localhost:3002/login`
 }
 export function goLocalLogin(userName,Password, errorShow, previousPage){
     const instance = axios.create({

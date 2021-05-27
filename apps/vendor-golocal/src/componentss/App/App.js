@@ -7,6 +7,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import NoMatch from '../NoMatch/NotFound'
 import Home from "../../Pages/Home/Home";
 import ArtisanPage from "../../Pages/Artisan/Artisan";
+import Login from "../../Pages/Login/Login";
 
 
 function App() {
@@ -20,6 +21,9 @@ function App() {
             </Route>
               <Route exact path="/artisan">
                   <ArtisanPage/>
+              </Route>
+              <Route exact path="/login">
+                  <Login/>
               </Route>
             <Route path="*">
               <NoMatch/>

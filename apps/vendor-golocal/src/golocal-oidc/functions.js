@@ -155,128 +155,25 @@ export function goLocalGetUserInfo(){
         return undefined;
     }
 }
-export function patchAvatar(avatar){
+export function getShops(){
     if (middleware() === true) {
         const token = getToken();
         const instance = axios.create({
-            baseURL: 'https://localhost:5000',
+            baseURL: 'https://localhost:5002',
             method: "post",
-            timeout: 10000,
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-        });
-        const data = {
-            "avatar" : avatar
-        }
-        return instance
-            .post('/account/avatar', data)
-            .then((response) => {
-                console.log(response);
-                return {status: 0, message:"Changement effectué"}
-            })
-            .catch((error) => {
-                if (error.status === 401){
-                    oidcLogin();
-                }
-                if (error.response === undefined) {
-                    return {status: 1, message: error};
-                } else {
-                    return {status: 1, message: error.response.data};
-                }
-            });
-    }else{
-        return oidcLogin();
-    }
-}
-export function patchPhone(phone){
-    if (middleware() === true) {
-        const token = getToken();
-        const instance = axios.create({
-            baseURL: 'https://localhost:5000',
-            method: "patch",
             timeout: 5000,
             headers: {
                 Authorization: `Bearer ${token}`
             },
         });
         const data = {
-            "phone" : phone
+            "take": 500,
+            "skip": 0
         }
         return instance
-            .patch('/account/phone', data)
+            .post('/api/shops', data)
             .then((response) => {
-                console.log(response);
-                return {statut: 0, message:"Changement effectué"}
-            })
-            .catch((error) => {
-                console.log(error.response)
-                if (error.status === 401){
-                    oidcLogin();
-                }
-                if (error.response === undefined) {
-                    return {status: 1, message: error};
-                } else {
-                    return {status: 1, message: error.response.data};
-                }
-            });
-    }else{
-        return oidcLogin();
-    }
-}
-export function resetEmailWithToken(email){
-    if (middleware() === true) {
-        const token = getToken();
-        const instance = axios.create({
-            baseURL: 'https://localhost:5000',
-            method: "patch",
-            timeout: 5000,
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-        });
-        const data = {
-            "email" : email
-        }
-        return instance
-            .patch('/security/email', data)
-            .then((response) => {
-                return {statut: 0, message:"Changement effectué"}
-            })
-            .catch((error) => {
-                if (error.status === 401){
-                    oidcLogin();
-                }
-                if (error.response === undefined) {
-                    return {status: 1, message: error};
-                } else {
-                    return {status: 1, message: error.response.data};
-                }
-            });
-    }else{
-        return oidcLogin();
-    }
-}
-export function resetPasswordWithToken(oldPassword, newPassword, newPasswordConfirmation){
-    if (middleware() === true) {
-        const token = getToken();
-        const instance = axios.create({
-            baseURL: 'https://localhost:5000',
-            method: "patch",
-            timeout: 5000,
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-        });
-        const data = {
-            "oldPassword": oldPassword,
-            "newPassword": newPassword,
-            "newPasswordConfirmation": newPasswordConfirmation
-        }
-        return instance
-            .patch('/security/password', data)
-            .then((response) => {
-                return {statut: 0, message:"Changement effectué"}
+                return {statut: 0, data: response}
             })
             .catch((error) => {
                 if (error.status === 401){

@@ -5,101 +5,78 @@ import 'primeflex/primeflex.css';
 import React, {useState} from 'react';
 import "./Sidebar.css"
 import { PanelMenu } from 'primereact/panelmenu';
-import ChangeA2F from "./sub-components/ChangeA2F/ChangeA2F";
-import GlobalInformation from "./sub-components/GlobalInformation/GlobalInformation";
-import ChangeAvatar from "./sub-components/ChangeAvatar/ChangeAvatar";
-import ChangePhone from "./sub-components/ChangePhone/ChangePhone";
-import ChangeEmail from "./sub-components/ChangeEmail/ChangeEmail";
-import ChangePassword from "./sub-components/ChangePassword/ChangePassword";
+import MyShops from "./sub-components/MyShops/MyShops";
 
 
 export default function Sidebar(){
-    const [component, setComponent] = useState(<GlobalInformation/>)
+    const [component, setComponent] = useState(<MyShops/>)
     const [displayGlobal, setDisplayGlobal] = useState(true)
-    const [displaySecurityInfo, setDisplaySecurityInfo] = useState(false)
+    const [displayMessagePage, setDisplayMessagesPage] = useState(false)
+    const [displayInvoicesInfo, setDisplayInvoicesInfo] = useState(false)
     const items = [
         {
-            label:'Mes Informations',
-            icon:'pi pi-user',
-            command : () => {displayInformation()},
+            label:'Mes Boutiques',
+            icon:'pi pi-th-large',
+            command : () => {displayShops()},
             items:[
                 {
-                    label:'Changer Avatar',
-                    icon:'pi pi-fw pi-user-edit',
-                    command : () => {changeAvatar()}
-                },
-                {
-                    label:'Changer Téléphone',
-                    icon:'pi pi-fw pi-phone',
-                    command : () => {changePhone()}
+                    label:'Créer une boutique',
+                    icon:'pi pi-fw pi-plus-circle',
+                    command : () => {createShop()}
                 }
             ]
         },
         {
-            label:'Sécurité',
-            icon:'pi pi-shield',
-            command : () => {displaySecurity()},
-            items:[
-                {
-                    label:'Changer adresse mail',
-                    icon:'pi pi-envelope',
-                    command : () => {changeEmail()}
-                },
-                {
-                    label:'Changer mot de passe',
-                    icon:'pi pi-lock',
-                    command : () => {changePassword()}
-                },
-                {
-                    label:'Double authentification',
-                    icon:'pi pi-lock',
-                    command : () => {changeA2F()}
-                },
-            ]
+            label:'Commandes',
+            icon:'pi pi-shopping-cart',
+            command : () => {displayInvoices()},
+        },
+        {
+            label:'Messagerie',
+            icon:'pi pi-envelope',
+            command : () => {displayMessages()},
         },
 
     ];
 
-    function displayInformation(){
+    function displayShops(){
         if (!displayGlobal){
-            setComponent(<GlobalInformation/>)
+            setComponent(<MyShops/>)
             setDisplayGlobal(true);
-            setDisplaySecurityInfo(false);
+            setDisplayInvoicesInfo(false);
+            setDisplayMessagesPage(false)
         }
     }
-    function changeAvatar(){
-        setComponent(<ChangeAvatar/>)
+    function createShop(){
+        setComponent(<div>Create shop</div>)
         setDisplayGlobal(false);
+        setDisplayMessagesPage(true)
+        setDisplayInvoicesInfo(false);
     }
-    function changePhone(){
-        setComponent(<ChangePhone/>)
-        setDisplayGlobal(false);
-    }
-    function displaySecurity(){
-        if (!displaySecurityInfo){
-            setDisplaySecurityInfo(true);
+    function displayInvoices(){
+        if (!displayInvoicesInfo){
+            setComponent(<div>Display Invoices</div>)
+            setDisplayInvoicesInfo(true);
             setDisplayGlobal(false);
+            setDisplayMessagesPage(false)
         }
     }
-    function changeEmail(){
-        setComponent(<ChangeEmail/>)
-        setDisplayGlobal(false);
+    function displayMessages(){
+        if (!displayMessagePage){
+            setComponent(<div>Display Messages</div>)
+            setDisplayMessagesPage(true)
+            setDisplayGlobal(false);
+            setDisplayInvoicesInfo(false);
+        }
     }
-    function changePassword(){
-        setComponent(<ChangePassword/>)
-        setDisplayGlobal(false);
-    }
-    function changeA2F(){
-        setComponent(<ChangeA2F/>)
-        setDisplayGlobal(false);
-    }
+
 
 
     function RenderSidebar(){
         return(
             <div style={{display:"flex", flexDirection:"row", minHeight:"830px"}}>
                 <div style={{width:'18%', backgroundColor:"#f8f9fa", borderRight:"2px solid rgb(170, 179, 179)"}}>
-                    <div style={{fontFamily:"Lato, sans-serif", fontSize:"150%", marginLeft:"3%", paddingTop:"5%", marginBottom:"5%", fontWeight:"bold"}}>Panel Client</div>
+                    <div style={{fontFamily:"Lato, sans-serif", fontSize:"150%", marginLeft:"3%", paddingTop:"5%", marginBottom:"5%", fontWeight:"bold"}}>Panel Artisan</div>
                     <PanelMenu model={items} multiple={true} />
                 </div>
                 <div style={{padding:"3%", width:"82%"}}>

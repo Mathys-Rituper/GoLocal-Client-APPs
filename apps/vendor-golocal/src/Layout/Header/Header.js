@@ -116,13 +116,13 @@ export default function Header() {
         <div style={{width:"100%"}}>
             <Sidebar visible={visible} className="customSidebarHeader" fullScreen onHide={() => setVisible(false)}>
                 <div className="sidebar-container">
-                    <span className="sidebar-title">Mon Compte</span>
+                    <span className="sidebar-title">Mon Compte Artisan</span>
                     <TieredMenu style={{width:"100%"}} model={sidebarItems} />
                 </div>
             </Sidebar>
             <div style={{display:"flex", flexDirection:"row",  alignContent:"center", alignItems:"center", marginRight:"5%", borderBottom:"2px solid #AAB3B3", width:"100%", paddingBottom:"0.5%", paddingTop:"0.5%", justifyContent:"space-between"}}>
                 <img onClick={() => {goHome()}} className="responsive-logo" src={Logo} style={{marginLeft:"5%", cursor:"pointer"}}/>
-                <div className="myaccount-text">MON COMPTE</div>
+                <div className="myaccount-text">MON COMPTE ARTISAN</div>
                 {oidcUser ? (
                     <div className="account-cart">
                         <TieredMenu model={items} popup ref={menu} style={{width:"12%"}}/>

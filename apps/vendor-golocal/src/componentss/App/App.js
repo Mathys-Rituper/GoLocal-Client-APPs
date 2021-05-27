@@ -6,6 +6,7 @@ import 'primeflex/primeflex.css';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import NoMatch from '../NoMatch/NotFound'
 import Home from "../../Pages/Home/Home";
+import ArtisanPage from "../../Pages/Artisan/Artisan";
 
 
 function App() {
@@ -17,6 +18,9 @@ function App() {
             <Route exact path="/">
               <Home/>
             </Route>
+              <Route exact path="/artisan">
+                  <ArtisanPage/>
+              </Route>
             <Route path="*">
               <NoMatch/>
             </Route>

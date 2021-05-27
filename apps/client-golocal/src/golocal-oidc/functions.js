@@ -103,7 +103,9 @@ export function goLocalGetUserInfo(){
             .get('/connect/userinfo')
             .then(res => res.data)
             .catch(error =>{
-                oidcLogin();
+                if (!window.localStorage.getItem("access_token")){
+                    oidcLogin();
+                }
             })
 
     }else{

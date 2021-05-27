@@ -160,7 +160,7 @@ export function patchAvatar(avatar){
         const token = getToken();
         const instance = axios.create({
             baseURL: 'https://localhost:5000',
-            method: "patch",
+            method: "post",
             timeout: 10000,
             headers: {
                 Authorization: `Bearer ${token}`
@@ -170,7 +170,7 @@ export function patchAvatar(avatar){
             "avatar" : avatar
         }
         return instance
-            .patch('/account/avatar', data)
+            .post('/account/avatar', data)
             .then((response) => {
                 console.log(response);
                 return {status: 0, message:"Changement effectué"}

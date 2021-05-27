@@ -189,3 +189,172 @@ export function getShops(){
         return oidcLogin();
     }
 }
+export function getShodByID(id){
+    if (middleware() === true) {
+        const instance = axios.create({
+            baseURL: 'https://localhost:5001',
+            method: "get",
+            timeout: 5000,
+        });
+        return instance
+            .get(`/api/shops/${id}`)
+            .then((response) => {
+                return {statut: 0, data: response}
+            })
+            .catch((error) => {
+                if (error.status === 401){
+                    oidcLogin();
+                }
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    return {status: 1, message: error.response.data};
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
+export function patchImageShop(image, shopId){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5000',
+            method: "patch",
+            timeout: 10000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        });
+        const data = {
+            "shopId" : shopId,
+            "image" : image
+        }
+        return instance
+            .patch('/api/shops/image', data)
+            .then((response) => {
+                console.log(response);
+                return {status: 0, message:"Changement effectué"}
+            })
+            .catch((error) => {
+                if (error.status === 401){
+                    oidcLogin();
+                }
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    return {status: 1, message: error.response.data};
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
+export function createProductByShopID(id, name, description){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5002',
+            method: "put",
+            timeout: 5000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const data = {
+            "shopId": id,
+            "name": name,
+            "description": description
+        }
+        return instance
+            .put(`/api/shops/${id}/items/products`, data)
+            .then((response) => {
+                console.log(response)
+                return {status: 0, data: "Produit ajouté !"}
+            })
+            .catch((error) => {
+                if (error.response.status === 401){
+                    oidcLogin();
+                }
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    return {status: 1, message: error.response.data};
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
+export function createServiceByShopID(id, name, description){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5002',
+            method: "put",
+            timeout: 5000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const data = {
+            "shopId": id,
+            "name": name,
+            "description": description
+        }
+        return instance
+            .put(`/api/shops/${id}/items/products`, data)
+            .then((response) => {
+                console.log(response)
+                return {status: 0, data: "Service ajouté !"}
+            })
+            .catch((error) => {
+                if (error.response.status === 401){
+                    oidcLogin();
+                }
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    return {status: 1, message: error.response.data};
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
+export function deleteShopWithToken(id, name){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5002',
+            method: "delete",
+            timeout: 5000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            data: {
+                "shopId": id,
+                "name": name
+            }
+        });
+
+        return instance
+            .delete(`/api/shops`)
+            .then((response) => {
+                console.log(response)
+                return {status: 0, data: "Boutique supprimé !"}
+            })
+            .catch((error) => {
+                if (error.response.status === 401){
+                    oidcLogin();
+                }
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    return {status: 1, message: error.response.data};
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}

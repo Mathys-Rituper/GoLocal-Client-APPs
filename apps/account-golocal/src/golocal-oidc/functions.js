@@ -25,7 +25,7 @@ export function goLocalLogin(userName,Password, errorShow, previousPage){
     const instance = axios.create({
         baseURL: 'https://localhost:5000',
         method: "post",
-        timeout: 3000,
+        timeout: 30000,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -58,7 +58,7 @@ export function confirmAccountRequest(token, uid){
     const instance = axios.create({
         baseURL: 'https://localhost:5000',
         method: "post",
-        timeout: 3000,
+        timeout: 30000,
         headers: {},
     });
     const data = {
@@ -84,7 +84,7 @@ export function confirmPasswordRequest(token, uid, newPassword, newPasswordConfi
     const instance = axios.create({
         baseURL: 'https://localhost:5000',
         method: "post",
-        timeout: 3000,
+        timeout: 30000,
         headers: {},
     });
     const data = {
@@ -111,7 +111,7 @@ export function resetPasswordRequest(email, errorShow){
     const instance = axios.create({
         baseURL: 'https://localhost:5000',
         method: "post",
-        timeout: 10000,
+        timeout: 30000,
         headers: {},
     });
     const data = {
@@ -138,7 +138,7 @@ export function goLocalGetUserInfo(){
         const instance = axios.create({
             baseURL: 'https://localhost:5000',
             method: "get",
-            timeout: 3000,
+            timeout: 30000,
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -161,7 +161,7 @@ export function patchAvatar(avatar){
         const instance = axios.create({
             baseURL: 'https://localhost:5000',
             method: "post",
-            timeout: 10000,
+            timeout: 30000,
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -195,7 +195,7 @@ export function patchPhone(phone){
         const instance = axios.create({
             baseURL: 'https://localhost:5000',
             method: "patch",
-            timeout: 5000,
+            timeout: 30000,
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -230,7 +230,7 @@ export function resetEmailWithToken(email){
         const instance = axios.create({
             baseURL: 'https://localhost:5000',
             method: "patch",
-            timeout: 5000,
+            timeout: 30000,
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -263,7 +263,7 @@ export function resetPasswordWithToken(oldPassword, newPassword, newPasswordConf
         const instance = axios.create({
             baseURL: 'https://localhost:5000',
             method: "patch",
-            timeout: 5000,
+            timeout: 30000,
             headers: {
                 Authorization: `Bearer ${token}`
             },

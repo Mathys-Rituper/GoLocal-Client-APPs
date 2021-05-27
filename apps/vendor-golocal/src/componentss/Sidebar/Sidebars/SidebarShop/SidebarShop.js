@@ -2,85 +2,162 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import "./SidebarShop.css"
 import { PanelMenu } from 'primereact/panelmenu';
 import MyShops from "../../sub-components/MyShops/MyShops";
+import ShopInfos from "../../sub-components/ShopInfos/ShopInfos";
+import MyProducts from "../../sub-components/MyProducts/MyProducts";
+import CreateProduct from "../../sub-components/CreateProduct/CreateProduct";
+import {useLocation} from "react-router-dom";
+import {confirmDialog} from "primereact/components/confirmdialog/ConfirmDialog";
+import {Toast} from "primereact/toast";
+import {deleteShopWithToken} from "../../../../golocal-oidc/functions";
+import CreateService from "../../sub-components/CreateService/CreateService";
+import ChangeImage from "../../sub-components/ChangeImage/ChangeImage";
 
-
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
 export default function SidebarShop(){
-    const [component, setComponent] = useState(<MyShops/>)
+    const params = useQuery();
+    const shopID = params.get("shopID");
+    const shopName = params.get("shopName");
+    const [component, setComponent] = useState(<ShopInfos/>)
     const [displayGlobal, setDisplayGlobal] = useState(true)
-    const [displayMessagePage, setDisplayMessagesPage] = useState(false)
-    const [displayInvoicesInfo, setDisplayInvoicesInfo] = useState(false)
+    const [displayProductPage, setDisplayProductPage] = useState(false)
+    const [displayServiceInfo, setDisplayServiceInfo] = useState(false)
+    const toast = useRef(null);
+    const confirm2 = () => {
+        confirmDialog({
+            message: 'Voulez-vous supprimer votre boutique?',
+            header: 'Cette action est irréversible',
+            icon: 'pi pi-info-circle',
+            acceptClassName: 'p-button-danger',
+            rejectLabel: "Annuler",
+            acceptLabel: "Supprimer",
+            accept,
+            reject
+        });
+    };
+    const accept = () => {
+        deleteShopWithToken(shopID, shopName).then(data =>{
+            console.log(data)
+            if (data.status === 1){
+                toast.current.show({ severity: 'error', summary: 'Erreur', detail: data.message, life: 5000 });
+            }else{
+                toast.current.show({ severity: 'success', summary: 'Succès', detail: data, life: 5000 });
+                setTimeout(()=> {
+                    window.location.replace("https://localhost:3002/artisan")
+                }, 2000)
+            }
+        })
+    }
+    const reject = () => {
+        toast.current.show({ severity: 'info', summary: 'Annulation', detail: 'Vous avez annulé la suppression', life: 3000 });
+    }
     const items = [
+        {
+            label:'Ma Boutique',
+            icon:'pi pi-info-circle',
+            command : () => {displayShop()},
+            items:[
+                {
+                    label:'Modifier boutique',
+                    icon:'pi pi-fw pi-pencil',
+                    command : () => {modifyShop()}
+                },
+                {
+                    label:'Ajouter / Modifier Image',
+                    icon:'pi pi-fw pi-image',
+                    command : () => {modifyImage()}
+                },
+                {
+                    label:'Supprimer Boutique',
+                    icon:'pi pi-exclamation-triangle',
+                    command : () => {confirm2()},
+                }
+            ]
+        },
         {
             label:'Mes Produits',
             icon:'pi pi-th-large',
-            command : () => {displayShops()},
+            command : () => {displayProducts()},
             items:[
                 {
                     label:'Créer un produit',
                     icon:'pi pi-fw pi-plus-circle',
-                    command : () => {createShop()}
+                    command : () => {createProduct()}
                 }
             ]
         },
         {
             label:'Mes Services',
             icon:'pi pi-th-large',
-            command : () => {displayShops()},
+            command : () => {displayServices()},
             items:[
                 {
                     label:'Créer un service',
                     icon:'pi pi-fw pi-plus-circle',
-                    command : () => {createShop()}
+                    command : () => {createService()}
                 }
             ]
-        },
-        {
-            label:'Ma boutique',
-            icon:'pi pi-info-circle',
-            command : () => {displayShops()}
-        },
+        }
     ];
-
-    function displayShops(){
+    function displayShop(){
         if (!displayGlobal){
-            setComponent(<MyShops/>)
+            setComponent(<ShopInfos/>)
             setDisplayGlobal(true);
-            setDisplayInvoicesInfo(false);
-            setDisplayMessagesPage(false)
+            setDisplayProductPage(false);
+            setDisplayServiceInfo(false)
         }
     }
-    function createShop(){
-        setComponent(<div>Create shop</div>)
-        setDisplayGlobal(false);
-        setDisplayMessagesPage(true)
-        setDisplayInvoicesInfo(false);
-    }
     function displayProducts(){
-        if (!displayInvoicesInfo){
-            setComponent(<div>Display Invoices</div>)
-            setDisplayInvoicesInfo(true);
+        if (!displayProductPage){
+            setComponent(<MyProducts/>)
+            setDisplayProductPage(true);
             setDisplayGlobal(false);
-            setDisplayMessagesPage(false)
+            setDisplayServiceInfo(false)
         }
     }
     function displayServices(){
-        if (!displayMessagePage){
-            setComponent(<div>Display Messages</div>)
-            setDisplayMessagesPage(true)
+        if (!displayServiceInfo){
+            setComponent(<div>Display Services</div>)
+            setDisplayServiceInfo(true)
             setDisplayGlobal(false);
-            setDisplayInvoicesInfo(false);
+            setDisplayProductPage(false);
         }
     }
-
+    function modifyShop(){
+        setComponent(<div>Modify Shop</div>)
+        setDisplayGlobal(false);
+        setDisplayProductPage(false);
+        setDisplayServiceInfo(false)
+    }
+    function modifyImage(){
+        setComponent(<ChangeImage/>)
+        setDisplayGlobal(false);
+        setDisplayProductPage(false);
+        setDisplayServiceInfo(false)
+    }
+    function createProduct(){
+        setComponent(<CreateProduct/>)
+        setDisplayGlobal(false);
+        setDisplayProductPage(false);
+        setDisplayServiceInfo(false)
+    }
+    function createService(){
+        setComponent(<CreateService/>)
+        setDisplayGlobal(false);
+        setDisplayProductPage(false);
+        setDisplayServiceInfo(false)
+    }
 
 
     function RenderSidebar(){
         return(
             <div style={{display:"flex", flexDirection:"row", minHeight:"830px"}}>
+                <Toast ref={toast} />
                 <div style={{width:'18%', backgroundColor:"#f8f9fa", borderRight:"2px solid rgb(170, 179, 179)"}}>
                     <div style={{fontFamily:"Lato, sans-serif", fontSize:"150%", marginLeft:"3%", paddingTop:"5%", marginBottom:"5%", fontWeight:"bold", cursor:"pointer"}} onClick={() =>{window.location.href="https://localhost:3002/artisan"}}>{"<"} Retour Panel</div>
                     <PanelMenu model={items} multiple={true} />

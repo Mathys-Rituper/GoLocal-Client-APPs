@@ -11,10 +11,7 @@ import "./Header.css"
 
 
 function goHome(){
-    window.location.href="https://localhost:3001/";
-}
-function goCart(){
-    window.location.href="https://localhost:3001/cart";
+    window.location.href="https://localhost:3002/";
 }
 export default function Header() {
     const [oidcUser, setOidcUser] = useState(null);

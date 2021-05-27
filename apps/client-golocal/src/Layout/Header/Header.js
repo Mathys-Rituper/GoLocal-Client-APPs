@@ -55,12 +55,12 @@ export default function Header() {
                 {
                     label:'Panel',
                     icon:'pi pi-fw pi-table',
-                    command: () => {window.location.href="./artisan/dashboard"}
+                    command: () => {window.location.href="https://localhost:3002/artisan/"}
                 },
                 {
                     label:'Informations',
                     icon:'pi pi-fw pi-info-circle',
-                    command: () => {window.location.href="./artisan/become-artisan"}
+                    command: () => {window.location.href="https://localhost:3002/artisan/become-artisan"}
                 }
             ]
         },
@@ -103,12 +103,12 @@ export default function Header() {
         {
             label:'Panel Artisan',
             icon:'pi pi-fw pi-table',
-            command: () => {window.location.href="./artisan/dashboard"}
+            command: () => {window.location.href="https://localhost:3002/artisan/"}
         },
         {
             label:'Infos Artisan',
             icon:'pi pi-fw pi-info-circle',
-            command: () => {window.location.href="./artisan/become-artisan"}
+            command: () => {window.location.href="https://localhost:3002/artisan/become-artisan"}
         },
         {
             separator:true

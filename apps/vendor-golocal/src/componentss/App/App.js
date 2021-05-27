@@ -8,6 +8,9 @@ import NoMatch from '../NoMatch/NotFound'
 import Home from "../../Pages/Home/Home";
 import ArtisanPage from "../../Pages/Artisan/Artisan";
 import Login from "../../Pages/Login/Login";
+import ShopPage from "../../Pages/Shop/Shop";
+import ProductPage from "../../Pages/Product/Product";
+import ServicePage from "../../Pages/Service/Service";
 
 
 function App() {
@@ -24,6 +27,15 @@ function App() {
               </Route>
               <Route exact path="/login">
                   <Login/>
+              </Route>
+              <Route exact path="/artisan/shop">
+                  <ShopPage/>
+              </Route>
+              <Route exact path="/artisan/shop/product">
+                  <ProductPage/>
+              </Route>
+              <Route exact path="/artisan/shop/service">
+                  <ServicePage/>
               </Route>
             <Route path="*">
               <NoMatch/>

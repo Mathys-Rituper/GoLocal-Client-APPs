@@ -5,16 +5,13 @@ import { Button } from 'primereact/button';
 import NotFoundPic from "../../assets/erreur-page-404.png"
 
 export default function NotFound() {
-    if (window.location.href === "https://localhost:3000/"){
-        window.location.replace("./");
-    }
     setTimeout(function(){
-        window.location.replace("./");
+        window.location.replace("https://localhost:3002/");
         },10000)
 
 
     function redirect(){
-        window.location.href='./';
+        window.location.href='https://localhost:3002/';
     }
     return(
         <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", backgroundColor:"#f0f0f0"}} >

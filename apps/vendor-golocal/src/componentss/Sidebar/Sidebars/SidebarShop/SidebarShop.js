@@ -3,40 +3,46 @@ import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import React, {useState} from 'react';
-import "./Sidebar.css"
+import "./SidebarShop.css"
 import { PanelMenu } from 'primereact/panelmenu';
-import MyShops from "./sub-components/MyShops/MyShops";
+import MyShops from "../../sub-components/MyShops/MyShops";
 
 
-export default function Sidebar(){
+export default function SidebarShop(){
     const [component, setComponent] = useState(<MyShops/>)
     const [displayGlobal, setDisplayGlobal] = useState(true)
     const [displayMessagePage, setDisplayMessagesPage] = useState(false)
     const [displayInvoicesInfo, setDisplayInvoicesInfo] = useState(false)
     const items = [
         {
-            label:'Mes Boutiques',
+            label:'Mes Produits',
             icon:'pi pi-th-large',
             command : () => {displayShops()},
             items:[
                 {
-                    label:'Créer une boutique',
+                    label:'Créer un produit',
                     icon:'pi pi-fw pi-plus-circle',
                     command : () => {createShop()}
                 }
             ]
         },
         {
-            label:'Commandes',
-            icon:'pi pi-shopping-cart',
-            command : () => {displayInvoices()},
+            label:'Mes Services',
+            icon:'pi pi-th-large',
+            command : () => {displayShops()},
+            items:[
+                {
+                    label:'Créer un service',
+                    icon:'pi pi-fw pi-plus-circle',
+                    command : () => {createShop()}
+                }
+            ]
         },
         {
-            label:'Messagerie',
-            icon:'pi pi-envelope',
-            command : () => {displayMessages()},
+            label:'Ma boutique',
+            icon:'pi pi-info-circle',
+            command : () => {displayShops()}
         },
-
     ];
 
     function displayShops(){
@@ -53,7 +59,7 @@ export default function Sidebar(){
         setDisplayMessagesPage(true)
         setDisplayInvoicesInfo(false);
     }
-    function displayInvoices(){
+    function displayProducts(){
         if (!displayInvoicesInfo){
             setComponent(<div>Display Invoices</div>)
             setDisplayInvoicesInfo(true);
@@ -61,7 +67,7 @@ export default function Sidebar(){
             setDisplayMessagesPage(false)
         }
     }
-    function displayMessages(){
+    function displayServices(){
         if (!displayMessagePage){
             setComponent(<div>Display Messages</div>)
             setDisplayMessagesPage(true)
@@ -76,7 +82,7 @@ export default function Sidebar(){
         return(
             <div style={{display:"flex", flexDirection:"row", minHeight:"830px"}}>
                 <div style={{width:'18%', backgroundColor:"#f8f9fa", borderRight:"2px solid rgb(170, 179, 179)"}}>
-                    <div style={{fontFamily:"Lato, sans-serif", fontSize:"150%", marginLeft:"3%", paddingTop:"5%", marginBottom:"5%", fontWeight:"bold"}}>Panel Artisan</div>
+                    <div style={{fontFamily:"Lato, sans-serif", fontSize:"150%", marginLeft:"3%", paddingTop:"5%", marginBottom:"5%", fontWeight:"bold", cursor:"pointer"}} onClick={() =>{window.location.href="https://localhost:3002/artisan"}}>{"<"} Retour Panel</div>
                     <PanelMenu model={items} multiple={true} />
                 </div>
                 <div style={{padding:"3%", width:"82%"}}>

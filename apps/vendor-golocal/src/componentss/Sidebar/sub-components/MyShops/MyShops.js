@@ -50,7 +50,14 @@ export default function MyShops(){
                     </div>
                 </ScrollPanel>
             ) : (
-                <div/>
+                <div>
+                    {error ? (
+                        <div>{error}</div>
+                    ): (
+                        <div/>
+                    )}
+                </div>
+
             )}
 
         </div>

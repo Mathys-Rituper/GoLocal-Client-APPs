@@ -16,6 +16,8 @@ import {deleteShopWithToken} from "../../../../golocal-oidc/functions";
 import CreateService from "../../sub-components/CreateService/CreateService";
 import ChangeImage from "../../sub-components/ChangeImage/ChangeImage";
 import MyServices from "../../sub-components/MyServices/MyServices";
+import ModifyContact from "../../sub-components/ModifyContact/ModifyContact";
+import ModifyLocation from "../../sub-components/ModifyLocation/ModifyLocation";
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -64,13 +66,23 @@ export default function SidebarShop(){
             command : () => {displayShop()},
             items:[
                 {
-                    label:'Modifier boutique',
+                    label:'Modifier Nom',
                     icon:'pi pi-fw pi-pencil',
                     command : () => {modifyShop()}
                 },
                 {
+                    label:'Modifier Contact',
+                    icon:'pi pi-fw pi-pencil',
+                    command : () => {modifyContact()}
+                },
+                {
+                    label:'Modifier Localisation',
+                    icon:'pi pi-fw pi-pencil',
+                    command : () => {modifyLocation()}
+                },
+                {
                     label:'Ajouter / Modifier Horaires',
-                    icon:'pi pi-fw pi-calendar-plus',
+                    icon:'pi pi-fw pi-pencil',
                     command : () => {modifyOpenings()}
                 },
                 {
@@ -140,8 +152,20 @@ export default function SidebarShop(){
         setDisplayProductPage(false);
         setDisplayServiceInfo(false)
     }
+    function modifyLocation(){
+        setComponent(<ModifyLocation/>)
+        setDisplayGlobal(false);
+        setDisplayProductPage(false);
+        setDisplayServiceInfo(false)
+    }
     function modifyImage(){
         setComponent(<ChangeImage/>)
+        setDisplayGlobal(false);
+        setDisplayProductPage(false);
+        setDisplayServiceInfo(false)
+    }
+    function modifyContact(){
+        setComponent(<ModifyContact/>)
         setDisplayGlobal(false);
         setDisplayProductPage(false);
         setDisplayServiceInfo(false)

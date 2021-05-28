@@ -219,7 +219,7 @@ export function patchImageShop(image, shopId){
     if (middleware() === true) {
         const token = getToken();
         const instance = axios.create({
-            baseURL: 'https://localhost:5000',
+            baseURL: 'https://localhost:5002',
             method: "patch",
             timeout: 10000,
             headers: {
@@ -244,6 +244,84 @@ export function patchImageShop(image, shopId){
                     return {status: 1, message: error};
                 } else {
                     return {status: 1, message: error.response.data};
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
+export function patchContacts(shopID, email, phone){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5002',
+            method: "patch",
+            timeout: 50000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        });
+        const data = {
+            "shopId": shopID,
+            "phone": phone,
+            "email": email
+        }
+        return instance
+            .patch('/api/shops/contact', data)
+            .then((response) => {
+                console.log(response);
+                return {status: 0, message:"Changement effectué"}
+            })
+            .catch((error) => {
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    if (error.response.status === 401){
+                        oidcLogin();
+                    }else{
+                        return {status: 1, message: error.response.data};
+                    }
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
+export function patchLocalisation(shopID, address, street, region, postCode, city, country){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5002',
+            method: "patch",
+            timeout: 50000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        });
+        const data = {
+            "shopId": shopID,
+            "postCode": postCode,
+            "country": country,
+            "region": region,
+            "city": city,
+            "street": street,
+            "address": address
+        }
+        return instance
+            .patch('/api/shops/location', data)
+            .then((response) => {
+                console.log(response);
+                return {status: 0, message:"Changement effectué"}
+            })
+            .catch((error) => {
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    if (error.response.status === 401){
+                        oidcLogin();
+                    }else{
+                        return {status: 1, message: error.response.data};
+                    }
                 }
             });
     }else{

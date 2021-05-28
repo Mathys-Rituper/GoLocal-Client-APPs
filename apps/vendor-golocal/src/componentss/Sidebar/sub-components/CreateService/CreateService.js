@@ -7,7 +7,7 @@ import "./CreateService.css"
 import {InputTextarea} from "primereact/inputtextarea";
 import {InputText} from "primereact/inputtext";
 import {Button} from "primereact/button";
-import {createProductByShopID} from "../../../../golocal-oidc/functions";
+import {createProductByShopID, createServiceByShopID} from "../../../../golocal-oidc/functions";
 import {useLocation} from "react-router-dom";
 import {Toast} from "primereact/toast";
 
@@ -23,7 +23,7 @@ export default function CreateService(){
     const [value2, setValue2] = useState();
     const toast = useRef(null);
     function createProduct(){
-        createProductByShopID(shopID, value1, value2).then(data => {
+        createServiceByShopID(shopID, value1, value2).then(data => {
             if (data.status === 1){
                 toast.current.show({severity: 'error', summary: 'Erreur', detail: data.message});
             }else{

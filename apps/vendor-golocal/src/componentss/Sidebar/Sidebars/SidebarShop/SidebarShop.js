@@ -15,6 +15,7 @@ import {Toast} from "primereact/toast";
 import {deleteShopWithToken} from "../../../../golocal-oidc/functions";
 import CreateService from "../../sub-components/CreateService/CreateService";
 import ChangeImage from "../../sub-components/ChangeImage/ChangeImage";
+import MyServices from "../../sub-components/MyServices/MyServices";
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -66,6 +67,11 @@ export default function SidebarShop(){
                     label:'Modifier boutique',
                     icon:'pi pi-fw pi-pencil',
                     command : () => {modifyShop()}
+                },
+                {
+                    label:'Ajouter / Modifier Horaires',
+                    icon:'pi pi-fw pi-calendar-plus',
+                    command : () => {modifyOpenings()}
                 },
                 {
                     label:'Ajouter / Modifier Image',
@@ -122,7 +128,7 @@ export default function SidebarShop(){
     }
     function displayServices(){
         if (!displayServiceInfo){
-            setComponent(<div>Display Services</div>)
+            setComponent(<MyServices/>)
             setDisplayServiceInfo(true)
             setDisplayGlobal(false);
             setDisplayProductPage(false);
@@ -135,6 +141,12 @@ export default function SidebarShop(){
         setDisplayServiceInfo(false)
     }
     function modifyImage(){
+        setComponent(<ChangeImage/>)
+        setDisplayGlobal(false);
+        setDisplayProductPage(false);
+        setDisplayServiceInfo(false)
+    }
+    function modifyOpenings(){
         setComponent(<ChangeImage/>)
         setDisplayGlobal(false);
         setDisplayProductPage(false);

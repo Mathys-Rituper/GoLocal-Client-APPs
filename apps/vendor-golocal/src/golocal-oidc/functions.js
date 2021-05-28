@@ -189,7 +189,7 @@ export function getShops(){
         return oidcLogin();
     }
 }
-export function getShodByID(id){
+export function getShopByID(id){
     if (middleware() === true) {
         const instance = axios.create({
             baseURL: 'https://localhost:5001',
@@ -199,7 +199,7 @@ export function getShodByID(id){
         return instance
             .get(`/api/shops/${id}`)
             .then((response) => {
-                return {statut: 0, data: response}
+                return {statut: 0, data: response.data}
             })
             .catch((error) => {
                 if (error.status === 401){
@@ -238,6 +238,52 @@ export function patchImageShop(image, shopId){
             })
             .catch((error) => {
                 if (error.status === 401){
+                    oidcLogin();
+                }
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    return {status: 1, message: error.response.data};
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
+export function createShopRequest(name, postCode, country, region, city, street, address, phone, email){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5002',
+            method: "put",
+            timeout: 5000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const data = {
+            "name": name,
+            "location": {
+                "postCode": postCode,
+                "country": country,
+                "region": region,
+                "city": city,
+                "street": street,
+                "address": address
+            },
+            "contact": {
+                "phone": phone,
+                "email": email
+            }
+        }
+        return instance
+            .put(`/api/shops`, data)
+            .then((response) => {
+                console.log(response)
+                return {status: 0, data: "Boutique ajouté !"}
+            })
+            .catch((error) => {
+                if (error.response.status === 401){
                     oidcLogin();
                 }
                 if (error.response === undefined) {
@@ -303,7 +349,7 @@ export function createServiceByShopID(id, name, description){
             "description": description
         }
         return instance
-            .put(`/api/shops/${id}/items/products`, data)
+            .put(`/api/shops/${id}/items/services`, data)
             .then((response) => {
                 console.log(response)
                 return {status: 0, data: "Service ajouté !"}

@@ -6,6 +6,7 @@ import React, {useState} from 'react';
 import "./Sidebar.css"
 import { PanelMenu } from 'primereact/panelmenu';
 import MyShops from "../../sub-components/MyShops/MyShops";
+import CreateShop from "../../sub-components/CreateShop/CreateShop";
 
 
 export default function Sidebar(){
@@ -48,7 +49,7 @@ export default function Sidebar(){
         }
     }
     function createShop(){
-        setComponent(<div>Create shop</div>)
+        setComponent(<CreateShop/>)
         setDisplayGlobal(false);
         setDisplayMessagesPage(true)
         setDisplayInvoicesInfo(false);

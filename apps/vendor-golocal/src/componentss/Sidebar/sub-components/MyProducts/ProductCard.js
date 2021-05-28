@@ -20,7 +20,6 @@ export default function ProductCard({product, shopID}){
             <img style={{width:"100%",minHeight:"200px", border:"1px solid black"}} src={product.image}/>
             <div style={{display:"flex", flexDirection:"column"}}>
                 <span style={{fontFamily:"Lato", fontSize:"120%"}}>{product.name}</span>
-                <span style={{fontFamily:"Lato"}}>{product.location.city}</span>
             </div>
             </div>
         )

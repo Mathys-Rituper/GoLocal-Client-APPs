@@ -18,6 +18,8 @@ import ChangeImage from "../../sub-components/ChangeImage/ChangeImage";
 import MyServices from "../../sub-components/MyServices/MyServices";
 import ModifyContact from "../../sub-components/ModifyContact/ModifyContact";
 import ModifyLocation from "../../sub-components/ModifyLocation/ModifyLocation";
+import ChangeShopName from "../../sub-components/ChangeShopName/ChangeShopName";
+import ChangeOpenings from "../../sub-components/ChangeOpenings/ChangeOpenings";
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -68,7 +70,7 @@ export default function SidebarShop(){
                 {
                     label:'Modifier Nom',
                     icon:'pi pi-fw pi-pencil',
-                    command : () => {modifyShop()}
+                    command : () => {modifyName()}
                 },
                 {
                     label:'Modifier Contact',
@@ -83,7 +85,7 @@ export default function SidebarShop(){
                 {
                     label:'Ajouter / Modifier Horaires',
                     icon:'pi pi-fw pi-pencil',
-                    command : () => {modifyOpenings()}
+                    command : () => {modifyOpening()}
                 },
                 {
                     label:'Ajouter / Modifier Image',
@@ -146,8 +148,14 @@ export default function SidebarShop(){
             setDisplayProductPage(false);
         }
     }
-    function modifyShop(){
-        setComponent(<div>Modify Shop</div>)
+    function modifyName(){
+        setComponent(<ChangeShopName/>)
+        setDisplayGlobal(false);
+        setDisplayProductPage(false);
+        setDisplayServiceInfo(false)
+    }
+    function modifyOpening(){
+        setComponent(<ChangeOpenings/>)
         setDisplayGlobal(false);
         setDisplayProductPage(false);
         setDisplayServiceInfo(false)

@@ -215,6 +215,43 @@ export function getShopByID(id){
         return oidcLogin();
     }
 }
+export function patchShopName(shopID, oldName, newName){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5002',
+            method: "patch",
+            timeout: 50000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        });
+        const data = {
+            "shopId": shopID,
+            "oldName": oldName,
+            "newName": newName
+        }
+        return instance
+            .patch('/api/shops', data)
+            .then((response) => {
+                console.log(response);
+                return {status: 0, message:"Changement effectué"}
+            })
+            .catch((error) => {
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    if (error.response.status === 401){
+                        oidcLogin();
+                    }else{
+                        return {status: 1, message: error.response.data};
+                    }
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
 export function patchImageShop(image, shopId){
     if (middleware() === true) {
         const token = getToken();

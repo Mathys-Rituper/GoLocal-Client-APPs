@@ -52,7 +52,7 @@ export default function ChangeShopName(){
                 <InputText id="username" value={value1} onChange={(e) => setValue1(e.target.value)} className="inputText"/>
             </div>
 
-            <Button label="Ajouter" disabled={disabled} className="p-button-raised bouton" onClick={() => createProduct()}/>
+            <Button label="Modifier" disabled={disabled} className="p-button-raised bouton" onClick={() => createProduct()}/>
 
         </div>
     )

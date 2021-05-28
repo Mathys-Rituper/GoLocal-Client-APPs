@@ -15,7 +15,7 @@ function useQuery() {
 export default function MyProducts(){
     const params = useQuery();
     const shopID = params.get("shopID")
-
+    const shopName = params.get("shopName")
     const [productRequest, setProductRequest] = useState({
         loading: false,
         products: null,
@@ -42,7 +42,7 @@ export default function MyProducts(){
     let productsComponentsArray = [];
     if (products){
         products.forEach((product) => {
-            productsComponentsArray.push(<ProductCard product={product} shopID={shopID}/>)
+            productsComponentsArray.push(<ProductCard product={product} shopID={shopID} shopName={shopName}/>)
         })
     }
 

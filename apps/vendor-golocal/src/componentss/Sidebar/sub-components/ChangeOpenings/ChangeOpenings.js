@@ -7,7 +7,7 @@ import "./ChangeOpenings.css"
 import {InputTextarea} from "primereact/inputtextarea";
 import {InputText} from "primereact/inputtext";
 import {Button} from "primereact/button";
-import {createProductByShopID, patchShopName} from "../../../../golocal-oidc/functions";
+import {createProductByShopID, patchShopName, patchShopOpening} from "../../../../golocal-oidc/functions";
 import {useLocation} from "react-router-dom";
 import {Toast} from "primereact/toast";
 import {Dropdown} from "primereact/dropdown";
@@ -38,18 +38,20 @@ export default function ChangeOpenings(){
     ];
     const toast = useRef(null);
     function createProduct(){
-        // patchShopName(shopID, shopName, value1).then(data => {
-        //     if (data.status === 1){
-        //         toast.current.show({severity: 'error', summary: 'Erreur', detail: data.message});
-        //     }else{
-        //         toast.current.show({severity: 'success', summary: 'Succès', detail: data.data});
-        //     }
-        // })
-        // setValue1('');
+        patchShopOpening(shopID, day, date1, date2, date3, date4).then(data => {
+            if (data.status === 1){
+                toast.current.show({severity: 'error', summary: 'Erreur', detail: data.message});
+            }else{
+                toast.current.show({severity: 'success', summary: 'Succès', detail: data.data});
+            }
+        })
+        setDate1(null);
+        setDate2(null);
+        setDate3(null);
+        setDate4(null);
     }
 
     if (day !== null && date1 !== null && date2 !== null && date3 !== null && date4 !== null){
-        console.log("Succès" + day + date1 + date2 + date3 + date4)
         if (disabled === true){
             setDisabled(false);
         }

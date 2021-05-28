@@ -16,7 +16,7 @@ export default function MyServices(){
 
     const params = useQuery();
     const shopID = params.get("shopID")
-
+    const shopName = params.get("shopName")
     const [serviceRequest, setServiceRequest] = useState({
         loading: false,
         services: null,
@@ -44,7 +44,7 @@ export default function MyServices(){
     let servicesComponentsArray = [];
     if (services){
         services.forEach((service) => {
-            servicesComponentsArray.push(<ServiceCard service={service} shopID={shopID}/>)
+            servicesComponentsArray.push(<ServiceCard service={service} shopID={shopID} shopName={shopName}/>)
         })
     }
 

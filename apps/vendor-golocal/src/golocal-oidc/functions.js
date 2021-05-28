@@ -215,6 +215,32 @@ export function getShopByID(id){
         return oidcLogin();
     }
 }
+export function getItemByID(shopID, id){
+    if (middleware() === true) {
+        const instance = axios.create({
+            baseURL: 'https://localhost:5001',
+            method: "get",
+            timeout: 5000,
+        });
+        return instance
+            .get(`/api/shops/${shopID}/items/${id}`)
+            .then((response) => {
+                return {statut: 0, data: response.data}
+            })
+            .catch((error) => {
+                if (error.status === 401){
+                    oidcLogin();
+                }
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    return {status: 1, message: error.response.data};
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
 export function patchShopName(shopID, oldName, newName){
     if (middleware() === true) {
         const token = getToken();
@@ -233,6 +259,50 @@ export function patchShopName(shopID, oldName, newName){
         }
         return instance
             .patch('/api/shops', data)
+            .then((response) => {
+                console.log(response);
+                return {status: 0, message:"Changement effectué"}
+            })
+            .catch((error) => {
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    if (error.response.status === 401){
+                        oidcLogin();
+                    }else{
+                        return {status: 1, message: error.response.data};
+                    }
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
+export function patchShopOpening(shopID, day, morningMin, morningMax, eveningMin, eveningMax){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5002',
+            method: "patch",
+            timeout: 50000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        });
+        const data = {
+            "shopId": shopID,
+            "day": day,
+            "morning": {
+                "max": morningMin,
+                "min": morningMax
+            },
+            "evening": {
+                "max": eveningMin,
+                "min": eveningMax
+            }
+        }
+        return instance
+            .patch('/api/shops/openings', data)
             .then((response) => {
                 console.log(response);
                 return {status: 0, message:"Changement effectué"}
@@ -371,7 +441,7 @@ export function createShopRequest(name, postCode, country, region, city, street,
         const instance = axios.create({
             baseURL: 'https://localhost:5002',
             method: "put",
-            timeout: 5000,
+            timeout: 30000,
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -417,7 +487,7 @@ export function createProductByShopID(id, name, description){
         const instance = axios.create({
             baseURL: 'https://localhost:5002',
             method: "put",
-            timeout: 5000,
+            timeout: 30000,
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -453,7 +523,7 @@ export function createServiceByShopID(id, name, description){
         const instance = axios.create({
             baseURL: 'https://localhost:5002',
             method: "put",
-            timeout: 5000,
+            timeout: 30000,
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -468,6 +538,45 @@ export function createServiceByShopID(id, name, description){
             .then((response) => {
                 console.log(response)
                 return {status: 0, data: "Service ajouté !"}
+            })
+            .catch((error) => {
+                if (error.response.status === 401){
+                    oidcLogin();
+                }
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    return {status: 1, message: error.response.data};
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
+export function createPackageByShopIdAndItemID(shopID, itemID, name, description, price, stock){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5002',
+            method: "put",
+            timeout: 30000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const data = {
+            "shopId": shopID,
+            "itemId": itemID,
+            "name": name,
+            "description": description,
+            "price": price,
+            "stocks": stock
+        }
+        return instance
+            .put(`/api/shops/${shopID}/items/${itemID}/packages`, data)
+            .then((response) => {
+                console.log(response)
+                return {status: 0, data: "Package ajouté !"}
             })
             .catch((error) => {
                 if (error.response.status === 401){
@@ -506,6 +615,50 @@ export function deleteShopWithToken(id, name){
                 return {status: 0, data: "Boutique supprimé !"}
             })
             .catch((error) => {
+                if (error.response.status === 401){
+                    oidcLogin();
+                }
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    return {status: 1, message: error.response.data};
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
+export function deleteItemWithToken(shopID, id, name){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5002',
+            method: "delete",
+            timeout: 5000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            data: {
+                "shopId": shopID,
+                "itemId": id,
+                "name": name
+            }
+        });
+        const data = {
+            "shopId": shopID,
+            "itemId": id,
+            "name": name
+        }
+        return instance
+            .delete(`/api/shops/${shopID}/items/${id}`, data)
+            .then((response) => {
+                console.log(response)
+                return {status: 0, data: "Item supprimé !"}
+            })
+            .catch((error) => {
+                if(error.status === 415){
+                    return {status: 1, message: error.response.data};
+                }
                 if (error.response.status === 401){
                     oidcLogin();
                 }

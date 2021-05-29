@@ -3,7 +3,7 @@ import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import "./Item.css";
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useLocation} from "react-router-dom";
 import {getItemByID} from "../../../golocal-oidc/functions";
 import {Rating} from "primereact/rating";
@@ -11,6 +11,10 @@ import {ScrollPanel} from "primereact/scrollpanel";
 import {DataScroller} from "primereact/datascroller";
 import {Button} from "primereact/button";
 import {addToCartItem} from "../../../golocal-oidc/functions";
+import {Toast} from "primereact/toast";
+import {Dialog} from "primereact/dialog";
+import {Tooltip} from "primereact/tooltip";
+import CommentaryCard from "./CommentaryCard/CommentaryCard";
 
 
 function useQuery() {
@@ -20,6 +24,7 @@ export default function Item() {
     const params = useQuery();
     const shopID = params.get("shopID")
     const itemID = params.get("itemID")
+    const toast = useRef(null);
     const [products, setProducts] = useState([]);
     const [itemRequest, setItemRequest] = useState({
         loading: false,
@@ -38,6 +43,7 @@ export default function Item() {
     const { loading, item } = itemRequest;
     console.log(item);
     let creation = "Chargement";
+    const commentaryArray = []
     if (item){
         let toFormatDate = item.creation.split("T");
         toFormatDate = toFormatDate[0];
@@ -46,6 +52,12 @@ export default function Item() {
         creation = toFormatDate;
         if (products.length === 0){
             setProducts(item.packages);
+        }
+        let commentariesObject = [{rate: 4, body: "Teesst"},{rate: 4, body: "Teesst"},{rate: 4, body: "Teesst"},{rate: 4, body: "Teesst"},{rate: 4, body: "Teesst"}]
+        if (commentariesObject){
+            commentariesObject.forEach(commentary => {
+                commentaryArray.push(<CommentaryCard commentary={commentary}/>)
+            })
         }
     }
 
@@ -56,18 +68,25 @@ export default function Item() {
         }
         return (
             <div >
-                <div style={{display:"flex",flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
-                    <div style={{display:"flex",flexDirection:"column", width:"30%"}}>
+                <Toast ref={toast} />
+                <div style={{display:"flex",flexDirection:"row", justifyContent:"space-between", alignItems:"center", paddingBottom:"2%", paddingTop:"2%"}}>
+                    <div style={{display:"flex",flexDirection:"column", width:"20%"}}>
                         <div style={{fontFamily:"Lato,sans-serif", fontWeight:"bold", fontSize:"150%"}}>{data.name}</div>
                         <Rating value={data.rating} readOnly cancel={false}/>
+                        <div style={{fontFamily:"Lato,sans-serif", fontWeight:"bold", fontSize:"100%"}}>Stock : {data.stocks}</div>
                     </div>
-
                     <span style={{width:"",fontFamily:"Lato,sans-serif", fontSize:"100%", paddingLeft:"1%", paddingRight:"1%", backgroundColor: data.asStocks ? ("#c8e6c9") : ("#ffcdd2")}}>{data.asStocks ? ('En stock') : ('Rupture')}</span>
                     <span style={{fontFamily:"Lato,sans-serif", fontSize:"120%"}}>{data.price}€</span>
-                    <div style={{width:"10%"}}>
-                        <Button style={{fontFamily:"Lato,sans-serif"}} icon="pi pi-info-circle" label="" disabled={data.asStocks === false}/>
-                        <Button style={{fontFamily:"Lato,sans-serif", marginLeft:"2%"}} icon="pi pi-shopping-cart" label="" onClick={() => {
-                            addToCartItem(shopID, itemID, data.id, 1).then(data => console.log(data))
+                    <div style={{width:"12%"}}>
+                        <Button style={{fontFamily:"Lato,sans-serif", backgroundColor:"grey", borderColor:"grey"}} icon="pi pi-info-circle" label="" tooltip={data.description} tooltipOptions={{ position: 'left', mouseTrack: true, mouseTrackTop: 15 }}/>
+                        <Button style={{fontFamily:"Lato,sans-serif",  backgroundColor:"rgb(89, 136, 255)", borderColor:"rgb(89, 136, 255)", marginLeft:"3%"}} icon="pi pi-shopping-cart" label="" onClick={() => {
+                            addToCartItem(shopID, itemID, data.id, 1).then(data => {
+                                if (data.status === 1){
+                                    toast.current.show({severity:'error', summary: 'Erreur', detail: data.message, life: 3000});
+                                }else{
+                                    toast.current.show({severity:'success', summary: 'Succès', detail: data.message, life: 3000});
+                                }
+                            })
                         }} disabled={data.asStocks === false}/>
                     </div>
 
@@ -78,7 +97,7 @@ export default function Item() {
     }
 
     return (
-        <div>
+        <div style={{display:"flex", flexDirection:"column"}}>
             {item ? (
                 <div className="responsiveContainer">
                     <div style={{width:"20%", marginRight:"2%"}}>
@@ -97,13 +116,22 @@ export default function Item() {
                         </ScrollPanel>
                     </div>
                     <div className="containerTwo">
-                        <DataScroller value={products} itemTemplate={itemTemplate} rows={5} inline scrollHeight="500px" header="Liste des packages du produit" />
+                        <DataScroller value={products} itemTemplate={itemTemplate} rows={7} inline scrollHeight="330px" header={`Liste des packages de ${item.name}`} />
                     </div>
                 </div>
             ) : (
                 <div/>
             )}
-
+            {item ? (
+                <div style={{marginTop:"3%", width:"100%"}}>
+                    <div style={{fontFamily:"Lato, sans-serif", fontWeight:"bold", fontSize:"140%", marginBottom:"1%"}}>Commentaires</div>
+                    <ScrollPanel style={{ width: '100%', height: '320px', border:"2px solid rgb(170, 179, 179)",boxShadow: "rgb(240, 240, 240) 3px 3px 8px" }}>
+                            {commentaryArray}
+                    </ScrollPanel>
+                </div>
+            ) : (
+                <div/>
+            )}
         </div>
     )
 }

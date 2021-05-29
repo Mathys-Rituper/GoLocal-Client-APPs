@@ -24,7 +24,6 @@ export default function ProductCard({product, shopID}){
                 <img style={{width:"100%",minHeight:"200px", border:"1px solid black"}} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} src={placeHolder} alt={name}/>
                 <span style={{fontFamily:"Lato", fontSize:"120%"}}>{name}</span>
             </div>
-            <span style={{fontFamily:"Lato"}}>{new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(price)}</span>
             </div>)
     }
 

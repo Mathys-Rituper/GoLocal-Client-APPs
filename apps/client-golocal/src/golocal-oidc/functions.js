@@ -150,6 +150,7 @@ export function getAdressFromCoords(long, lat){
     return mapboxInstance
         .get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${long},${lat}.json?access_token=${MAPBOX_TOKEN}`)
         .then(res => {
+            window.localStorage.setItem("PlaceName", res.data.features[0].place_name)
             return res.data.features[0].place_name
         })
         .catch((error) => {
@@ -179,6 +180,63 @@ export function getShopsRequest(adress){
             })
 
 }
+export function getShopsFilteredRequest(filter, distance){
+    const adress = window.localStorage.getItem("PlaceName")
+    let distanceInRads;
+    switch (distance){
+        case 5:
+            distanceInRads = 0.04;
+            break;
+        case 10:
+            distanceInRads = 0.08;
+            break;
+        case 15:
+            distanceInRads = 0.12;
+            break;
+        case 20:
+            distanceInRads = 0.16;
+            break;
+        case 25:
+            distanceInRads = 0.20;
+            break;
+        case 30:
+            distanceInRads = 0.24;
+            break;
+        case 35:
+            distanceInRads = 0.28;
+            break;
+        case 40:
+            distanceInRads = 0.32;
+            break;
+        case 45:
+            distanceInRads = 0.36;
+            break;
+        case 50:
+            distanceInRads = 0.40;
+            break;
+    }
+    const instance = axios.create({
+        baseURL: 'https://localhost:5001',
+        method: "post",
+        timeout: 50000,
+    });
+    const data = {
+        "take": 300,
+        "skip": 0,
+        "range": distanceInRads,
+        "location": adress,
+        "name": filter
+    }
+    return instance
+        .post(`/api/shops`, data)
+        .then(res =>{
+            return res.data.list;
+        })
+        .catch(error =>{
+            console.log(error);
+        })
+
+}
 export function addToCartItem(shopID, itemID, packageID, quantity){
     if (middleware() === true) {
         const token = getToken();
@@ -200,10 +258,17 @@ export function addToCartItem(shopID, itemID, packageID, quantity){
             .patch(`/api/carts/shops/${shopID}/add`, data)
             .then((response) => {
                 console.log(response)
-                return {status: 0, data: "Package ajouté au panier !"}
+                return {status: 0, message: "Package ajouté au panier !"}
             })
             .catch((error) => {
-                console.log(error.status)
+                if (error.response.status === 400){
+                    return {status: 1, message: "Votre panier dépasse le stock du package"}
+                }
+                if (error.response.status === 401){
+                    oidcLogin();
+                }else{
+                    return {status: 1, message: error.response.message}
+                }
             });
     }else{
         return oidcLogin();

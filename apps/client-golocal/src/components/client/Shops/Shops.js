@@ -54,6 +54,7 @@ export default function Shops() {
                 shops.push(<ShopCard shop={shop}/>)
             })
             setShops({list: shops})
+            window.localStorage.setItem("PlaceName", adress)
             setAdress('');
         })
     }

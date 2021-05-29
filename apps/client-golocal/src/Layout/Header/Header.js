@@ -9,6 +9,7 @@ import AvatarDefault from './../../assets/avatarDef.jpg'
 import {goLocalGetUserInfo, goLocalLogout, oidcLogin, oidcRegister} from "../../golocal-oidc/functions";
 import "./Header.css"
 import { SlideMenu } from 'primereact/slidemenu';
+import {Form} from "formik";
 
 function goHome(){
     window.location.href="https://localhost:3001/";
@@ -133,8 +134,12 @@ export default function Header() {
             <div style={{display:"flex", flexDirection:"row",  alignContent:"center", alignItems:"center", marginRight:"5%", borderBottom:"2px solid #AAB3B3", width:"100%", paddingBottom:"0.5%", paddingTop:"0.5%"}}>
                 <img onClick={() => {goHome()}} className="responsive-logo" src={Logo} style={{marginLeft:"5%", cursor:"pointer"}}/>
                 <span className="p-input-icon-right" style={{width:"30%", marginLeft:"15%"}}>
-                    <i className="pi pi-search" style={{color:"#5988ff"}}/>
-                    <InputText value={value3} onChange={(e) => setValue3(e.target.value)} placeholder="Saisissez votre recherche" style={{width:"100%", borderRadius:"50px", borderColor:"#5988ff"}}/>
+                    {window.localStorage.getItem("PlaceName") !== null ? (
+                        <i className="pi pi-search" onClick={() => {window.location.href=`https://localhost:3001/shop/filtered?search=${value3}`}} style={{color:"#5988ff", cursor:"pointer"}}/>
+                    ) : (
+                        <i className="pi pi-search"  style={{color:"#5988ff", cursor:"pointer"}}/>
+                    )}
+                    <InputText value={value3}  onChange={(e) => setValue3(e.target.value)} placeholder="Saisissez votre recherche" style={{width:"100%", borderRadius:"50px", borderColor:"#5988ff"}}/>
                 </span>
                 {oidcUser ? (
                     <div className="account-cart">

@@ -50,11 +50,11 @@ export default function CreateService(){
             <div className="title">Création Service</div>
             <div style={{display:"flex", flexDirection:"column", flexWrap:"wrap", marginTop:"2%"}}>
                 <label className="label">Nom du Service</label>
-                <InputText id="username" value={value2} onChange={(e) => setValue2(e.target.value)} className="inputText"/>
+                <InputText id="username" value={value1} onChange={(e) => setValue1(e.target.value)} className="inputText"/>
             </div>
             <div style={{display:"flex", flexDirection:"column", flexWrap:"wrap", marginTop:"2%"}}>
                 <label className="label">Description du service</label>
-                <InputTextarea value={value1} onChange={(e) => setValue1(e.target.value)} rows={6} cols={40} className="inputText" />
+                <InputTextarea value={value2} onChange={(e) => setValue2(e.target.value)} rows={6} cols={40} className="inputText" />
             </div>
             <Button label="Ajouter" disabled={disabled} className="p-button-raised bouton" onClick={() => createProduct()}/>
 

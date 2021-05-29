@@ -28,6 +28,9 @@ export default function ChangeShopName(){
                 toast.current.show({severity: 'error', summary: 'Erreur', detail: data.message});
             }else{
                 toast.current.show({severity: 'success', summary: 'Succès', detail: data.data});
+                setTimeout(() => {
+                    window.location.replace("https://localhost:3002/artisan");
+                },500)
             }
         })
         setValue1('');

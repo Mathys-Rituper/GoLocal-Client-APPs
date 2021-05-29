@@ -56,11 +56,11 @@ export default function CreatePackage(){
             <div className="title">Création Package</div>
             <div style={{display:"flex", flexDirection:"column", flexWrap:"wrap", marginTop:"2%"}}>
                 <label className="label">Nom du package</label>
-                <InputText id="username" value={value2} onChange={(e) => setValue2(e.target.value)} className="inputText"/>
+                <InputText id="username" value={value1} onChange={(e) => setValue1(e.target.value)} className="inputText"/>
             </div>
             <div style={{display:"flex", flexDirection:"column", flexWrap:"wrap", marginTop:"2%"}}>
                 <label className="label">Description du package</label>
-                <InputTextarea value={value1} onChange={(e) => setValue1(e.target.value)} rows={6} cols={40} className="inputText" />
+                <InputTextarea value={value2} onChange={(e) => setValue2(e.target.value)} rows={6} cols={40} className="inputText" />
             </div>
             <div style={{width: "40%", display:"flex",flexDirection:"row", flexWrap:"wrap", justifyContent:"space-between", marginTop:"2%"}}>
                 <InputNumber id="stacked" value={value3} onValueChange={(e) => setValue3(e.value)} showButtons mode="currency" min={1} currency="EUR" style={{width:"45%"}}/>

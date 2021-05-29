@@ -47,14 +47,13 @@ export default function SidebarShop(){
     };
     const accept = () => {
         deleteShopWithToken(shopID, shopName).then(data =>{
-            console.log(data)
             if (data.status === 1){
                 toast.current.show({ severity: 'error', summary: 'Erreur', detail: data.message, life: 5000 });
             }else{
-                toast.current.show({ severity: 'success', summary: 'Succès', detail: data, life: 5000 });
+                toast.current.show({ severity: 'success', summary: 'Succès', detail: data.data, life: 5000 });
                 setTimeout(()=> {
                     window.location.replace("https://localhost:3002/artisan")
-                }, 2000)
+                }, 500)
             }
         })
     }

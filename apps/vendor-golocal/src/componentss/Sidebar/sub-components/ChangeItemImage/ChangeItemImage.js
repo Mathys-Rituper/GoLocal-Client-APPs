@@ -9,7 +9,7 @@ import {ProgressBar} from "primereact/progressbar";
 import {Tag} from "primereact/tag";
 import {Button} from "primereact/button";
 import { Toast } from 'primereact/toast';
-import {patchImageShop} from "../../../../golocal-oidc/functions";
+import {patchImageItem, patchImageShop} from "../../../../golocal-oidc/functions";
 import {useLocation} from "react-router-dom";
 
 function emptyTemplate() {
@@ -24,9 +24,10 @@ function emptyTemplate() {
 function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
-export default function ChangeImage(){
+export default function ChangeItemImage(){
     const params = useQuery();
     const shopID = params.get("shopID");
+    const itemID = params.get("item");
     const [totalSize, setTotalSize] = useState(0);
     const toast = useRef(null);
     const fileUploadRef = useRef(null);
@@ -59,7 +60,7 @@ export default function ChangeImage(){
         _totalSize += (e.files[0].size || 0);
 
         setTotalSize(_totalSize);
-        console.log(e);
+
         // const reader = new FileReader();
         // reader.readAsDataURL(e.files[0]);
         // let base64Image;
@@ -67,7 +68,7 @@ export default function ChangeImage(){
         //     base64Image = reader.result;
         //     console.log(base64Image);
 
-        patchImageShop(shopID, e).then(data => {
+        patchImageItem(shopID, itemID, e).then(data => {
             if (data.status === 1){
                 toast.current.show({severity: 'error', summary: 'Erreur', detail: data.message});
             }else{
@@ -98,7 +99,7 @@ export default function ChangeImage(){
 
     return (
         <div className="container">
-            <div className="title">CHANGEMENT IMAGE BOUTIQUE</div>
+            <div className="title">CHANGEMENT IMAGE ITEM</div>
             <Toast ref={toast}/>
             <FileUpload ref={fileUploadRef} name="demo[]" url="https://primefaces.org/primereact/showcase/upload.php" accept="image/jpeg,image/png" maxFileSize={1000000}
                         onUpload={onTemplateUpload} onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}

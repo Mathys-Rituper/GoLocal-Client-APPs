@@ -17,12 +17,13 @@ export default function ShopCard({shop}){
     if (shop.image === null) {
         shop.image = placeHolder
     }
+
     function RenderCard() {
         return (
             <div onClick={() => {window.location.href=`https://localhost:3002/artisan/shop?shopID=${shop.id}&shopName=${shop.name}`}} style={{"width":"15rem", cursor:"pointer", margin:"1%", paddingBottom:"3%"}}>
-            <img style={{width:"100%",minHeight:"200px", border:"1px solid black"}} src={shop.image}/>
+            <img style={{width:"100%",minHeight:"200px", border:"1px solid black"}} src={shop.image === placeHolder ? (shop.image) : (`data:image/jpeg;base64,${shop.image}`)}/>
             <div style={{display:"flex", flexDirection:"column"}}>
-                <span style={{fontFamily:"Lato", fontSize:"120%"}}>{shop.name}</span>
+                <span style={{fontFamily:"Lato", fontSize:"120%"}}>{shop.name.length >= 25 ? (`${shop.name.slice(0, 25)}...`) : (shop.name)}</span>
                 <span style={{fontFamily:"Lato"}}>{shop.location.city}</span>
             </div>
             </div>

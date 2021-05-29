@@ -1,80 +1,18 @@
-.map-container {
-    flex : 30%;
-
+.shops-container{
+    margin: 2%;
 }
-
-.card {
-    margin:1.5rem 0;
-}
-
-.sidebar {
-    background-color: rgba(35, 55, 75, 0.9);
-    color: #ffffff;
-    padding: 6px 12px;
-    font-family: monospace;
-    z-index: 1;
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 12px;
-    border-radius: 4px;
-}
-
-.shop-container {
-    padding : 3%;
-
-}
-.shop-first-container {
-    display:flex;
+.search-container{
+    display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
-}
-
-.items {
-    flex-basis : 25%;
-    flex-grow : 0;
-    flex-shrink: 0;
-}
-h4 {
-    padding-top: 0.5rem;
-    font-size: 2rem;
-    margin: 0 0 .5rem 0;
-    color:#47525E;
-    font-family: lato;
-}
-
-.items h5 {
-    padding-top: 0.5rem;
-    font-size: 1.2rem;
-    margin: 0;
-    color:#47525E;
-    font-family: lato;
-}
-.p-carousel-items-container{
-    padding-left: 6%;
-}
-.items p {
-    margin : .25rem 0;
-    font-size:1.1rem;
 
 }
-td {
-    padding : .2rem;
-
-}
-.p-carousel-header{
+.search-text{
     font-family: Lato, sans-serif;
-    font-size: 120%;
+    font-weight: bold;
+    font-size: 130%
 }
-
-@media screen and (max-width: 1140px){
-    .shop-first-container {
-        display:flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-    }
-}
-@media screen and (max-width: 380px){
-    .shop-first-container {
-        padding-left: 8%;
-    }
+.p-inputgroup{
+    width: 25%;
+    margin-top: 1%
 }

@@ -35,19 +35,23 @@ export default function ItemInfos(){
     }, []);
 
     const { loading, item } = itemRequest;
-    console.log(item)
 
-    let name, email, phone, creator, location, creation, openings = null;
+    let name, creation, priceAverage, priceMin, priceMax, description, hidden = null;
     let image = ShopDefaultPic;
     let rate = 1;
 
     if (item){
+        if (item.hidden === true){
+            hidden = "Caché"
+        }else{
+            hidden = "Visible"
+        }
         name = item.name;
-        email = item.contact.email;
-        phone = item.contact.phone;
+        description = item.description
+        priceAverage = item.priceAverage;
+        priceMin = item.priceMin;
+        priceMax = item.priceMax;
         rate = item.rate;
-        creator = item.user.userName;
-        location = `${item.location.address} ${item.location.street}, ${item.location.postCode} ${item.location.city} ${item.location.country}`
         if (item.image){
             image = item.image;
         }
@@ -55,17 +59,15 @@ export default function ItemInfos(){
         creation = creation[0];
         let splitedDate = creation.split("-");
         creation = splitedDate[2] + "/" + splitedDate[1] + "/" + splitedDate[0];
-        // openings = item.openings;
     } else{
         name = "Chargement ...";
-        email = "Chargement ...";
-        phone = "Chargement ...";
+        description= "Chargement ...";
         rate = 1;
-        location = "Chargement ..."
-        creator = "Chargement ...";
         creation = "Chargement ...";
-        openings = "Chargement ...";
         image= ShopDefaultPic;
+        hidden = "Chargement ...";
+        priceMin = "..";
+        priceMax = "..";
     }
 
 
@@ -73,34 +75,30 @@ export default function ItemInfos(){
         <div className="container" style={{display:"flex", flexDirection:"column"}}>
             <div style={{display:"flex", flexDirection:"column", width:"50%"}}>
                 <div className="name2" style={{fontSize:"180%", fontWeight:"bold"}}>{name}</div>
-                <div className="name2" style={{fontSize:"100%"}}>Créé par {creator} ({creation}) </div>
+                <div className="name2" style={{fontSize:"100%"}}>Créé le {creation} </div>
                 <Rating value={rate} readOnly stars={5} cancel={false} />
             </div>
             <div className="flex-container" style={{marginTop:"2%"}}>
-                <img src={image} style={{width:"12%"}}/>
+                <img src={image === ShopDefaultPic ? (image) : (`data:image/jpeg;base64,${image}`)} style={{width:"12%"}}/>
             </div>
             <div className="flex-container">
-                <div className="emailTitle">Email : </div>
-                <div className="email">{email}</div>
+                <div className="a2fTitle">Statut : </div>
+                <div className="a2f">{hidden}</div>
             </div>
             <div className="flex-container">
-                <div className="phoneTitle">Téléphone : </div>
-                <div className="phone">{phone}</div>
+                <div className="a2fTitle">Prix : </div>
+                <div className="a2f">Compris entre {priceMin}€ et {priceMax}€</div>
             </div>
             <div className="flex-container">
-                <div className="a2fTitle">Localisation : </div>
-                <div className="a2f">{location}</div>
+                <div className="a2fTitle">Prix Moyen : </div>
+                <div className="a2f">{priceAverage} €</div>
             </div>
-            <div style={{display:"flex", flexDirection:"column", flexWrap:"wrap", marginLeft:"2%"}}>
-                <div className="a2fTitle">Horaires : </div>
-                {/*<div>Lundi : {openings[0].morning.min}-{openings[0].morning.max}  {openings[0].afternoon.min}-{openings[0].afternoon.max}</div>*/}
-                {/*<div>Mardi : {openings[1].morning.min}-{openings[1].morning.max}  {openings[1].afternoon.min}-{openings[1].afternoon.max}</div>*/}
-                {/*<div>Mercredi : {openings[2].morning.min}-{openings[2].morning.max}  {openings[2].afternoon.min}-{openings[2].afternoon.max}</div>*/}
-                {/*<div>Jeudi : {openings[3].morning.min}-{openings[3].morning.max}  {openings[3].afternoon.min}-{openings[3].afternoon.max}</div>*/}
-                {/*<div>Vendredi : {openings[4].morning.min}-{openings[4].morning.max}  {openings[4].afternoon.min}-{openings[4].afternoon.max}</div>*/}
-                {/*<div>Samedi : {openings[5].morning.min}-{openings[5].morning.max}  {openings[5].afternoon.min}-{openings[5].afternoon.max}</div>*/}
-                {/*<div>Dimanche : {openings[6].morning.min}-{openings[6].morning.max}  {openings[6].afternoon.min}-{openings[6].afternoon.max}</div>*/}
+            <div className="flex-container">
+                <div className="a2fTitle">Description : </div>
+                <div className="a2f">{description}</div>
             </div>
+
+
         </div>
     )
 }

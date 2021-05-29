@@ -278,6 +278,45 @@ export function patchShopName(shopID, oldName, newName){
         return oidcLogin();
     }
 }
+export function patchItemName(shopID, itemID, oldName, newName, description){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5002',
+            method: "post",
+            timeout: 50000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        });
+        const data = {
+            "shopId": shopID,
+            "itemId": itemID,
+            "oldName": oldName,
+            "newName": newName,
+            "description": description
+        }
+        return instance
+            .post(`/api/shops/${shopID}/items/${itemID}`, data)
+            .then((response) => {
+                console.log(response);
+                return {status: 0, message:"Changement effectué"}
+            })
+            .catch((error) => {
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    if (error.response.status === 401){
+                        oidcLogin();
+                    }else{
+                        return {status: 1, message: error.message};
+                    }
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
 export function patchShopOpening(shopID, day, morningMin, morningMax, eveningMin, eveningMax){
     if (middleware() === true) {
         const token = getToken();
@@ -322,23 +361,91 @@ export function patchShopOpening(shopID, day, morningMin, morningMax, eveningMin
         return oidcLogin();
     }
 }
-export function patchImageShop(image, shopId){
+export function patchImageShop(shopId, image){
     if (middleware() === true) {
         const token = getToken();
+        const formData = new FormData();
+        formData.append("file", image.files[0]);
+        const instance = axios.create({
+            baseURL: 'https://localhost:5002',
+            method: "patch",
+            timeout: 30000,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return instance
+            .patch(`/api/shops/${shopId}/image`,formData)
+            .then((response) => {
+                return {status: 0, message:"Changement effectué"}
+            })
+            .catch((error) => {
+                if (error.status === 401){
+                    oidcLogin();
+                }
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    return {status: 1, message: error.response.data};
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
+export function patchItemVisibilityRequest(shopId, itemID, visibility){
+    console.log(shopId, itemID, visibility);
+
+    // if (middleware() === true) {
+    //     const token = getToken();
+    //     const instance = axios.create({
+    //         baseURL: 'https://localhost:5002',
+    //         method: "patch",
+    //         timeout: 30000,
+    //         headers: {
+    //             Authorization: `Bearer ${token}`,
+    //         },
+    //     });
+    //
+    //     return instance
+    //         .patch(`/api/shops/${shopId}/image`)
+    //         .then((response) => {
+    //             return {status: 0, message:"Changement effectué"}
+    //         })
+    //         .catch((error) => {
+    //             if (error.status === 401){
+    //                 oidcLogin();
+    //             }
+    //             if (error.response === undefined) {
+    //                 return {status: 1, message: error};
+    //             } else {
+    //                 return {status: 1, message: error.response.data};
+    //             }
+    //         });
+    // }else{
+    //     return oidcLogin();
+    // }
+}
+export function patchImageItem(shopId, itemID, image){
+    if (middleware() === true) {
+        const token = getToken();
+        const formData = new FormData();
+        formData.append("file", image.files[0]);
         const instance = axios.create({
             baseURL: 'https://localhost:5002',
             method: "patch",
             timeout: 10000,
             headers: {
-                Authorization: `Bearer ${token}`
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${token}`,
             },
         });
-        const data = {
-            "shopId" : shopId,
-            "image" : image
-        }
+
+
         return instance
-            .patch('/api/shops/image', data)
+            .patch(`/api/shops/${shopId}/items/${itemID}/image`,formData)
             .then((response) => {
                 console.log(response);
                 return {status: 0, message:"Changement effectué"}
@@ -422,12 +529,12 @@ export function patchLocalisation(shopID, address, street, region, postCode, cit
             })
             .catch((error) => {
                 if (error.response === undefined) {
-                    return {status: 1, message: error};
+                    return {status: 1, message: "Nous n'avons pas trouvé votre adresse"};
                 } else {
                     if (error.response.status === 401){
                         oidcLogin();
                     }else{
-                        return {status: 1, message: error.response.data};
+                        return {status: 1, message: "Nous n'avons pas trouvé votre adresse"};
                     }
                 }
             });
@@ -592,7 +699,7 @@ export function createPackageByShopIdAndItemID(shopID, itemID, name, description
         return oidcLogin();
     }
 }
-export function deleteShopWithToken(id, name){
+export function deleteShopWithToken(shopID, name){
     if (middleware() === true) {
         const token = getToken();
         const instance = axios.create({
@@ -602,16 +709,12 @@ export function deleteShopWithToken(id, name){
             headers: {
                 Authorization: `Bearer ${token}`
             },
-            data: {
-                "shopId": id,
-                "name": name
-            }
         });
 
         return instance
-            .delete(`/api/shops`)
+            .delete(`/api/shops/${name}?sid=${shopID}`)
             .then((response) => {
-                console.log(response)
+                console.log("1")
                 return {status: 0, data: "Boutique supprimé !"}
             })
             .catch((error) => {
@@ -619,8 +722,10 @@ export function deleteShopWithToken(id, name){
                     oidcLogin();
                 }
                 if (error.response === undefined) {
+                    console.log("3")
                     return {status: 1, message: error};
                 } else {
+                    console.log("4")
                     return {status: 1, message: error.response.data};
                 }
             });
@@ -656,8 +761,8 @@ export function deleteItemWithToken(shopID, id, name){
                 return {status: 0, data: "Item supprimé !"}
             })
             .catch((error) => {
-                if(error.status === 415){
-                    return {status: 1, message: error.response.data};
+                if(error.response.status === 415){
+                    return {status: 1, message: error.message};
                 }
                 if (error.response.status === 401){
                     oidcLogin();
@@ -665,7 +770,7 @@ export function deleteItemWithToken(shopID, id, name){
                 if (error.response === undefined) {
                     return {status: 1, message: error};
                 } else {
-                    return {status: 1, message: error.response.data};
+                    return {status: 1, message: error.message};
                 }
             });
     }else{

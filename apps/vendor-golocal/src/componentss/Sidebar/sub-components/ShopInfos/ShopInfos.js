@@ -26,7 +26,6 @@ export default function ShopInfos(){
         setShopRequest({ loading: true });
         getShopByID(shopID)
             .then(data => {
-                console.log(data.data);
                 setShopRequest({
                     loading: false,
                     shop: data.data,
@@ -76,7 +75,7 @@ export default function ShopInfos(){
                 <Rating value={rate} readOnly stars={5} cancel={false} />
             </div>
             <div className="flex-container" style={{marginTop:"2%"}}>
-                <img src={image} style={{width:"12%"}}/>
+                <img src={image === ShopDefaultPic ? (image) : (`data:image/jpeg;base64,${image}`)} style={{width:"12%"}}/>
             </div>
             <div className="flex-container">
                 <div className="emailTitle">Email : </div>

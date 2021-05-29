@@ -1,8 +1,8 @@
 import React from 'react'
 import Login from "../Pages/Login/Login";
 const axios = require('axios');
-const qs = require('qs');
 
+const MAPBOX_TOKEN = require("../config");
 // MiddleWare
 function middleware(){
     const token = localStorage.getItem("access_token");
@@ -134,4 +134,46 @@ export function getShopByID(id){
     }else{
         return undefined;
     }
+}
+export function getShopsRequest(type, long, lat, adress){
+    if (type === "coords"){
+        const mapboxInstance = axios.create({
+            timeout: 50000
+        });
+        return mapboxInstance
+            .get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${long},${lat}.json?access_token=${MAPBOX_TOKEN}`)
+            .then(res => {
+                const instance = axios.create({
+                    baseURL: 'https://localhost:5001',
+                    method: "post",
+                    timeout: 50000,
+                });
+                const firstReturn = [];
+                const data = {
+                    "take": 300,
+                    "skip": 0,
+                    "range": 0.08,
+                    "location": res.data.features[0].place_name,
+                    "name": ""
+                }
+                instance
+                    .post(`/api/shops`, data)
+                    .then(res =>{
+                        res.data.list.forEach(res => {
+                            firstReturn.push(res);
+                        })
+                    })
+                    .catch(error =>{
+                        console.log(error);
+                    })
+                return new Promise({data : firstReturn})
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }else {
+
+    }
+
+
 }

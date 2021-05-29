@@ -22,6 +22,11 @@ import ChangeShopName from "../../sub-components/ChangeShopName/ChangeShopName";
 import ChangeOpenings from "../../sub-components/ChangeOpenings/ChangeOpenings";
 import ItemInfos from "../../sub-components/ItemInfos/ItemInfos";
 import CreatePackage from "../../sub-components/CreatePackage/CreatePackage";
+import ChangeItemImage from "../../sub-components/ChangeItemImage/ChangeItemImage";
+import ChangeItemName from "../../sub-components/ChangeItemName/ChangeItemName";
+import ChangeItemDescription from "../../sub-components/ChangeItemDescription/ChangeItemDescription";
+import MyPackages from "../../sub-components/MyPackages/MyPackages";
+import ChangeItemVisibility from "../../sub-components/ChangeItemVisibility/ChangeItemVisibility";
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -78,12 +83,12 @@ export default function SidebarItem(){
                 {
                     label:'Modifier Description',
                     icon:'pi pi-fw pi-pencil',
-                    command : () => {modifyContact()}
+                    command : () => {modifyDescription()}
                 },
                 {
                     label:'Modifier Visibilité',
                     icon:'pi pi-fw pi-eye',
-                    command : () => {modifyContact()}
+                    command : () => {modifyVisibility()}
                 },
                 {
                     label:'Ajouter / Modifier Image',
@@ -119,23 +124,23 @@ export default function SidebarItem(){
     }
     function displayPackages(){
         if (!displayPackagesPage){
-            setComponent(<MyProducts/>)
+            setComponent(<MyPackages/>)
             setDisplayPackagesPage(true);
             setDisplayGlobal(false);
         }
     }
     function modifyName(){
-        setComponent(<ChangeShopName/>)
+        setComponent(<ChangeItemName/>)
         setDisplayGlobal(false);
         setDisplayPackagesPage(false);
     }
     function modifyImage(){
-        setComponent(<ChangeImage/>)
+        setComponent(<ChangeItemImage/>)
         setDisplayGlobal(false);
         setDisplayPackagesPage(false);
     }
-    function modifyContact(){
-        setComponent(<ModifyContact/>)
+    function modifyDescription(){
+        setComponent(<ChangeItemDescription/>)
         setDisplayGlobal(false);
         setDisplayPackagesPage(false);
     }
@@ -144,8 +149,8 @@ export default function SidebarItem(){
         setDisplayGlobal(false);
         setDisplayPackagesPage(false);
     }
-    function createService(){
-        setComponent(<CreateService/>)
+    function modifyVisibility(){
+        setComponent(<ChangeItemVisibility/>)
         setDisplayGlobal(false);
         setDisplayPackagesPage(false);
     }

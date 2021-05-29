@@ -34,14 +34,19 @@ export default function Header() {
     const menu = useRef(null);
     const items = [
         {
+            label:'Panier',
+            icon:'pi pi-fw pi-shopping-cart',
+            command: () => {window.location.href="https://localhost:3001/cart"}
+        },
+        {
             label:'Commandes',
             icon:'pi pi-fw pi-euro',
-            command: () => {window.location.href="./orders"}
+            command: () => {window.location.href="https://localhost:3001/orders"}
         },
         {
             label:'Messagerie',
             icon:'pi pi-fw pi-send',
-            command: () => {window.location.href="./messages}"}
+            command: () => {window.location.href="https://localhost:3001/messages"}
         },
         {
             label:'Artisan',
@@ -55,7 +60,7 @@ export default function Header() {
                 {
                     label:'Informations',
                     icon:'pi pi-fw pi-info-circle',
-                    command: () => {window.location.href="https://localhost:3002/artisan/become-artisan"}
+                    command: () => {window.location.href="https://localhost:3001/artisan/become-artisan"}
                 }
             ]
         },
@@ -72,7 +77,7 @@ export default function Header() {
         {
             label:'Messagerie',
             icon:'pi pi-fw pi-send',
-            command: () => {window.location.href="./messages}"}
+            command: () => {window.location.href="https://localhost:3001/messages"}
         },
         {
             separator:true
@@ -80,12 +85,12 @@ export default function Header() {
         {
             label:'Panier',
             icon:'pi pi-shopping-cart',
-            command: () => {window.location.href="./cart"}
+            command: () => {window.location.href="https://localhost:3001/cart"}
         },
         {
             label:'Commandes',
             icon:'pi pi-fw pi-euro',
-            command: () => {window.location.href="./orders"}
+            command: () => {window.location.href="https://localhost:3001/orders"}
         },
         {
             separator:true
@@ -98,7 +103,7 @@ export default function Header() {
         {
             label:'Infos Artisan',
             icon:'pi pi-fw pi-info-circle',
-            command: () => {window.location.href="https://localhost:3002/artisan/become-artisan"}
+            command: () => {window.location.href="https://localhost:3001/artisan/become-artisan"}
         },
         {
             separator:true
@@ -126,7 +131,7 @@ export default function Header() {
                 {oidcUser ? (
                     <div className="account-cart">
                         <TieredMenu model={items} popup ref={menu} style={{width:"12%"}}/>
-                        <Avatar onClick={() => {window.location.href="/account"}} image={avatar} style={{cursor:"pointer"}} className="p-mr-2" size="large" shape="circle" />
+                        <Avatar onClick={() => {window.location.href="https://localhost:3001/account"}} image={avatar} style={{cursor:"pointer"}} className="p-mr-2" size="large" shape="circle" />
                         <a style={{fontSize:"100%"}}>
                             Bonjour {oidcUser.userName} <br/> <b><span onClick={(event) => menu.current.toggle(event)}  style={{cursor:"pointer"}}>Mon Compte ▾</span></b>
                         </a>

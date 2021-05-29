@@ -25,19 +25,16 @@ export default function ChangeItemName(){
     const [value1, setValue1] = useState();
     const toast = useRef(null);
     function createProduct(){
-        getItemByID(shopID, itemID).then(data => {
-        patchItemName(shopID, itemID, itemName, value1, data.data.description).then(data => {
+        patchItemName(shopID, itemID, itemName, value1).then(data => {
             if (data.status === 1){
                 toast.current.show({severity: 'error', summary: 'Erreur', detail: data.message});
             }else{
                 toast.current.show({severity: 'success', summary: 'Succès', detail: data.data});
                 setTimeout(() => {
                     window.location.replace(`https://localhost:3002/artisan/shop?shopID=${shopID}&shopName=${shopName}`)
-                },2000)
+                },500)
             }
         })
-        })
-
         setValue1('');
     }
 

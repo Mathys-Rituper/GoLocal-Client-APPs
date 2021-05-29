@@ -33,7 +33,7 @@ export default function MyAccountMenuItem({ typeMenuItem }) {
                 break;
 
             case "seller":
-                return {title:"Devenir vendeur", url: "https://localhost:3002/", target:"_self"};
+                return {title:"Panel Artisan", url: "https://localhost:3002/", target:"_self"};
                 break;
             case "faq":
                 return {title:"FAQ", url: "/faq", target:"_self"};

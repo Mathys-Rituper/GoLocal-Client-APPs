@@ -7,7 +7,13 @@ import "./ChangeItemDescription.css"
 import {InputTextarea} from "primereact/inputtextarea";
 import {InputText} from "primereact/inputtext";
 import {Button} from "primereact/button";
-import {createProductByShopID, getItemByID, patchItemName, patchShopName} from "../../../../golocal-oidc/functions";
+import {
+    createProductByShopID,
+    getItemByID,
+    patchItemDescription,
+    patchItemName,
+    patchShopName
+} from "../../../../golocal-oidc/functions";
 import {useLocation} from "react-router-dom";
 import {Toast} from "primereact/toast";
 
@@ -25,9 +31,7 @@ export default function ChangeItemDescription(){
     const [value1, setValue1] = useState();
     const toast = useRef(null);
     function changeItemDescription(){
-        getItemByID(shopID, itemID).then(data => {
-            console.log(data.data.name)
-        patchItemName(shopID, itemID, data.data.name, data.data.name, value1).then(data => {
+        patchItemDescription(shopID, itemID, value1).then(data => {
             if (data.status === 1){
                 toast.current.show({severity: 'error', summary: 'Erreur', detail: data.message});
             }else{
@@ -37,8 +41,6 @@ export default function ChangeItemDescription(){
                 },2000)
             }
         })
-        })
-
         setValue1('');
     }
 

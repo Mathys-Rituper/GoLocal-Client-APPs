@@ -278,12 +278,12 @@ export function patchShopName(shopID, oldName, newName){
         return oidcLogin();
     }
 }
-export function patchItemName(shopID, itemID, oldName, newName, description){
+export function patchItemName(shopID, itemID, oldName, newName){
     if (middleware() === true) {
         const token = getToken();
         const instance = axios.create({
             baseURL: 'https://localhost:5002',
-            method: "post",
+            method: "patch",
             timeout: 50000,
             headers: {
                 Authorization: `Bearer ${token}`
@@ -293,11 +293,47 @@ export function patchItemName(shopID, itemID, oldName, newName, description){
             "shopId": shopID,
             "itemId": itemID,
             "oldName": oldName,
-            "newName": newName,
+            "newName": newName
+        }
+        return instance
+            .patch(`/api/shops/${shopID}/items/${itemID}`, data)
+            .then((response) => {
+                console.log(response);
+                return {status: 0, message:"Changement effectué"}
+            })
+            .catch((error) => {
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    if (error.response.status === 401){
+                        oidcLogin();
+                    }else{
+                        return {status: 1, message: error.message};
+                    }
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
+export function patchItemDescription(shopID, itemID, description){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5002',
+            method: "patch",
+            timeout: 50000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        });
+        const data = {
+            "shopId": shopID,
+            "itemId": itemID,
             "description": description
         }
         return instance
-            .post(`/api/shops/${shopID}/items/${itemID}`, data)
+            .patch(`/api/shops/${shopID}/items/description`, data)
             .then((response) => {
                 console.log(response);
                 return {status: 0, message:"Changement effectué"}

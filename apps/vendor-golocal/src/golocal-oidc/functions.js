@@ -690,29 +690,32 @@ export function createPackageByShopIdAndItemID(shopID, itemID, name, description
                     oidcLogin();
                 }
                 if (error.response === undefined) {
-                    return {status: 1, message: error};
+                    return {status: 1, message: "Ce package existe déjà"};
                 } else {
-                    return {status: 1, message: error.response.data};
+                    return {status: 1, message: error.response.message};
                 }
             });
     }else{
         return oidcLogin();
     }
 }
-export function deleteShopWithToken(shopID, name){
+export function deleteShopWithToken(shopID){
     if (middleware() === true) {
         const token = getToken();
         const instance = axios.create({
             baseURL: 'https://localhost:5002',
-            method: "delete",
+            method: "patch",
             timeout: 5000,
             headers: {
                 Authorization: `Bearer ${token}`
             },
         });
-
+        const data = {
+            "shopId": shopID,
+            "visibility": 1
+        }
         return instance
-            .delete(`/api/shops/${name}?sid=${shopID}`)
+            .patch(`/api/shops/visibility`, data)
             .then((response) => {
                 console.log("1")
                 return {status: 0, data: "Boutique supprimé !"}

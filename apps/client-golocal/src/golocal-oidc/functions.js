@@ -113,15 +113,11 @@ export function goLocalGetUserInfo(){
     }
 }
 export function getShopByID(id){
-    if (middleware() === true){
-        const token = getToken();
         const instance = axios.create({
             baseURL: 'https://localhost:5001',
             method: "get",
             timeout: 3000,
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
+            headers: {},
             data: {}
         });
         return instance
@@ -131,49 +127,85 @@ export function getShopByID(id){
                 console.log(error);
                 // oidcLogin();
             })
-    }else{
-        return undefined;
-    }
 }
-export function getShopsRequest(type, long, lat, adress){
-    if (type === "coords"){
-        const mapboxInstance = axios.create({
-            timeout: 50000
+export function getItemByID(shopID, itemID){
+    const instance = axios.create({
+        baseURL: 'https://localhost:5001',
+        method: "get",
+        timeout: 3000,
+        headers: {},
+        data: {}
+    });
+    return instance
+        .get(`/api/shops/${shopID}/items/${itemID}`)
+        .then(res => res.data)
+        .catch(error =>{
+            console.log(error);
+        })
+}
+export function getAdressFromCoords(long, lat){
+    const mapboxInstance = axios.create({
+        timeout: 50000
+    });
+    return mapboxInstance
+        .get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${long},${lat}.json?access_token=${MAPBOX_TOKEN}`)
+        .then(res => {
+            return res.data.features[0].place_name
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+}
+export function getShopsRequest(adress){
+        const instance = axios.create({
+            baseURL: 'https://localhost:5001',
+            method: "post",
+            timeout: 50000,
         });
-        return mapboxInstance
-            .get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${long},${lat}.json?access_token=${MAPBOX_TOKEN}`)
-            .then(res => {
-                const instance = axios.create({
-                    baseURL: 'https://localhost:5001',
-                    method: "post",
-                    timeout: 50000,
-                });
-                const firstReturn = [];
-                const data = {
-                    "take": 300,
-                    "skip": 0,
-                    "range": 0.08,
-                    "location": res.data.features[0].place_name,
-                    "name": ""
-                }
-                instance
-                    .post(`/api/shops`, data)
-                    .then(res =>{
-                        res.data.list.forEach(res => {
-                            firstReturn.push(res);
-                        })
-                    })
-                    .catch(error =>{
-                        console.log(error);
-                    })
-                return new Promise({data : firstReturn})
+        const data = {
+            "take": 300,
+            "skip": 0,
+            "range": 0.08,
+            "location": adress,
+            "name": ""
+        }
+        return instance
+            .post(`/api/shops`, data)
+            .then(res =>{
+                return res.data.list;
+            })
+            .catch(error =>{
+                console.log(error);
+            })
+
+}
+export function addToCartItem(shopID, itemID, packageID, quantity){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5001',
+            method: "put",
+            timeout: 30000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const data = {
+            "shopId": shopID,
+            "packageId": packageID,
+            "itemId": itemID,
+            "quantity": quantity
+        }
+        return instance
+            .patch(`/api/carts/shops/${shopID}/add`, data)
+            .then((response) => {
+                console.log(response)
+                return {status: 0, data: "Package ajouté au panier !"}
             })
             .catch((error) => {
-                console.log(error)
-            })
-    }else {
-
+                console.log(error.status)
+            });
+    }else{
+        return oidcLogin();
     }
-
-
 }

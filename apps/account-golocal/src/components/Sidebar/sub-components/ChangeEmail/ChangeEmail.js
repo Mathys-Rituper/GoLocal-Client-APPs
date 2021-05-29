@@ -64,7 +64,7 @@ export default function ChangeEmail(){
                             if (data.status === 1){
                                 toast.current.show({severity: 'error', summary: 'Erreur', detail: data.message});
                             }else{
-                                toast.current.show({severity: 'succes', summary: 'Succès', detail: data.message});
+                                toast.current.show({severity: 'success', summary: 'Succès', detail: data.message});
                             }
                         })
                     }} label="Valider" style={{width:"10%", marginTop:"2%"}} className="p-button-raised" />

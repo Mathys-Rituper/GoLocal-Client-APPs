@@ -60,7 +60,7 @@ export default function Header() {
                 {
                     label:'Informations',
                     icon:'pi pi-fw pi-info-circle',
-                    command: () => {window.location.href="https://localhost:3002/artisan/become-artisan"}
+                    command: () => {window.location.href="https://localhost:3001/artisan/become-artisan"}
                 }
             ]
         },
@@ -108,7 +108,7 @@ export default function Header() {
         {
             label:'Infos Artisan',
             icon:'pi pi-fw pi-info-circle',
-            command: () => {window.location.href="https://localhost:3002/artisan/become-artisan"}
+            command: () => {window.location.href="https://localhost:3000/artisan/become-artisan"}
         },
         {
             separator:true

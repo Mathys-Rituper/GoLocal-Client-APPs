@@ -9,11 +9,11 @@ export default function NotFound() {
         window.location.replace("./");
     }
     setTimeout(function(){
-        window.location.replace("./");
+        window.location.replace("https://localhost:3001/");
         },10000)
 
     function redirect(){
-            window.location.href='./';
+            window.location.href='https://localhost:3001/';
     }
 
     return(

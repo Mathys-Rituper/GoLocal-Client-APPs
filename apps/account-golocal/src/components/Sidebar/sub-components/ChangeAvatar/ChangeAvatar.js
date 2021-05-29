@@ -54,21 +54,14 @@ export default function ChangeAvatar(){
 
         setTotalSize(_totalSize);
         console.log(e);
-        const reader = new FileReader();
-        reader.readAsDataURL(e.files[0]);
-        let base64Image;
-        reader.onloadend = function() {
-            base64Image = reader.result;
-            console.log(base64Image);
+        patchAvatar(e).then(data => {
+            if (data.status === 1){
+                toast.current.show({severity: 'error', summary: 'Erreur', detail: data.message});
+            }else{
+                toast.current.show({severity: 'info', summary: 'Success', detail: data.message});
+            }
+        })
 
-            patchAvatar(base64Image).then(data => {
-                if (data.status === 1){
-                    toast.current.show({severity: 'error', summary: 'Erreur', detail: data.message});
-                }else{
-                    toast.current.show({severity: 'info', summary: 'Success', detail: data.message});
-                }
-            })
-        }
     }
     const onTemplateClear = () => {
         setTotalSize(0);

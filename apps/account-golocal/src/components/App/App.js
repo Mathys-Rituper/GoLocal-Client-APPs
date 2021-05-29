@@ -11,6 +11,8 @@ import Login from "../../Pages/Login/Login";
 import ConfirmPasswordPage from "../../Pages/ConfirmPassword/ConfirmPasswordPage"
 import ResetPasswordPage from "../../Pages/ResetPassword/ResetPasswordPage";
 import AccountPage from "../../Pages/Account/Account";
+import ConfirmEmailChangePage from "../../Pages/ConfirmEmailChange/ConfirmEmailChangePage";
+
 
 function App() {
 
@@ -26,6 +28,9 @@ function App() {
                     </Route>
                     <Route exact path="/account/register/confirmation">
                         <ConfirmAccountPage/>
+                    </Route>
+                    <Route exact path="/security/email/confirmation">
+                        <ConfirmEmailChangePage/>
                     </Route>
                     <Route exact path="/forgotPassword">
                         <ResetPasswordPage/>

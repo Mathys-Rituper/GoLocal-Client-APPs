@@ -69,10 +69,36 @@ export function confirmAccountRequest(token, uid){
         return instance
         .post('/account/register/confirmation',data)
         .then(res => {
-            console.log(res.data)
             return res.data;
         })
         .catch(error =>{
+            if (error.response === undefined){
+                return error;
+            }else{
+                return error.response.data.message;
+            }
+        })
+}
+export function confirmChangeEmailRequest(token, uid, email){
+    const instance = axios.create({
+        baseURL: 'https://localhost:5000',
+        method: "post",
+        timeout: 30000,
+        headers: {},
+    });
+    const data = {
+        "uid": uid,
+        "email": email,
+        "token": token
+    }
+
+    return instance
+        .post('/security/email/confirmation',data)
+        .then(res => {
+            return res.data;
+        })
+        .catch(error =>{
+            console.log(error.response)
             if (error.response === undefined){
                 return error;
             }else{
@@ -158,21 +184,22 @@ export function goLocalGetUserInfo(){
 export function patchAvatar(avatar){
     if (middleware() === true) {
         const token = getToken();
+        const formData = new FormData();
+        formData.append("file", avatar.files[0]);
         const instance = axios.create({
             baseURL: 'https://localhost:5000',
-            method: "post",
+            method: "patch",
             timeout: 30000,
             headers: {
-                Authorization: `Bearer ${token}`
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${token}`,
             },
         });
-        const data = {
-            "avatar" : avatar
-        }
+
         return instance
-            .post('/account/avatar', data)
+            .patch(`/users/avatar`,formData)
             .then((response) => {
-                console.log(response);
+                console.log(response)
                 return {status: 0, message:"Changement effectué"}
             })
             .catch((error) => {
@@ -241,7 +268,7 @@ export function resetEmailWithToken(email){
         return instance
             .patch('/security/email', data)
             .then((response) => {
-                return {statut: 0, message:"Changement effectué"}
+                return {statut: 0, message:"Un email vous a été envoyé."}
             })
             .catch((error) => {
                 if (error.status === 401){

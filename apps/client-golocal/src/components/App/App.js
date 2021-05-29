@@ -16,8 +16,8 @@ import ShopWithFilter from "../../Pages/Shop/ShopWithFilter";
 import Login from "../../Pages/Login/Login";
 import Register from "../../Pages/Register/Register";
 import BecomeVendor from "../../Pages/BecomeVendor/BecomeVendor";
-import Product from "../../Pages/Product/Product";
 import Cart from "../Cart/Cart";
+import ItemPage from "../../Pages/Item/ItemPage";
 
 function App() {
 
@@ -43,8 +43,8 @@ function App() {
                     <Route path="/register">
                         <Register/>
                     </Route>
-                    <Route path="/product">
-                        <Product/>
+                    <Route exact path="/shop/item">
+                        <ItemPage/>
                     </Route>
                     <Route path="/artisan/become-artisan">
                         <BecomeVendor/>

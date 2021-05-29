@@ -8,7 +8,8 @@ import {Dialog} from "primereact/dialog";
 import {Button} from "primereact/button";
 import {InputText} from "primereact/inputtext";
 import {ScrollPanel} from "primereact/scrollpanel";
-import {getShopsRequest} from "../../../golocal-oidc/functions";
+import {getAdressFromCoords, getShopsRequest} from "../../../golocal-oidc/functions";
+import ShopCard from "./ShopCard";
 
 
 function refuse(){
@@ -27,17 +28,15 @@ function renderFooter(){
         </div>
     );
 }
-function getShops(type, long, lat, adress){
-    getShopsRequest(type, long, lat, adress);
-}
+
 
 export default function Shops() {
 
-
     let cookies;
-
     cookies = window.localStorage.getItem("accept_cookies") !== "accepted";
     const [display, setDisplay] = useState(cookies);
+    const [adress, setAdress] = useState('');
+    const [disabled, setDisabled] = useState(true);
     const [shops, setShops] = useState({
         loading : true,
         list : []
@@ -48,6 +47,16 @@ export default function Shops() {
         loading : true
     })
 
+    function getShopsByAdress(adress){
+        getShopsRequest(adress).then(data => {
+            let shops = [];
+            data.forEach(shop => {
+                shops.push(<ShopCard shop={shop}/>)
+            })
+            setShops({list: shops})
+            setAdress('');
+        })
+    }
 
     if (coords.loading){
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -55,13 +64,27 @@ export default function Shops() {
                 lng : position.coords.longitude,
                 lat : position.coords.latitude
             })
-            getShops("coords", position.coords.longitude, position.coords.latitude, null).then(data => {
-
+            getAdressFromCoords(position.coords.longitude, position.coords.latitude).then(data => {
+                getShopsRequest(data).then(data => {
+                    let shops = [];
+                    data.forEach(shop => {
+                        shops.push(<ShopCard shop={shop}/>)
+                    })
+                    setShops({list: shops})
+                })
             })
             setCoords({loading: false});
         });
     }
-    console.log(shops.list)
+    if (adress !== '' || adress !== null || adress !== undefined){
+        if (disabled === true){
+            setDisabled(false);
+        }
+    }else{
+        if (disabled === false){
+            setDisabled(true);
+        }
+    }
     return (
         <div className="shops-container">
             <Dialog header="Header" visible={display}  header="Acceptation des cookies"  breakpoints={{'960px': '75vw'}} style={{width: '50vw'}} footer={renderFooter()}>
@@ -74,13 +97,13 @@ export default function Shops() {
             <div className="search-container">
                 <div className="search-text">Recherchez les boutiques proches de chez vous : </div>
                 <div className="p-inputgroup">
-                    <InputText placeholder="Votre Adresse"/>
-                    <Button label="Rechercher"/>
+                    <InputText value={adress} onChange={(e) => setAdress(e.target.value)} placeholder="Votre Adresse"/>
+                    <Button disabled={disabled} onClick={() => {getShopsByAdress(adress)}} label="Rechercher"/>
                 </div>
             </div>
-            <ScrollPanel style={{ width: '100%', height: '600px', marginTop:"1%" }}>
-                <div style={{ padding: '1em', lineHeight: '1.5' }}>
-
+            <ScrollPanel style={{ width: '100%', height: '600px', marginTop:"1%", marginLeft:"4%" }}>
+                <div style={{ padding: '1em', lineHeight: '1.5', display:"flex", flexDirection:"row", flexWrap:"wrap" }}>
+                    {shops.list.length !== 0 ? (shops.list) : (<div/>)}
                 </div>
             </ScrollPanel>
         </div>

@@ -1,0 +1,27 @@
+#confirmed > * {
+    text-align:center;
+}
+
+#confirmed {
+    margin-top:4rem;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#confirmed h3 {
+    font-weight:bold;
+    font-size:3rem;
+    color: #101010;
+}
+#confirmed p {
+    font-size:1.3rem;
+}
+
+#confirmed {
+    margin:0;
+}
+
+#confirmed #button {
+    align-self:center;
+}

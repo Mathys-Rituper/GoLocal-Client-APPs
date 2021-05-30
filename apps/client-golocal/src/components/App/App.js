@@ -18,6 +18,8 @@ import Register from "../../Pages/Register/Register";
 import BecomeVendor from "../../Pages/BecomeVendor/BecomeVendor";
 import Cart from "../Cart/Cart";
 import ItemPage from "../../Pages/Item/ItemPage";
+import ConfirmedOrder from "../../components/Cart/ConfirmedOrder";
+
 
 function App() {
 
@@ -59,9 +61,14 @@ function App() {
                         <Header/>
                         <Cart></Cart>
                     </Route>
+                    <Route path={"/confirmedOrder"}>
+                        <Header></Header>
+                        <ConfirmedOrder></ConfirmedOrder>
+                    </Route>
                     <Route path="*">
                         <NoMatch/>
                     </Route>
+
                 </Switch>
         </Router>
     </div>

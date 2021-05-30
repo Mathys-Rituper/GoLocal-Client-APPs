@@ -44,7 +44,7 @@ function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 export default function Shop() {
-    const MAPBOX_TOKEN = require('../../../config')
+    const MAPBOX_TOKEN = require('../../../config.js')
     const responsiveOptions = [
         {
             breakpoint: '1024px',

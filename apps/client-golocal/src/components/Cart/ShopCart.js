@@ -9,6 +9,8 @@ import {Accordion, AccordionTab} from "primereact/accordion";
 import React from 'react';
 import {Button} from "primereact/button";
 import {InputNumber} from "primereact/inputnumber";
+import './Cart.css'
+
 function getPrice(content) {
     let somme =0;
     for (const row of content){
@@ -38,18 +40,17 @@ function deleteBodyTemplate(rowData){
 }
 
 
-function quantityBodyTemplate(rowData){
+function quantityBodyTemplate(rowData) {
 
-    return(
-        <div style={{display:"flex"}}>
-            <InputNumber value={rowData.quantity} onValueChange={(e) =>{
-                rowData.quantity=e.value;
-                }} min={1} max={30} showButtons style={{width:"80%"}}/>
-            <Button icon="pi pi-check" onClick={()=>patchRow(rowData)}/>
-        </div> );
+    return (
+        <div style={{display: "flex"}}>
+            <InputNumber value={rowData.quantity} onValueChange={(e) => {
+                rowData.quantity = e.value;
+            }} min={1} max={30} showButtons style={{width: "80%"}}/>
+            <Button icon="pi pi-check" onClick={() => patchRow(rowData)}/>
+        </div>);
 
 }
-
 function deleteLine(rowData){
     console.log(`Suppression de la ligne ${rowData.rowId} dans la commande ${rowData.cartId} du shop ${rowData.shopId}`)
     window.location.reload(false);
@@ -68,7 +69,7 @@ export default function ShopCart({order}){
     const header = "Contenu du panier :";
 
     return (<div>
-        <Accordion className="color">
+        <Accordion className="color cartaccordion">
             <AccordionTab header={`Votre panier chez ${order.shopName} (${order.orderContent.length} Articles)`}>
                 <DataTable value={order.orderContent} header={header}>
                     <Column field={"image"} header={"Image"} body={imageBodyTemplate} ></Column>

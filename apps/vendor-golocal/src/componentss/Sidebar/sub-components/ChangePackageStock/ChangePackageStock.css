@@ -1,0 +1,37 @@
+.container{
+    display: flex;
+    flex-direction: column;
+}
+.inputText{
+    width: 40%;
+}
+.bouton{
+    width: 40%;
+    margin-top: 2%;
+}
+.label{
+    font-family: Lato, sans-serif;
+    font-size: 110%;
+}
+@media screen and (max-width: 650px){
+    .inputText{
+        width: 60%;
+    }
+    .bouton{
+        width: 60%;
+    }
+    .label{
+        font-size: 120%;
+    }
+}
+@media screen and (max-width: 320px){
+    .inputText{
+        width: 80%;
+    }
+    .bouton{
+        width: 80%;
+    }
+    .label{
+        font-size: 140%;
+    }
+}

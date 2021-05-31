@@ -279,6 +279,52 @@ export function addToCartItem(shopID, itemID, packageID, quantity){
         return oidcLogin();
     }
 }
+export function removeItemFromCart(shopID, packageID, quantity){
+    if (middleware() === true) {
+        goLocalGetUserInfo().then(data =>{
+            if (data.id === null){
+                oidcLogin();
+            }
+        })
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5001',
+            method: "patch",
+            timeout: 30000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const data = {
+            "shopId": shopID,
+            "packageId": packageID,
+            "quantity": quantity
+        }
+        return instance
+            .patch(`/api/carts/shops/${shopID}/remove`, data)
+            .then((response) => {
+                console.log(response)
+                if (quantity > 1){
+                    return {status: 0, message: "Une unité de ce package retiré du panier"}
+                }else{
+                    return {status: 0, message: "Package retiré du panier !"}
+                }
+
+            })
+            .catch((error) => {
+                if (error.response.status === 400){
+                    return {status: 1, message: "Votre panier dépasse le stock du package"}
+                }
+                if (error.response.status === 401){
+                    oidcLogin();
+                }else{
+                    return {status: 1, message: error.response.message}
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
 export function addToCommandPackage(shopID, serviceID, packageID, price, spec){
     if (middleware() === true) {
         goLocalGetUserInfo().then(data =>{
@@ -311,6 +357,116 @@ export function addToCommandPackage(shopID, serviceID, packageID, price, spec){
             .catch((error) => {
                 if (error.response.status === 400){
                     return {status: 1, message: "Votre panier dépasse le stock du package"}
+                }
+                if (error.response.status === 401){
+                    oidcLogin();
+                }else{
+                    return {status: 1, message: error.response.message}
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
+export function getCart(){
+    if (middleware() === true) {
+        goLocalGetUserInfo().then(data =>{
+            if (data.id === null){
+                oidcLogin();
+            }
+        })
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5001',
+            method: "post",
+            timeout: 30000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const data = {
+            "take": 999,
+            "skip": 0
+        }
+        return instance
+            .post(`/api/carts/invoices`, data)
+            .then((response) => {
+                return {status: 0, data: response.data.list}
+            })
+            .catch((error) => {
+                if (error.response.status === 400){
+                    return {status: 1, message: "Problème de panier !"}
+                }
+                if (error.response.status === 401){
+                    oidcLogin();
+                }else{
+                    return {status: 1, message: error.response.message}
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
+export function validateCart(shopID){
+    if (middleware() === true) {
+        goLocalGetUserInfo().then(data =>{
+            if (data.id === null){
+                oidcLogin();
+            }
+        })
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5001',
+            method: "post",
+            timeout: 30000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return instance
+            .post(`/api/carts/shops/${shopID}`)
+            .then((response) => {
+                return {status: 0, message: "Panier Validé"}
+            })
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status === 400){
+                    return {status: 1, message: "Problème de validation de panier !"}
+                }
+                if (error.response.status === 401){
+                    oidcLogin();
+                }else{
+                    return {status: 1, message: error.response.message}
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
+export function removeShopFromCart(sid){
+    if (middleware() === true) {
+        goLocalGetUserInfo().then(data =>{
+            if (data.id === null){
+                oidcLogin();
+            }
+        })
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5001',
+            method: "delete",
+            timeout: 30000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return instance
+            .delete(`/api/carts/shops/${sid}`)
+            .then((response) => {
+                return {status: 0, message: "Le panier de cette boutique a été supprimé"}
+            })
+            .catch((error) => {
+                if (error.response.status === 400){
+                    return {status: 1, message: "Problème de panier !"}
                 }
                 if (error.response.status === 401){
                     oidcLogin();

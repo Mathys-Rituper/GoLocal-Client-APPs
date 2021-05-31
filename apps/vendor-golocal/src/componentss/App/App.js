@@ -10,6 +10,7 @@ import ArtisanPage from "../../Pages/Artisan/Artisan";
 import Login from "../../Pages/Login/Login";
 import ShopPage from "../../Pages/Shop/Shop";
 import ItemPage from "../../Pages/Item/Service";
+import PackagePage from "../../Pages/Package/PackagePage";
 
 
 function App() {
@@ -32,6 +33,9 @@ function App() {
               </Route>
               <Route exact path="/artisan/shop/item">
                   <ItemPage/>
+              </Route>
+              <Route exact path="/artisan/shop/item/package">
+                  <PackagePage/>
               </Route>
             <Route path="*">
               <NoMatch/>

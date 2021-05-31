@@ -37,6 +37,7 @@ export default function SidebarItem(){
     const shopName = params.get("shopName");
     const itemID = params.get("item");
     const itemName = params.get("itemName");
+    const visibility = params.get("visibility");
     const [component, setComponent] = useState(<ItemInfos/>)
     const [displayGlobal, setDisplayGlobal] = useState(true)
     const [displayPackagesPage, setDisplayPackagesPage] = useState(false)
@@ -86,15 +87,15 @@ export default function SidebarItem(){
                     command : () => {modifyDescription()}
                 },
                 {
-                    label:'Modifier Visibilité',
-                    icon:'pi pi-fw pi-eye',
-                    command : () => {modifyVisibility()}
-                },
-                {
                     label:'Ajouter / Modifier Image',
                     icon:'pi pi-fw pi-image',
                     command : () => {modifyImage()}
                 },
+                // {
+                //     label:'Modifier Visibilité',
+                //     icon:'pi pi-fw pi-eye',
+                //     command : () => {modifyVisibility()}
+                //},
                 {
                     label:'Supprimer Item',
                     icon:'pi pi-exclamation-triangle',
@@ -161,7 +162,7 @@ export default function SidebarItem(){
             <div style={{display:"flex", flexDirection:"row", minHeight:"830px"}}>
                 <Toast ref={toast} />
                 <div style={{width:'18%', backgroundColor:"#f8f9fa", borderRight:"2px solid rgb(170, 179, 179)"}}>
-                    <div style={{fontFamily:"Lato, sans-serif", fontSize:"150%", marginLeft:"3%", paddingTop:"5%", marginBottom:"5%", fontWeight:"bold", cursor:"pointer"}} onClick={() =>{window.location.href=`https://localhost:3002/artisan/shop?shopID=${shopID}&shopName=${shopName}`}}>{"<"} Retour Boutique</div>
+                    <div style={{fontFamily:"Lato, sans-serif", fontSize:"150%", marginLeft:"3%", paddingTop:"5%", marginBottom:"5%", fontWeight:"bold", cursor:"pointer"}} onClick={() =>{window.location.href=`https://localhost:3002/artisan/shop?shopID=${shopID}&shopName=${shopName}&visibility=${visibility}`}}>{"<"} Retour Boutique</div>
                     <PanelMenu model={items} multiple={true} />
                 </div>
                 <div style={{padding:"3%", width:"82%"}}>

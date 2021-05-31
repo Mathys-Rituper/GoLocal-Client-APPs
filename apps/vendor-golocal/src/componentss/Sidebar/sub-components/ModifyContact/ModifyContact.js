@@ -27,7 +27,6 @@ export default function ModifyContact(){
     const toast = useRef(null);
     function modifyContact(){
         patchContacts(shopID, value1, value2).then(data => {
-            console.log(data);
             if (data.status === 1){
                 toast.current.show({severity: 'error', summary: 'Erreur', detail: data.message});
             }else{

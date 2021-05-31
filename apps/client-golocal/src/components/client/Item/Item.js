@@ -196,11 +196,11 @@ export default function Item() {
                         </div>
                         <div style={{display: "flex", flexDirection:"column", flexWrap:"wrap", marginTop:"2%"}}>
                             <div style={{fontFamily:"Lato, sans-serif", fontWeight:"bold", fontSize:"120%"}}>Votre prix : </div>
-                            <InputNumber id="minmax-buttons" value={price} onValueChange={(e) => setPrice(e.value)} mode="decimal" showButtons min={1} max={9999} />
+                            <InputNumber id="minmax-buttons" value={price} onValueChange={(e) => setPrice(e.value)} showButtons mode="currency" currency="EUR" min={1} max={9999} />
                         </div>
                         <div style={{display: "flex", flexDirection:"column", flexWrap:"wrap", marginTop:"2%"}}>
                             <div style={{fontFamily:"Lato, sans-serif", fontWeight:"bold", fontSize:"120%"}}>Votre spécification : </div>
-                            <InputTextarea value={spec} onChange={(e) => setSpec(e.target.value)} rows={6} cols={30} autoResize />
+                            <InputTextarea style={{width:"100%"}} value={spec} onChange={(e) => setSpec(e.target.value)} rows={6} cols={30} autoResize />
                         </div>
 
                     </Dialog>

@@ -76,7 +76,7 @@ export default function ShopCart({order}){
                     <Column field={"name"} header={"Nom du produit"}></Column>
                     <Column field={"package"} header={"Variant"}></Column>
                     <Column field={"quantity"} header={"Quantité"} body={quantityBodyTemplate}></Column>
-                    <Column field={"price"} header={"Prix"} body={priceBodyTemplate}></Column>
+                    <Column field={"price"} header={"Prix unitaire"} body={priceBodyTemplate}></Column>
                     <Column field={"stock"} header={"En stock"} body={stockBodyTemplate}></Column>
                     <Column field={"delete"} header={"Retirer"} body={deleteBodyTemplate}></Column>
                 </DataTable >

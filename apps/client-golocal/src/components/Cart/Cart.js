@@ -7,7 +7,7 @@ import ShopCart from "./ShopCart";
 function renderOrders(orders) {
     const components= []
     for (const order of orders) {
-        components.push(<ShopCart order={order}></ShopCart>)
+        components.push(<ShopCart invoice={order}></ShopCart>)
     }
     return components
 }

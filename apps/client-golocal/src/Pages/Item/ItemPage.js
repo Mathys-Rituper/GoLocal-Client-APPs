@@ -7,7 +7,11 @@ export default function ItemPage() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const shopID = urlParams.get('shopID');
-    const itemID = urlParams.get('itemID');
+    let itemID = urlParams.get('itemID');
+    let serviceID = urlParams.get('serviceID');
+    if (!itemID && serviceID){
+        itemID = serviceID;
+    }
     if (!shopID && !itemID){
         window.location.href="https://localhost:3001/"
         return (

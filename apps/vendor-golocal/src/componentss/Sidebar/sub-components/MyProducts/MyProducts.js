@@ -24,7 +24,7 @@ export default function MyProducts(){
 
     useEffect(() => {
         setProductRequest({ loading: true });
-        getShopByID(shopID)
+        getShopByID(shopID, true)
             .then(data => {
                 if (data.status === 1 ){
                     setError(data.message)

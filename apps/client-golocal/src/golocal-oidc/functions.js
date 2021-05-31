@@ -239,10 +239,15 @@ export function getShopsFilteredRequest(filter, distance){
 }
 export function addToCartItem(shopID, itemID, packageID, quantity){
     if (middleware() === true) {
+        goLocalGetUserInfo().then(data =>{
+            if (data.id === null){
+                oidcLogin();
+            }
+        })
         const token = getToken();
         const instance = axios.create({
             baseURL: 'https://localhost:5001',
-            method: "put",
+            method: "patch",
             timeout: 30000,
             headers: {
                 Authorization: `Bearer ${token}`
@@ -259,6 +264,49 @@ export function addToCartItem(shopID, itemID, packageID, quantity){
             .then((response) => {
                 console.log(response)
                 return {status: 0, message: "Package ajouté au panier !"}
+            })
+            .catch((error) => {
+                if (error.response.status === 400){
+                    return {status: 1, message: "Votre panier dépasse le stock du package"}
+                }
+                if (error.response.status === 401){
+                    oidcLogin();
+                }else{
+                    return {status: 1, message: error.response.message}
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
+export function addToCommandPackage(shopID, serviceID, packageID, price, spec){
+    if (middleware() === true) {
+        goLocalGetUserInfo().then(data =>{
+            if (data.id === null){
+                oidcLogin();
+            }
+        })
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5001',
+            method: "put",
+            timeout: 30000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const data = {
+            "shopId": shopID,
+            "serviceId": serviceID,
+            "packageId": packageID,
+            "price": price,
+            "specifications": spec
+        }
+        return instance
+            .put(`/api/commands`, data)
+            .then((response) => {
+                console.log(response)
+                return {status: 0, message: "Package ajouté à vos commandes !"}
             })
             .catch((error) => {
                 if (error.response.status === 400){

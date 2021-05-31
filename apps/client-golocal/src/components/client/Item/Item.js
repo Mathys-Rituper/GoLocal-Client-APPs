@@ -5,7 +5,7 @@ import 'primeflex/primeflex.css';
 import "./Item.css";
 import React, {useEffect, useRef, useState} from 'react';
 import {useLocation} from "react-router-dom";
-import {getItemByID} from "../../../golocal-oidc/functions";
+import {addToCommandPackage, getItemByID} from "../../../golocal-oidc/functions";
 import {Rating} from "primereact/rating";
 import {ScrollPanel} from "primereact/scrollpanel";
 import {DataScroller} from "primereact/datascroller";
@@ -15,6 +15,9 @@ import {Toast} from "primereact/toast";
 import {Dialog} from "primereact/dialog";
 import {Tooltip} from "primereact/tooltip";
 import CommentaryCard from "./CommentaryCard/CommentaryCard";
+import {InputNumber} from "primereact/inputnumber";
+import {InputTextarea} from "primereact/inputtextarea";
+
 
 
 function useQuery() {
@@ -23,9 +26,25 @@ function useQuery() {
 export default function Item() {
     const params = useQuery();
     const shopID = params.get("shopID")
-    const itemID = params.get("itemID")
+    let itemID = params.get("itemID")
+    let serviceID = params.get('serviceID');
+    if (!itemID && serviceID){
+        itemID = serviceID;
+    }
+    const [infoDialog, setInfoDialog] = useState({
+        shopID : shopID,
+        itemID : itemID,
+        prixIndic : null,
+        itemName : null,
+        packageID : null
+    })
     const toast = useRef(null);
+    const dialogToast = useRef(null);
     const [products, setProducts] = useState([]);
+    const [displayBasic, setDisplayBasic] = useState(false);
+    const [position, setPosition] = useState('center');
+    const [price, setPrice] = useState(1);
+    const [spec, setSpec] = useState("A décider");
     const [itemRequest, setItemRequest] = useState({
         loading: false,
         item: null,
@@ -41,7 +60,6 @@ export default function Item() {
             });
     }, []);
     const { loading, item } = itemRequest;
-    console.log(item);
     let creation = "Chargement";
     const commentaryArray = []
     if (item){
@@ -62,44 +80,130 @@ export default function Item() {
     }
 
     const itemTemplate = (data) => {
+        let name;
         if (data.name.length >= 10){
-            let name = data.name.slice(0,10)
-            data.name = name;
+            name = data.name.slice(0,10);
         }
-        return (
-            <div >
-                <Toast ref={toast} />
-                <div style={{display:"flex",flexDirection:"row", justifyContent:"space-between", alignItems:"center", paddingBottom:"2%", paddingTop:"2%"}}>
-                    <div style={{display:"flex",flexDirection:"column", width:"20%"}}>
-                        <div style={{fontFamily:"Lato,sans-serif", fontWeight:"bold", fontSize:"150%"}}>{data.name}</div>
-                        <Rating value={data.rating} readOnly cancel={false}/>
-                        <div style={{fontFamily:"Lato,sans-serif", fontWeight:"bold", fontSize:"100%"}}>Stock : {data.stocks}</div>
+        if (serviceID){
+            return (
+                <div >
+                    <div style={{display:"flex",flexDirection:"row", justifyContent:"space-between", alignItems:"center", paddingBottom:"2%", paddingTop:"2%"}}>
+                        <div style={{display:"flex",flexDirection:"column", width:"20%"}}>
+                            <div style={{fontFamily:"Lato,sans-serif", fontWeight:"bold", fontSize:"150%"}}>{name}</div>
+                            <Rating value={data.rating} readOnly cancel={false}/>
+                            <div style={{fontFamily:"Lato,sans-serif", fontWeight:"bold", fontSize:"100%"}}>Stock : {data.stocks}</div>
+                        </div>
+                        <span style={{width:"",fontFamily:"Lato,sans-serif", fontSize:"100%", paddingLeft:"1%", paddingRight:"1%", backgroundColor: data.asStocks ? ("#c8e6c9") : ("#ffcdd2")}}>{data.asStocks ? ('En stock') : ('Rupture')}</span>
+                        <span style={{fontFamily:"Lato,sans-serif", fontSize:"120%"}}>{data.price}€</span>
+                        <div style={{width:"12%"}}>
+                            <Button style={{fontFamily:"Lato,sans-serif", backgroundColor:"grey", borderColor:"grey"}} icon="pi pi-info-circle" label="" tooltip={data.description} tooltipOptions={{ position: 'left', mouseTrack: true, mouseTrackTop: 15 }}/>
+                            <Button style={{fontFamily:"Lato,sans-serif",  backgroundColor:"rgb(89, 136, 255)", borderColor:"rgb(89, 136, 255)", marginLeft:"3%"}} icon="pi pi-shopping-cart" label="" onClick={() => {
+                                    setInfoDialog({
+                                        shopID : shopID,
+                                        itemID: itemID,
+                                        prixIndic : data.price,
+                                        itemName: data.name,
+                                        packageID : data.id
+                                    });
+                                    setDisplayBasic(true);
+                            }} disabled={data.asStocks === false}/>
+                        </div>
                     </div>
-                    <span style={{width:"",fontFamily:"Lato,sans-serif", fontSize:"100%", paddingLeft:"1%", paddingRight:"1%", backgroundColor: data.asStocks ? ("#c8e6c9") : ("#ffcdd2")}}>{data.asStocks ? ('En stock') : ('Rupture')}</span>
-                    <span style={{fontFamily:"Lato,sans-serif", fontSize:"120%"}}>{data.price}€</span>
-                    <div style={{width:"12%"}}>
-                        <Button style={{fontFamily:"Lato,sans-serif", backgroundColor:"grey", borderColor:"grey"}} icon="pi pi-info-circle" label="" tooltip={data.description} tooltipOptions={{ position: 'left', mouseTrack: true, mouseTrackTop: 15 }}/>
-                        <Button style={{fontFamily:"Lato,sans-serif",  backgroundColor:"rgb(89, 136, 255)", borderColor:"rgb(89, 136, 255)", marginLeft:"3%"}} icon="pi pi-shopping-cart" label="" onClick={() => {
-                            addToCartItem(shopID, itemID, data.id, 1).then(data => {
-                                if (data.status === 1){
-                                    toast.current.show({severity:'error', summary: 'Erreur', detail: data.message, life: 3000});
-                                }else{
-                                    toast.current.show({severity:'success', summary: 'Succès', detail: data.message, life: 3000});
-                                }
-                            })
-                        }} disabled={data.asStocks === false}/>
-                    </div>
-
-
                 </div>
+            )
+        }else{
+            return (
+                <div >
+                    <Toast ref={toast} />
+                    <div style={{display:"flex",flexDirection:"row", justifyContent:"space-between", alignItems:"center", paddingBottom:"2%", paddingTop:"2%"}}>
+                        <div style={{display:"flex",flexDirection:"column", width:"20%"}}>
+                            <div style={{fontFamily:"Lato,sans-serif", fontWeight:"bold", fontSize:"150%"}}>{data.name}</div>
+                            <Rating value={data.rating} readOnly cancel={false}/>
+                            <div style={{fontFamily:"Lato,sans-serif", fontWeight:"bold", fontSize:"100%"}}>Stock : {data.stocks}</div>
+                        </div>
+                        <span style={{width:"",fontFamily:"Lato,sans-serif", fontSize:"100%", paddingLeft:"1%", paddingRight:"1%", backgroundColor: data.asStocks ? ("#c8e6c9") : ("#ffcdd2")}}>{data.asStocks ? ('En stock') : ('Rupture')}</span>
+                        <span style={{fontFamily:"Lato,sans-serif", fontSize:"120%"}}>{data.price}€</span>
+                        <div style={{width:"12%"}}>
+                            <Button style={{fontFamily:"Lato,sans-serif", backgroundColor:"grey", borderColor:"grey"}} icon="pi pi-info-circle" label="" tooltip={data.description} tooltipOptions={{ position: 'left', mouseTrack: true, mouseTrackTop: 15 }}/>
+                            <Button style={{fontFamily:"Lato,sans-serif",  backgroundColor:"rgb(89, 136, 255)", borderColor:"rgb(89, 136, 255)", marginLeft:"3%"}} icon="pi pi-shopping-cart" label="" onClick={() => {
+                                addToCartItem(shopID, itemID, data.id, 1).then(data => {
+                                    if (data.status === 1){
+                                        toast.current.show({severity:'error', summary: 'Erreur', detail: data.message, life: 3000});
+                                    }else{
+                                        toast.current.show({severity:'success', summary: 'Succès', detail: data.message, life: 3000});
+                                    }
+                                })
+                            }} disabled={data.asStocks === false}/>
+                        </div>
+                    </div>
+                </div>
+             );
+        }
+    }
+
+    const dialogFuncMap = {
+        'displayBasic': setDisplayBasic
+    }
+
+    const validate = () => {
+        console.log(infoDialog);
+        console.log(spec)
+        console.log(price);
+        let specification;
+        if (spec === ""){
+            specification = "Non déterminé par le client"
+        }else{
+            specification = spec;
+        }
+        addToCommandPackage(infoDialog.shopID, infoDialog.itemID, infoDialog.packageID, price, specification).then(data => {
+            if (data.status === 1){
+                dialogToast.current.show({severity:'error', summary: 'Erreur', detail: data.message, life: 3000});
+            }else{
+                dialogToast.current.show({severity:'success', summary: 'Succès', detail: data.message, life: 3000});
+            }
+        })
+    }
+
+    const onHide = (name) => {
+        dialogFuncMap[`${name}`](false);
+    }
+
+    const renderFooter = (name) => {
+        return (
+            <div>
+                <Button label="Annuler" icon="pi pi-times" onClick={() => onHide(name)} className="p-button-text" />
+                <Button label="Ajouter" icon="pi pi-check" onClick={() => {
+                    validate();
+                    onHide(name)
+                }} autoFocus />
             </div>
         );
     }
+
 
     return (
         <div style={{display:"flex", flexDirection:"column"}}>
             {item ? (
                 <div className="responsiveContainer">
+                    <Dialog header="Commander un service" visible={displayBasic} style={{ width: '30%' }} footer={renderFooter('displayBasic')} onHide={() => onHide('displayBasic')}>
+                        <div style={{display: "flex", flexDirection:"row", flexWrap:"wrap", alignItems:"center"}}>
+                            <div style={{fontFamily:"Lato, sans-serif", fontWeight:"bold", fontSize:"120%"}}>Nom du package : </div>
+                            <div style={{fontFamily:"Lato, sans-serif", fontSize:"100%", marginLeft:"1%"}}>{infoDialog.itemName}</div>
+                        </div>
+                        <div style={{display: "flex", flexDirection:"row", flexWrap:"wrap", alignItems:"center", marginTop:"2%"}}>
+                            <div style={{fontFamily:"Lato, sans-serif", fontWeight:"bold", fontSize:"120%"}}>Prix de base : </div>
+                            <div style={{fontFamily:"Lato, sans-serif", fontSize:"100%", marginLeft:"1%"}}>{infoDialog.prixIndic} €</div>
+                        </div>
+                        <div style={{display: "flex", flexDirection:"column", flexWrap:"wrap", marginTop:"2%"}}>
+                            <div style={{fontFamily:"Lato, sans-serif", fontWeight:"bold", fontSize:"120%"}}>Votre prix : </div>
+                            <InputNumber id="minmax-buttons" value={price} onValueChange={(e) => setPrice(e.value)} mode="decimal" showButtons min={1} max={9999} />
+                        </div>
+                        <div style={{display: "flex", flexDirection:"column", flexWrap:"wrap", marginTop:"2%"}}>
+                            <div style={{fontFamily:"Lato, sans-serif", fontWeight:"bold", fontSize:"120%"}}>Votre spécification : </div>
+                            <InputTextarea value={spec} onChange={(e) => setSpec(e.target.value)} rows={6} cols={30} autoResize />
+                        </div>
+
+                    </Dialog>
                     <div style={{width:"20%", marginRight:"2%"}}>
                         <img src={`data:image/jpeg;base64,${item.image}`} style={{width:"100%", borderColor: "2px solid #e8e8e8",boxShadow:"3px 3px 8px #f0f0f0"}} />
                     </div>
@@ -116,6 +220,7 @@ export default function Item() {
                         </ScrollPanel>
                     </div>
                     <div className="containerTwo">
+                        <Toast ref={dialogToast} />
                         <DataScroller value={products} itemTemplate={itemTemplate} rows={7} inline scrollHeight="330px" header={`Liste des packages de ${item.name}`} />
                     </div>
                 </div>

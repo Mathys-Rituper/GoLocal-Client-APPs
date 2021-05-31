@@ -20,7 +20,7 @@ export default function ShopCard({shop}){
 
     function RenderCard() {
         return (
-            <div onClick={() => {window.location.href=`https://localhost:3002/artisan/shop?shopID=${shop.id}&shopName=${shop.name}`}} style={{"width":"15rem", cursor:"pointer", margin:"1%", paddingBottom:"3%"}}>
+            <div onClick={() => {window.location.href=`https://localhost:3002/artisan/shop?shopID=${shop.id}&shopName=${shop.name}&visibility=${shop.visibility}`}} style={{"width":"15rem", cursor:"pointer", margin:"1%", paddingBottom:"3%"}}>
             <img style={{width:"100%",minHeight:"200px", border:"1px solid black"}} src={shop.image === placeHolder ? (shop.image) : (`data:image/jpeg;base64,${shop.image}`)}/>
             <div style={{display:"flex", flexDirection:"column"}}>
                 <span style={{fontFamily:"Lato", fontSize:"120%"}}>{shop.name.length >= 25 ? (`${shop.name.slice(0, 25)}...`) : (shop.name)}</span>

@@ -28,6 +28,7 @@ export default function SidebarShop(){
     const params = useQuery();
     const shopID = params.get("shopID");
     const shopName = params.get("shopName");
+    const visibility = params.get("visibility");
     const [component, setComponent] = useState(<ShopInfos/>)
     const [displayGlobal, setDisplayGlobal] = useState(true)
     const [displayProductPage, setDisplayProductPage] = useState(false)
@@ -35,31 +36,32 @@ export default function SidebarShop(){
     const toast = useRef(null);
     const confirm2 = () => {
         confirmDialog({
-            message: 'Voulez-vous supprimer votre boutique?',
-            header: 'Cette action est irréversible',
+            message: 'Vous pourrez toujours changer la visibilité ultérieurement' ,
+            header: visibility === "0" ? "Voulez vous cacher votre boutique ?" : "Voulez vous rendre visible votre boutique ?",
             icon: 'pi pi-info-circle',
             acceptClassName: 'p-button-danger',
             rejectLabel: "Annuler",
-            acceptLabel: "Supprimer",
+            acceptLabel: visibility === "0" ? "Cacher" : "Rendre Visible",
             accept,
             reject
         });
     };
     const accept = () => {
-        deleteShopWithToken(shopID).then(data =>{
+        deleteShopWithToken(shopID, visibility).then(data =>{
             if (data.status === 1){
                 toast.current.show({ severity: 'error', summary: 'Erreur', detail: data.message, life: 5000 });
             }else{
                 toast.current.show({ severity: 'success', summary: 'Succès', detail: data.data, life: 5000 });
                 setTimeout(()=> {
                     window.location.replace("https://localhost:3002/artisan")
-                }, 500)
+                }, 200)
             }
         })
     }
     const reject = () => {
         toast.current.show({ severity: 'info', summary: 'Annulation', detail: 'Vous avez annulé la suppression', life: 3000 });
     }
+
     const items = [
         {
             label:'Ma Boutique',
@@ -92,8 +94,8 @@ export default function SidebarShop(){
                     command : () => {modifyImage()}
                 },
                 {
-                    label:'Supprimer Boutique',
-                    icon:'pi pi-exclamation-triangle',
+                    label: visibility === "0" ? "Cacher Boutique" : "Rendre Visible Boutique",
+                    icon: visibility === "0" ? 'pi pi-eye-slash' : 'pi pi-eye',
                     command : () => {confirm2()},
                 }
             ]

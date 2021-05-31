@@ -24,7 +24,7 @@ export default function ItemInfos(){
     useEffect(() => {
         // Note that this replaces the entire object and deletes user key!
         setItemRequest({ loading: true });
-        getItemByID(shopID,itemID)
+        getItemByID(shopID,itemID, true)
             .then(data => {
                 console.log(data.data);
                 setItemRequest({

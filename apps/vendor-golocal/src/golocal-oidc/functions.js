@@ -189,54 +189,110 @@ export function getShops(){
         return oidcLogin();
     }
 }
-export function getShopByID(id){
+export function getShopByID(id, artisanBool){
     if (middleware() === true) {
-        const instance = axios.create({
-            baseURL: 'https://localhost:5001',
-            method: "get",
-            timeout: 5000,
-        });
-        return instance
-            .get(`/api/shops/${id}`)
-            .then((response) => {
-                return {statut: 0, data: response.data}
-            })
-            .catch((error) => {
-                if (error.status === 401){
-                    oidcLogin();
-                }
-                if (error.response === undefined) {
-                    return {status: 1, message: error};
-                } else {
-                    return {status: 1, message: error.response.data};
-                }
+        if (artisanBool){
+            const token = getToken();
+            const instance = axios.create({
+                baseURL: 'https://localhost:5001',
+                method: "get",
+                timeout: 5000,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
             });
+            return instance
+                .get(`/api/shops/${id}`)
+                .then((response) => {
+                    console.log(response)
+                    return {statut: 0, data: response.data}
+                })
+                .catch((error) => {
+                    if (error.status === 401){
+                        oidcLogin();
+                    }
+                    if (error.response === undefined) {
+                        return {status: 1, message: error};
+                    } else {
+                        return {status: 1, message: error.response.data};
+                    }
+                });
+        }else{
+            const instance = axios.create({
+                baseURL: 'https://localhost:5001',
+                method: "get",
+                timeout: 5000,
+            });
+            return instance
+                .get(`/api/shops/${id}`)
+                .then((response) => {
+                    console.log(response)
+                    return {statut: 0, data: response.data}
+                })
+                .catch((error) => {
+                    if (error.status === 401){
+                        oidcLogin();
+                    }
+                    if (error.response === undefined) {
+                        return {status: 1, message: error};
+                    } else {
+                        return {status: 1, message: error.response.data};
+                    }
+                });
+        }
     }else{
         return oidcLogin();
     }
 }
-export function getItemByID(shopID, id){
+export function getItemByID(shopID, id, artisanBool){
     if (middleware() === true) {
-        const instance = axios.create({
-            baseURL: 'https://localhost:5001',
-            method: "get",
-            timeout: 5000,
-        });
-        return instance
-            .get(`/api/shops/${shopID}/items/${id}`)
-            .then((response) => {
-                return {statut: 0, data: response.data}
-            })
-            .catch((error) => {
-                if (error.status === 401){
-                    oidcLogin();
-                }
-                if (error.response === undefined) {
-                    return {status: 1, message: error};
-                } else {
-                    return {status: 1, message: error.response.data};
-                }
+        if (artisanBool){
+            const token = getToken();
+            const instance = axios.create({
+                baseURL: 'https://localhost:5001',
+                method: "get",
+                timeout: 5000,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
             });
+            return instance
+                .get(`/api/shops/${shopID}/items/${id}`)
+                .then((response) => {
+                    return {statut: 0, data: response.data}
+                })
+                .catch((error) => {
+                    if (error.status === 401){
+                        oidcLogin();
+                    }
+                    if (error.response === undefined) {
+                        return {status: 1, message: error};
+                    } else {
+                        return {status: 1, message: error.response.data};
+                    }
+                });
+        }else{
+            const instance = axios.create({
+                baseURL: 'https://localhost:5001',
+                method: "get",
+                timeout: 5000,
+            });
+            return instance
+                .get(`/api/shops/${shopID}/items/${id}`)
+                .then((response) => {
+                    return {statut: 0, data: response.data}
+                })
+                .catch((error) => {
+                    if (error.status === 401){
+                        oidcLogin();
+                    }
+                    if (error.response === undefined) {
+                        return {status: 1, message: error};
+                    } else {
+                        return {status: 1, message: error.response.data};
+                    }
+                });
+        }
     }else{
         return oidcLogin();
     }
@@ -735,9 +791,15 @@ export function createPackageByShopIdAndItemID(shopID, itemID, name, description
         return oidcLogin();
     }
 }
-export function deleteShopWithToken(shopID){
+export function deleteShopWithToken(shopID, visibility){
     if (middleware() === true) {
         const token = getToken();
+        let visibilityToApply;
+        if (visibility === "0"){
+            visibilityToApply = 1
+        }else{
+            visibilityToApply = 0
+        }
         const instance = axios.create({
             baseURL: 'https://localhost:5002',
             method: "patch",
@@ -748,7 +810,7 @@ export function deleteShopWithToken(shopID){
         });
         const data = {
             "shopId": shopID,
-            "visibility": 1
+            "visibility": visibilityToApply
         }
         return instance
             .patch(`/api/shops/visibility`, data)

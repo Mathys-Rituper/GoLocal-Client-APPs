@@ -12,6 +12,7 @@ import {Rating} from "primereact/rating";
 import './shop.css'
 import {useLocation} from "react-router-dom";
 import {getShopByID} from "../../../golocal-oidc/functions";
+import ServiceCard from "../ServiceCard";
 
 
 function renderCarousel(products, responsiveOptions, shopID){
@@ -28,9 +29,9 @@ function renderCarousel(products, responsiveOptions, shopID){
     )
 }
 function renderCarousel2(services, responsiveOptions, shopID){
-    const template = (product) => {
+    const template = (services) => {
         return (
-            <ProductCard shopID={shopID} product={product}/>
+            <ServiceCard shopID={shopID} service={services}/>
         )
     }
     return (

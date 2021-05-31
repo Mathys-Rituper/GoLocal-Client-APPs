@@ -17,6 +17,7 @@ function useQuery() {
 export default function ShopInfos(){
     const params = useQuery();
     const shopID = params.get("shopID")
+    const visibility = params.get("visibility");
     const [shopRequest, setShopRequest] = useState({
         loading: false,
         shop: null,
@@ -24,7 +25,7 @@ export default function ShopInfos(){
     useEffect(() => {
         // Note that this replaces the entire object and deletes user key!
         setShopRequest({ loading: true });
-        getShopByID(shopID)
+        getShopByID(shopID, true)
             .then(data => {
                 setShopRequest({
                     loading: false,
@@ -78,6 +79,10 @@ export default function ShopInfos(){
                 <img src={image === ShopDefaultPic ? (image) : (`data:image/jpeg;base64,${image}`)} style={{width:"12%"}}/>
             </div>
             <div className="flex-container">
+                <div className="emailTitle">Visibilité : </div>
+                <div className="email" style={{marginLeft:"3%"}}>{visibility === "0" ? ("Visible") : ("Caché")}</div>
+            </div>
+            <div className="flex-container">
                 <div className="emailTitle">Email : </div>
                 <div className="email">{email}</div>
             </div>
@@ -87,7 +92,7 @@ export default function ShopInfos(){
             </div>
             <div className="flex-container">
                 <div className="a2fTitle">Localisation : </div>
-                <div className="a2f">{location}</div>
+                <div className="a2f" style={{marginLeft:"1%"}}>{location}</div>
             </div>
             <div style={{display:"flex", flexDirection:"column", flexWrap:"wrap", marginLeft:"2%"}}>
                 <div className="a2fTitle">Horaires : </div>

@@ -25,7 +25,7 @@ export default function MyPackages(){
 
     useEffect(() => {
         setPackageRequest({ loading: true });
-        getItemByID(shopID, itemID)
+        getItemByID(shopID, itemID, true)
             .then(data => {
                 if (data.status === 1 ){
                     setError(data.message)

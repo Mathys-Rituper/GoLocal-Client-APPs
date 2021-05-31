@@ -25,7 +25,7 @@ export default function MyServices(){
 
     useEffect(() => {
         setServiceRequest({ loading: true });
-        getShopByID(shopID)
+        getShopByID(shopID, true)
             .then(data => {
                 console.log(data);
                 if (data.status === 1 ){

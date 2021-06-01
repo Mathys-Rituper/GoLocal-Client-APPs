@@ -50,7 +50,7 @@ export function goLocalLogin(userName,Password, errorShow, previousPage){
 }
 export function goLocalLogout(){
     localStorage.removeItem("access_token");
-    window.location.href="https://localhost:3001/"
+    window.location.href="https://localhost:3000/"
 }
 
 // ACCOUNT REQUESTS //
@@ -312,7 +312,7 @@ export function resetPasswordWithToken(oldPassword, newPassword, newPasswordConf
                 if (error.response === undefined) {
                     return {status: 1, message: error};
                 } else {
-                    return {status: 1, message: error.response.data};
+                    return {status: 1, message: error.response.message};
                 }
             });
     }else{

@@ -21,6 +21,7 @@ export default function ChangeItemName(){
     const shopName = params.get("shopName");
     const itemID = params.get("item");
     const itemName = params.get("itemName");
+    console.log(itemName)
     const [disabled, setDisabled] = useState(true);
     const [value1, setValue1] = useState();
     const toast = useRef(null);

@@ -171,6 +171,9 @@ export default function ShopCart({order}){
                 toast.current.show({severity: 'error', summary: 'Erreur', detail: data.message});
             }else{
                 toast.current.show({severity: 'success', summary: 'Succès', detail: data.message});
+                setTimeout(() => {
+                    window.location.reload();
+                },500)
             }
         })
     }
@@ -183,6 +186,7 @@ export default function ShopCart({order}){
                 toast.current.show({severity: 'error', summary: 'Erreur', detail: data.message});
             }else{
                 toast.current.show({severity: 'success', summary: 'Succès', detail: data.message});
+                window.location.reload();
             }
         })
     }

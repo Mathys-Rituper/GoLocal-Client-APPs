@@ -208,7 +208,7 @@ export default function Shop() {
                 <div className="items">
                     <h5>Contact :</h5>
                     <p>Téléphone : {contact.phone}</p>
-                    <p>Email : <a href="mailto:toto@gmail.com">{contact.email}</a></p>
+                    <p>Email : <a href={`mailto:${contact.email}`}>{contact.email}</a></p>
                     <h5>Adresse</h5>
                     <p>{adress1}</p>
                     <p>{adress2}</p>

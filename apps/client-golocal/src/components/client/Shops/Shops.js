@@ -90,9 +90,9 @@ export default function Shops() {
         <div className="shops-container">
             <Dialog header="Header" visible={display}  header="Acceptation des cookies"  breakpoints={{'960px': '75vw'}} style={{width: '50vw'}} footer={renderFooter()}>
                 <p>En cliquant sur accepter, vous accéderez au site, en acceptant l'usage de cookies de localisation.
-                    Ces cookies ne sont présents que dans le but de vous géolocaliser pour trouver les boutiques les plus proches.
-                    Si vous décidez de refuser les cookies, le site restera inaccessible et vous serez redirigé vers la page
-                    www.google.fr. L'équipe Go Local vous remercie !</p>
+                    <br/>Ces cookies ne sont présents que dans le but de vous géolocaliser pour trouver les boutiques les plus proches.
+                    <br/>Si vous décidez de refuser les cookies, le site restera inaccessible et vous serez redirigé vers la page
+                    www.google.fr. <br style={{marginBottom:"1%"}}/>L'équipe Go Local vous remercie !</p>
             </Dialog>
 
             <div className="search-container">
@@ -102,8 +102,8 @@ export default function Shops() {
                     <Button disabled={disabled} onClick={() => {getShopsByAdress(adress)}} label="Rechercher"/>
                 </div>
             </div>
-            <ScrollPanel style={{ width: '100%', height: '600px', marginTop:"1%", marginLeft:"4%" }}>
-                <div style={{ padding: '1em', lineHeight: '1.5', display:"flex", flexDirection:"row", flexWrap:"wrap" }}>
+            <ScrollPanel style={{ width: '1750px', height: '600px', marginTop:"1%", marginLeft:"4%" }}>
+                <div style={{ padding: '1em', lineHeight: '1.5', width:"100%", display:"flex", flexDirection:"row", flexWrap:"wrap" }}>
                     {shops.list.length !== 0 ? (shops.list) : (<div/>)}
                 </div>
             </ScrollPanel>

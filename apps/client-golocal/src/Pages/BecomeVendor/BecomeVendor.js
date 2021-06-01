@@ -11,20 +11,25 @@ export default function BecomeVendor(){
 
             <h1>Devenir vendeur</h1>
 
-            <h2>C'est quoi un vendeur</h2>
+            <h2 style={{textAlign: "center"}}>C'est quoi un vendeur ?</h2>
 
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <p style={{textAlign: "center"}}>
+                Sur Go Local, un vendeur peut vendre ses produits et ses services aux personnes locales<br/>
+                Un vendeur est une personne qui souhaite être aider à promouvoir sa boutique durant cette période difficile<br/>
+                Le rayon d'action de notre site est de 50 km maximum autour de votre position<br/>
+                Go Local joue uniquement un rôle d'intermédiaire entre le vendeur et les particuliers
+
             </p>
 
-            <h2>Comment on devient vendeur</h2>
+            <h2 style={{textAlign: "center"}}>Comment devient-on vendeur ?</h2>
 
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <p style={{textAlign: "center"}}>
+                A partir du moment où vous créez un compte sur Go Local, vous pouvez devenir vendeur <br/>
+                Il vous suffit uniquement d'accéder aux panel artisan afin de commencer à créer vos boutiques <br/>
+                Go Local en tant qu'intermédiaire ne dispose pas de système de paiement, obligeant les vendeurs à déclarer leur revenus produits lors des ventes <br/>
             </p>
             <div className="button">
-                <Button label="Panel Artisan" onClick={()=> {window.open("https://localhost:3002/", "_blank")}} className="p-button-raised p-button-rounded p-button-lg" />
+                <Button label="Accès au panel artisan" onClick={()=> {window.open("https://localhost:3002/", "_blank")}} className="p-button-raised p-button-rounded p-button-lg" />
             </div>
         </div>
     );

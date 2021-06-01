@@ -52,7 +52,7 @@ export default function ChangeShopName(){
             <div className="title">Changer nom de la boutique</div>
             <div style={{display:"flex", flexDirection:"column", flexWrap:"wrap", marginTop:"2%"}}>
                 <label className="label">Nouveau nom</label>
-                <InputText id="username" value={value1} onChange={(e) => setValue1(e.target.value)} className="inputText"/>
+                <InputText id="username" value={value1} placeHolder={shopName} onChange={(e) => setValue1(e.target.value)} className="inputText"/>
             </div>
 
             <Button label="Modifier" disabled={disabled} className="p-button-raised bouton" onClick={() => createProduct()}/>

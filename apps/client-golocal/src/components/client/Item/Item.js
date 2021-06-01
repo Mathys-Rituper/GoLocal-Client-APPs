@@ -71,7 +71,7 @@ export default function Item() {
         if (products.length === 0){
             setProducts(item.packages);
         }
-        let commentariesObject = [{rate: 4, body: "Teesst"},{rate: 4, body: "Teesst"},{rate: 4, body: "Teesst"},{rate: 4, body: "Teesst"},{rate: 4, body: "Teesst"}]
+        let commentariesObject = [{rate: 5, body: "Très bon produit"},{rate: 3, body: "Bien arrivé, mais vendeur peu cordial"},{rate: 4, body: "Je recommande"},{rate: 5, body: "Produits de très bonne qualité"},{rate: 3, body: "Mon produit s'est vité abimé, les matériaux ne sont pas les meilleurs"}]
         if (commentariesObject){
             commentariesObject.forEach(commentary => {
                 commentaryArray.push(<CommentaryCard commentary={commentary}/>)

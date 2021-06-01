@@ -20,6 +20,7 @@ import Cart from "../Cart/Cart";
 import ItemPage from "../../Pages/Item/ItemPage";
 import ConfirmedOrder from "../../components/Cart/ConfirmedOrder";
 import ConfirmedOrderPage from "../../Pages/ConfirmedOrder/ConfirmedOrderPage";
+import CartPage from "../../Pages/Cart/Cart";
 
 
 function App() {
@@ -59,8 +60,7 @@ function App() {
                         <Faq/>
                     </Route>
                     <Route exact path="/cart">
-                        <Header/>
-                        <Cart></Cart>
+                        <CartPage/>
                     </Route>
                     <Route path={"/confirmedOrder"}>
                         <ConfirmedOrderPage/>

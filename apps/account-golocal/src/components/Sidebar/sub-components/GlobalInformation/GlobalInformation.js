@@ -62,7 +62,7 @@ export default function GlobalInformation(){
         <div className="container">
             <div className="title">VOS INFORMATIONS</div>
             <div className="flex-container">
-                <Avatar className="p-mr-2" size="xlarge" image={avatar} shape="square" style={{width:"7%", height:"7%"}}/>
+                <Avatar className="p-mr-2" size="xlarge" image={AvatarDefault} shape="square" style={{width:"7%", height:"7%"}}/>
                 <div className="name">{name}</div>
             </div>
             <div className="flex-container">

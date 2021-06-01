@@ -6,7 +6,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import "./ChangePassword.css"
 import {InputText} from "primereact/inputtext";
 import {
-    goLocalGetUserInfo,
+    goLocalGetUserInfo, goLocalLogout,
     patchPhone,
     resetEmailWithToken,
     resetPasswordWithToken
@@ -88,6 +88,9 @@ export default function ChangePassword(){
                             toast.current.show({severity: 'error', summary: 'Erreur', detail: data.message});
                         }else{
                             toast.current.show({severity: 'success', summary: 'Succès', detail: data.message});
+                            setTimeout(() =>{
+                                goLocalLogout();
+                            },500)
                         }
                     })
                 }} label="Valider" className="p-button-raised" />

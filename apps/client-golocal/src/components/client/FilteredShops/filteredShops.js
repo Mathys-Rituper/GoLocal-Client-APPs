@@ -5,12 +5,8 @@ import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 
 import './filteredShops.css'
-import placeholder from "../../../assets/product-image-placeholder.jpg"
 import {ScrollPanel} from "primereact/scrollpanel";
-import FilteredShopCard from "./filteredShopCard";
 import {Slider} from "primereact/slider";
-import {SelectButton} from "primereact/selectbutton";
-import {MultiSelect} from "primereact/multiselect";
 import {InputText} from "primereact/inputtext";
 import {Button} from "primereact/button";
 import {Sidebar} from "primereact/sidebar";
@@ -36,7 +32,11 @@ export default function FilteredShops() {
 
     useEffect(() => {
         setShopsRequest({ loading: true });
-        getShopsFilteredRequest("", 5)
+        let searchVar = '';
+        if (search){
+            searchVar = search;
+        }
+        getShopsFilteredRequest(searchVar, 5)
             .then(data => {
                 setShopsRequest({
                     loading: false,
@@ -53,6 +53,16 @@ export default function FilteredShops() {
     const [visibleFullScreen, setVisibleFullScreen] = useState(false);
     function getShopsFiltered(value2, value3) {
         getShopsFilteredRequest(value2, value3)
+            .then(data => {
+                console.log(data)
+                setShopsRequest({
+                    loading: false,
+                    shops: data,
+                });
+            });
+    }
+    function resetShopsFiltered() {
+        getShopsFilteredRequest('', 5)
             .then(data => {
                 console.log(data)
                 setShopsRequest({
@@ -91,6 +101,7 @@ export default function FilteredShops() {
                         <Button label="Supprimer" onClick={() => {
                             setValue2("");
                             setValue3(5);
+                            resetShopsFiltered()
                         }} className="p-button-raised p-button-secondary" />
                     </div>
 
@@ -106,7 +117,7 @@ export default function FilteredShops() {
                     <h3 style={{marginTop:"10%", textAlign:"left", borderBottom:"2px solid black"}}>Nom</h3>
                     <span className="p-input-icon-left">
                         <i className="pi pi-search" />
-                        <InputText value={value2} onChange={(e) => setValue2(e.target.value)} placeholder="Recherche" />
+                        <InputText style={{width:"100%"}} value={value2} onChange={(e) => setValue2(e.target.value)} placeholder="Recherche" />
                     </span>
                 </div>
 
@@ -120,6 +131,7 @@ export default function FilteredShops() {
                     <Button label="Supprimer" onClick={() => {
                         setValue2("");
                         setValue3(5);
+                        resetShopsFiltered()
                     }} className="p-button-raised p-button-secondary" />
                 </div>
 

@@ -1,6 +1,5 @@
 
-
-h1 {
+.HONE {
     padding-top: 0.5em;
     padding-bottom:0.2em;
     text-align: center;
@@ -14,6 +13,7 @@ h1 {
     margin-left: 2em;
     margin-right: 2em;
     padding-bottom: 5em;
+    grid-column: 3 / span 6;
 }
 
 .color a /* Header */ { /* Content */
@@ -28,14 +28,43 @@ h1 {
     box-shadow: 1px 2px 3px #d1d1d1;
 }
 
-h2 {
+.HTWO {
     margin-left: 1em;
     font-family: lato;
     color:#343F4B;
 }
 
-p {
+.Paragraph {
     word-wrap: break-word;
     font-family: lato;
 }
 
+.pageComplette {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+}
+
+.navigateur {
+    grid-column: 1;
+    position: relative;
+    display:block;
+}
+
+.devenirVendeur{
+    text-decoration: underline;
+    background-color: #ffffff!important; /* marche pas car le .color a prend le dessus */
+    color: #5988ff;
+    font-size:1em;
+    font-weight:1;
+
+}
+
+@media screen and (max-width: 1000px) {
+    .navigateur {
+        display:none;
+    }
+
+    .page{
+        grid-column: 1 / 10;
+    }
+}

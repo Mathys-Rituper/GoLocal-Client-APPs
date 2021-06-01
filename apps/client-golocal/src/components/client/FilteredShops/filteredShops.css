@@ -82,7 +82,9 @@
     background-color: #5988ff;
     border-color: #5988ff;
 }
-
+.p-inputtext{
+    width: 100%
+}
 @media screen and (max-width: 1460px)
 {
     .customSidebar{

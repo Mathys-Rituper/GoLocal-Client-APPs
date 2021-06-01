@@ -423,8 +423,11 @@ export function validateCart(shopID){
                 Authorization: `Bearer ${token}`
             }
         });
+        const data = {
+            shopId: shopID
+        }
         return instance
-            .post(`/api/carts/shops/${shopID}`)
+            .post(`/api/carts/shops/${shopID}`,data)
             .then((response) => {
                 return {status: 0, message: "Panier Validé"}
             })

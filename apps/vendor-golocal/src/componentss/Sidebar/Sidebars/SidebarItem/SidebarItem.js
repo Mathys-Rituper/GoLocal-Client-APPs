@@ -97,8 +97,8 @@ export default function SidebarItem(){
                 //     command : () => {modifyVisibility()}
                 //},
                 {
-                    label:'Supprimer Item',
-                    icon:'pi pi-exclamation-triangle',
+                    label:'Cacher Item',
+                    icon:'pi pi pi-eye-slash',
                     command : () => {confirm2()},
                 }
             ]

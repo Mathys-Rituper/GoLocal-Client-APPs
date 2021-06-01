@@ -487,6 +487,42 @@ export function patchImageShop(shopId, image){
         return oidcLogin();
     }
 }
+export function patchPackageStocks(shopId, itemID, packageID, stock){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5002',
+            method: "patch",
+            timeout: 30000,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        const data = {
+            "shopId": shopId,
+            "itemId": itemID,
+            "packageId": packageID,
+            "stocks": stock
+        }
+        return instance
+            .patch(`/api/shops/${shopId}/items/${itemID}/packages/stocks`,data)
+            .then((response) => {
+                return {status: 0, message:"Changement effectué"}
+            })
+            .catch((error) => {
+                if (error.status === 401){
+                    oidcLogin();
+                }
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    return {status: 1, message: error.response.data};
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
 export function patchItemVisibilityRequest(shopId, itemID, visibility){
     console.log(shopId, itemID, visibility);
 

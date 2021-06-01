@@ -2,10 +2,16 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import "./ChangePackageStock.css"
 import {Button} from "primereact/button";
-import {createProductByShopID, getItemByID, patchItemName, patchShopName} from "../../../../golocal-oidc/functions";
+import {
+    createProductByShopID,
+    getItemByID,
+    patchItemName,
+    patchPackageStocks,
+    patchShopName
+} from "../../../../golocal-oidc/functions";
 import {useLocation} from "react-router-dom";
 import {Toast} from "primereact/toast";
 import {InputNumber} from "primereact/inputnumber";
@@ -20,44 +26,69 @@ export default function ChangePackageStock(){
     const shopName = params.get("shopName");
     const itemID = params.get("item");
     const itemName = params.get("itemName");
-    const [disabled, setDisabled] = useState(true);
+    const packageID = params.get("packageID");
+    const [itemRequest, setItemRequest] = useState({
+        loading: false,
+        packageOfItem: null,
+    });
+
+    useEffect(() => {
+        // Note that this replaces the entire object and deletes user key!
+        setItemRequest({ loading: true });
+        getItemByID(shopID, itemID, true)
+            .then(data => {
+                let packageOfItem;
+                data.data.packages.forEach(packagee => {
+                    if (packagee.id === parseInt(packageID)){
+                        packageOfItem = packagee
+                    }
+                })
+                setItemRequest({
+                    loading: false,
+                    packageOfItem: packageOfItem,
+                });
+
+            });
+    }, []);
+
+    const { loading, packageOfItem } = itemRequest;
+    console.log(packageOfItem)
     const [value1, setValue1] = useState();
     const toast = useRef(null);
-    function createProduct(){
-        patchItemName(shopID, itemID, itemName, value1).then(data => {
+    function changeStocks(){
+        patchPackageStocks(shopID, itemID, packageID, value1).then(data => {
             if (data.status === 1){
                 toast.current.show({severity: 'error', summary: 'Erreur', detail: data.message});
             }else{
                 toast.current.show({severity: 'success', summary: 'Succès', detail: data.data});
                 setTimeout(() => {
-                    window.location.replace(`https://localhost:3002/artisan/shop?shopID=${shopID}&shopName=${shopName}`)
-                },500)
+                    window.location.reload();
+                }, 500)
+
             }
         })
-        setValue1('');
     }
 
-    if (value1){
-        if (disabled === true){
-            setDisabled(false);
-        }
-    }else{
-        if (disabled === false) {
-            setDisabled(true);
-        }
-    }
+
 
     return (
-        <div className="container">
-            <Toast ref={toast}/>
-            <div className="title">Changer les stocks du package</div>
-            <div style={{display:"flex", flexDirection:"column", flexWrap:"wrap", marginTop:"2%"}}>
-                <label className="label">Stocks</label>
-                <InputNumber id="minmax-buttons" value={value1} onValueChange={(e) => setValue1(e.value)} mode="decimal" showButtons min={1} max={999} />
-            </div>
+        <div>
+            {packageOfItem ? (
+                <div className="container">
+                    <Toast ref={toast}/>
+                    <div className="title">Changer les stocks de {packageOfItem.name}</div>
+                    <div style={{display:"flex", flexDirection:"column", flexWrap:"wrap", marginTop:"2%"}}>
+                        <label className="label">Stocks</label>
+                        <InputNumber style={{width:"40%"}} id="minmax-buttons" value={packageOfItem.stocks} onValueChange={(e) => setValue1(e.value)} mode="decimal" showButtons min={1} max={999} />
+                    </div>
 
-            <Button label="Modifier" disabled={disabled} className="p-button-raised bouton" onClick={() => createProduct()}/>
+                    <Button label="Modifier" className="p-button-raised bouton" onClick={() => changeStocks()}/>
 
+                </div>
+            ) : (
+                <div/>
+            )}
         </div>
+
     )
 }

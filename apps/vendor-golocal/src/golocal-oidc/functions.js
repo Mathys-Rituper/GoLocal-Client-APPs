@@ -206,7 +206,7 @@ export function getProductsInvoices(shopID){
             "shopId": shopID
         }
         return instance
-            .post('/api/shops/invoices', data)
+            .post(`/api/shops/${shopID}/invoices`, data)
             .then((response) => {
                 return {statut: 0, data: response}
             })

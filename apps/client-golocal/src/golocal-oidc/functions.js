@@ -427,7 +427,7 @@ export function validateCart(shopID){
             shopId: shopID
         }
         return instance
-            .post(`/api/carts/shops/${shopID}`,data)
+            .post(`/api/carts/shops/${shopID}/invoice`,data)
             .then((response) => {
                 return {status: 0, message: "Panier Validé"}
             })

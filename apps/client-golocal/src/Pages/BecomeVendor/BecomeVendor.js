@@ -9,14 +9,14 @@ export default function BecomeVendor(){
         <div>
             <Header/>
 
-            <h1>Devenir vendeur</h1>
+            <h1>Informations Vendeur</h1>
 
             <h2 style={{textAlign: "center"}}>C'est quoi un vendeur ?</h2>
 
             <p style={{textAlign: "center"}}>
                 Sur Go Local, un vendeur peut vendre ses produits et ses services aux personnes locales<br/>
-                Un vendeur est une personne qui souhaite être aider à promouvoir sa boutique durant cette période difficile<br/>
-                Le rayon d'action de notre site est de 50 km maximum autour de votre position<br/>
+                Un vendeur est une personne qui souhaite être aidée à promouvoir sa boutique durant cette période difficile<br/>
+                Le rayon d'action de notre site est de 50 km maximum autour de la position du client<br/>
                 Go Local joue uniquement un rôle d'intermédiaire entre le vendeur et les particuliers
 
             </p>

@@ -25,7 +25,7 @@ export default function Header() {
         if (!oidcUser.avatar){
             avatar = AvatarDefault;
         }else{
-            avatar = oidcUser.avatar;
+            avatar = `data:image/jpeg;base64,${oidcUser.avatar}`;
         }
     }
     const menu = useRef(null);
@@ -38,7 +38,7 @@ export default function Header() {
         {
             label:'Messagerie',
             icon:'pi pi-fw pi-send',
-            command: () => {window.location.href="https://localhost:3001/messages}"}
+            command: () => {window.location.href="https://localhost:3001/messages"}
         },
         {
             label:'Artisan',
@@ -69,7 +69,7 @@ export default function Header() {
         {
             label:'Messagerie',
             icon:'pi pi-fw pi-send',
-            command: () => {window.location.href="https://localhost:3001/messages}"}
+            command: () => {window.location.href="https://localhost:3001/messages"}
         },
         {
             separator:true

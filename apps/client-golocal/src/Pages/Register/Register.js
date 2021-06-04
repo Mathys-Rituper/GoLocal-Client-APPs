@@ -85,7 +85,7 @@ export default function Register() {
         <div className="formContainer">
             <img src={logo} className="logo" onClick={() => {goHome()}}/>
             <div className="card">
-                <p className="p-text-center">Créez un compte</p>
+                <p className="p-text-center" style={{fontFamily:"Lato,sans-serif"}}>Créez un compte</p>
                 <Form onSubmit={onSubmit} initialValues={{ name: '', password: ''}} validate={validate} render={({ handleSubmit }) => (
                     <form onSubmit={handleSubmit} className="p-fluid">
                         <Messages ref={msgs1} />
@@ -133,7 +133,7 @@ export default function Register() {
                             </div>
                         )} />
 
-                        <Button type="submit" style={{backgroundColor: "rgb(89, 136, 255)"}} label="S'inscrire" className="p-mt-2" disabled={buttonState} />
+                        <Button type="submit" style={{backgroundColor: "rgb(89, 136, 255)"}} label="S'inscrire"  style={{fontFamily:"Lato,sans-serif"}} className="p-mt-2" disabled={buttonState} />
                     </form>
                 )}/>
             </div>

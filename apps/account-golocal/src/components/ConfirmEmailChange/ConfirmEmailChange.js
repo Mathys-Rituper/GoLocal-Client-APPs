@@ -42,7 +42,7 @@ export default function ConfirmEmailChange() {
             <img src={logo} className="image" alt="logo golocal"/>
             <div className="texte">{loading && 'Confirmation en cours...'}</div>
             <div className="texte">{data && data}</div>
-            <div className="texte">{!data && 'Compte Validé !'}</div>
+            <div className="texte">{!data && 'Validation du changement d\'email non implémenté !'}</div>
             {/*<div className="texte-small" onLoad={setTimeout(() => {window.location.replace("https://localhost:3001/")},5000)}>Redirection ...</div>*/}
         </div>
     );

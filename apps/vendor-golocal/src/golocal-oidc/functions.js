@@ -189,6 +189,41 @@ export function getShops(){
         return oidcLogin();
     }
 }
+export function getProductsInvoices(shopID){
+    if (middleware() === true) {
+        const token = getToken();
+        const instance = axios.create({
+            baseURL: 'https://localhost:5002',
+            method: "post",
+            timeout: 5000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        });
+        const data = {
+            "take": 999,
+            "skip": 0,
+            "shopId": shopID
+        }
+        return instance
+            .post('/api/shops/invoices', data)
+            .then((response) => {
+                return {statut: 0, data: response}
+            })
+            .catch((error) => {
+                if (error.status === 401){
+                    oidcLogin();
+                }
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    return {status: 1, message: error.response.data};
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
+}
 export function getShopByID(id, artisanBool){
     if (middleware() === true) {
         if (artisanBool){
@@ -703,13 +738,18 @@ export function createShopRequest(name, postCode, country, region, city, street,
                 return {status: 0, data: "Boutique ajouté !"}
             })
             .catch((error) => {
+                console.log(error)
                 if (error.response.status === 401){
                     oidcLogin();
                 }
-                if (error.response === undefined) {
-                    return {status: 1, message: error};
-                } else {
-                    return {status: 1, message: error.response.data};
+                if (error.response.status === 400){
+                    return {status: 1, message: "L'adresse n'a pas été trouvée, réessayez !"};
+                }else{
+                    if (error.message) {
+                        return {status: 1, message: error};
+                    } else {
+                        return {status: 1, message: error.response.message};
+                    }
                 }
             });
     }else{

@@ -20,6 +20,7 @@ import ModifyContact from "../../sub-components/ModifyContact/ModifyContact";
 import ModifyLocation from "../../sub-components/ModifyLocation/ModifyLocation";
 import ChangeShopName from "../../sub-components/ChangeShopName/ChangeShopName";
 import ChangeOpenings from "../../sub-components/ChangeOpenings/ChangeOpenings";
+import ProductInvoices from "../../sub-components/ProductInvoices/ProductInvoices";
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -124,6 +125,12 @@ export default function SidebarShop(){
                 }
             ]
         }
+        ,
+        {
+            label:'Commandes Produit',
+            icon:'pi pi-shopping-cart',
+            command : () => {getAllProductInvoice()},
+        }
     ];
     function displayShop(){
         if (!displayGlobal){
@@ -179,8 +186,8 @@ export default function SidebarShop(){
         setDisplayProductPage(false);
         setDisplayServiceInfo(false)
     }
-    function modifyOpenings(){
-        setComponent(<ChangeImage/>)
+    function getAllProductInvoice(){
+        setComponent(<ProductInvoices/>)
         setDisplayGlobal(false);
         setDisplayProductPage(false);
         setDisplayServiceInfo(false)

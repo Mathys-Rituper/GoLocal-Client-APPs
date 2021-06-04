@@ -41,10 +41,13 @@ export default function Item() {
     const toast = useRef(null);
     const dialogToast = useRef(null);
     const [products, setProducts] = useState([]);
+    const [description, setDescription] = useState('');
+    const [loadedPackages, setLoadedPackages] = useState(false);
     const [displayBasic, setDisplayBasic] = useState(false);
+    const [displayDescription, setDisplayDescription] = useState(false);
     const [position, setPosition] = useState('center');
     const [price, setPrice] = useState(1);
-    const [spec, setSpec] = useState("A décider");
+    const [spec, setSpec] = useState("Écrivez votre demande");
     const [itemRequest, setItemRequest] = useState({
         loading: false,
         item: null,
@@ -69,7 +72,10 @@ export default function Item() {
         toFormatDate = toFormatDate[2] + "/" + toFormatDate[1] + "/" + toFormatDate[0];
         creation = toFormatDate;
         if (products.length === 0){
-            setProducts(item.packages);
+            if (loadedPackages === false){
+                setLoadedPackages(true);
+                setProducts(item.packages);
+            }
         }
         let commentariesObject = [{rate: 5, body: "Très bon produit"},{rate: 3, body: "Bien arrivé, mais vendeur peu cordial"},{rate: 4, body: "Je recommande"},{rate: 5, body: "Produits de très bonne qualité"},{rate: 3, body: "Mon produit s'est vité abimé, les matériaux ne sont pas les meilleurs"}]
         if (commentariesObject){
@@ -96,7 +102,10 @@ export default function Item() {
                         <span style={{width:"",fontFamily:"Lato,sans-serif", fontSize:"100%", paddingLeft:"1%", paddingRight:"1%", backgroundColor: data.asStocks ? ("#c8e6c9") : ("#ffcdd2")}}>{data.asStocks ? ('En stock') : ('Rupture')}</span>
                         <span style={{fontFamily:"Lato,sans-serif", fontSize:"120%"}}>{data.price}€</span>
                         <div style={{width:"12%"}}>
-                            <Button style={{fontFamily:"Lato,sans-serif", backgroundColor:"grey", borderColor:"grey"}} icon="pi pi-info-circle" label="" tooltip={data.description} tooltipOptions={{ position: 'left', mouseTrack: true, mouseTrackTop: 15 }}/>
+                            <Button style={{fontFamily:"Lato,sans-serif", backgroundColor:"grey", borderColor:"grey"}} icon="pi pi-info-circle" label="" onClick={() => {
+                                setDescription(data.description);
+                                setDisplayDescription(true);
+                            }} tooltip={"Cliquez pour la description"} tooltipOptions={{ position: 'left', mouseTrack: true, mouseTrackTop: 15 }}/>
                             <Button style={{fontFamily:"Lato,sans-serif",  backgroundColor:"rgb(89, 136, 255)", borderColor:"rgb(89, 136, 255)", marginLeft:"3%"}} icon="pi pi-shopping-cart" label="" onClick={() => {
                                     setInfoDialog({
                                         shopID : shopID,
@@ -124,7 +133,10 @@ export default function Item() {
                         <span style={{width:"",fontFamily:"Lato,sans-serif", fontSize:"100%", paddingLeft:"1%", paddingRight:"1%", backgroundColor: data.asStocks ? ("#c8e6c9") : ("#ffcdd2")}}>{data.asStocks ? ('En stock') : ('Rupture')}</span>
                         <span style={{fontFamily:"Lato,sans-serif", fontSize:"120%"}}>{data.price}€</span>
                         <div style={{width:"12%"}}>
-                            <Button style={{fontFamily:"Lato,sans-serif", backgroundColor:"grey", borderColor:"grey"}} icon="pi pi-info-circle" label="" tooltip={data.description} tooltipOptions={{ position: 'left', mouseTrack: true, mouseTrackTop: 15 }}/>
+                            <Button style={{fontFamily:"Lato,sans-serif", backgroundColor:"grey", borderColor:"grey"}} icon="pi pi-info-circle" label="" onClick={() => {
+                                setDescription(data.description);
+                                setDisplayDescription(true);
+                            }} tooltip={"Cliquez pour la description"} tooltipOptions={{ position: 'left', mouseTrack: true, mouseTrackTop: 15}}/>
                             <Button style={{fontFamily:"Lato,sans-serif",  backgroundColor:"rgb(89, 136, 255)", borderColor:"rgb(89, 136, 255)", marginLeft:"3%"}} icon="pi pi-shopping-cart" label="" onClick={() => {
                                 addToCartItem(shopID, itemID, data.id, 1).then(data => {
                                     if (data.status === 1){
@@ -142,13 +154,12 @@ export default function Item() {
     }
 
     const dialogFuncMap = {
-        'displayBasic': setDisplayBasic
+        'displayBasic': setDisplayBasic,
+        'displayDescription' : setDisplayDescription
     }
 
+
     const validate = () => {
-        console.log(infoDialog);
-        console.log(spec)
-        console.log(price);
         let specification;
         if (spec === ""){
             specification = "Non déterminé par le client"
@@ -179,6 +190,13 @@ export default function Item() {
             </div>
         );
     }
+    const renderFooterProduct = (name) => {
+        return (
+            <div>
+                <Button label="Annuler" icon="pi pi-times" onClick={() => onHide(name)} className="p-button-text" />
+            </div>
+        );
+    }
 
 
     return (
@@ -204,6 +222,9 @@ export default function Item() {
                         </div>
 
                     </Dialog>
+                    <Dialog header="Description produit" visible={displayDescription} style={{ width: '40%', }} footer={renderFooterProduct('displayDescription')} onHide={() => onHide('displayDescription')}>
+                        <p>{description}</p>
+                    </Dialog>
                     <div style={{width:"20%", marginRight:"2%"}}>
                         <img src={`data:image/jpeg;base64,${item.image}`} style={{width:"100%", borderColor: "2px solid #e8e8e8",boxShadow:"3px 3px 8px #f0f0f0"}} />
                     </div>
@@ -219,10 +240,17 @@ export default function Item() {
                             </div>
                         </ScrollPanel>
                     </div>
-                    <div className="containerTwo">
-                        <Toast ref={dialogToast} />
-                        <DataScroller value={products} itemTemplate={itemTemplate} rows={7} inline scrollHeight="330px" header={`Liste des packages de ${item.name}`} />
-                    </div>
+                    {item.packages.length !== 0 ? (
+                        <div className="containerTwo">
+                            <Toast ref={dialogToast} />
+                            <DataScroller value={products} itemTemplate={itemTemplate} rows={7} inline scrollHeight="330px" header={`Liste des packages de ${item.name}`} />
+                        </div>
+                    ) : (
+                        <div>
+                            <DataScroller value={null} itemTemplate={itemTemplate} rows={7} inline scrollHeight="330px" header={`Aucuns packages disponibles à l'achat pour le moment pour cet objet!`} />
+                        </div>
+                    )}
+
                 </div>
             ) : (
                 <div/>

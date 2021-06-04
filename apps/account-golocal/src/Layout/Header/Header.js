@@ -25,10 +25,11 @@ export default function Header() {
     }
     let avatar;
     if(oidcUser){
+        console.log(oidcUser)
         if (!oidcUser.avatar){
             avatar = AvatarDefault;
         }else{
-            avatar = oidcUser.avatar;
+            avatar = `data:image/jpeg;base64,${oidcUser.avatar}`;
         }
     }
     const menu = useRef(null);
@@ -131,7 +132,7 @@ export default function Header() {
                 {oidcUser ? (
                     <div className="account-cart">
                         <TieredMenu model={items} popup ref={menu} style={{width:"12%"}}/>
-                        <Avatar onClick={() => {window.location.replace("https://localhost:3001/account")}} image={avatar} style={{cursor:"pointer"}} className="p-mr-2" size="large" shape="circle" />
+                        <Avatar onClick={() => {window.location.replace("https://localhost:3001/account")}} src={avatar} style={{cursor:"pointer"}} className="p-mr-2" size="large" shape="circle" />
                         <a style={{fontSize:"100%"}}>
                             Bonjour {oidcUser.userName} <br/> <b><span onClick={(event) => menu.current.toggle(event)}  style={{cursor:"pointer"}}>Mon Compte ▾</span></b>
                         </a>

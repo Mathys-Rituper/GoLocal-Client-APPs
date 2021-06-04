@@ -56,7 +56,7 @@ export default function Login() {
         <div className="formContainer">
             <img  src={logo} className="logo" onClick={() => {goHome()}}/>
             <div className="card">
-                <p className="p-text-center">Connectez-vous à votre compte</p>
+                <p className="p-text-center"  style={{fontFamily:"Lato,sans-serif"}}>Connectez-vous à votre compte</p>
                 <Form onSubmit={onSubmit} initialValues={{ name: '', password: ''}} validate={validate} render={({ handleSubmit }) => (
                     <form onSubmit={handleSubmit} className="p-fluid">
                         <Messages ref={msgs1} />
@@ -81,7 +81,7 @@ export default function Login() {
                         <div style={{marginBottom: "3%", cursor:"pointer", color:"rgb(89, 136, 255)", textAlign:"right"}} onClick={() => {
                             window.location.replace("https://localhost:3000/forgotPassword")
                         }}>Mot de passe perdu ?</div>
-                        <Button type="submit" label="Connexion" className="p-mt-2" />
+                        <Button type="submit" label="Connexion"  style={{fontFamily:"Lato,sans-serif"}} className="p-mt-2" />
                     </form>
                 )}/>
             </div>

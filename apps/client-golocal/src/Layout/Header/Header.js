@@ -29,7 +29,7 @@ export default function Header() {
         if (!oidcUser.avatar){
             avatar = AvatarDefault;
         }else{
-            avatar = oidcUser.avatar;
+            avatar = `data:image/jpeg;base64,${oidcUser.avatar}`;
         }
     }
     const menu = useRef(null);

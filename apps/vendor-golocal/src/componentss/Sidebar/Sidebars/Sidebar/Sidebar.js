@@ -56,7 +56,7 @@ export default function Sidebar(){
     }
     function displayInvoices(){
         if (!displayInvoicesInfo){
-            setComponent(<div>Display Invoices</div>)
+            setComponent(<div style={{textAlign:"center", fontFamily:"Lato, sans-serif", fontSize:"150%", marginTop:"10%"}}>En développement</div>)
             setDisplayInvoicesInfo(true);
             setDisplayGlobal(false);
             setDisplayMessagesPage(false)
@@ -64,7 +64,7 @@ export default function Sidebar(){
     }
     function displayMessages(){
         if (!displayMessagePage){
-            setComponent(<div>Display Messages</div>)
+            setComponent(<div style={{textAlign:"center", fontFamily:"Lato, sans-serif", fontSize:"150%", marginTop:"10%"}}>En développement</div>)
             setDisplayMessagesPage(true)
             setDisplayGlobal(false);
             setDisplayInvoicesInfo(false);

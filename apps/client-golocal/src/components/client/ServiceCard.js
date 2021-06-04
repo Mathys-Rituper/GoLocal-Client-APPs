@@ -24,7 +24,7 @@ export default function ServiceCard({service, shopID}){
         return (
             <div  style={{"width":"15rem", cursor:"pointer"}}>
             <div onClick={() => {window.location.href=`https://localhost:3001/shop/item?shopID=${shopID}&serviceID=${id}`}}>
-                <img style={{width:"100%",minHeight:"200px", border:"1px solid black"}} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} src={image} alt={name}/>
+                <img style={{width:"100%",minHeight:"200px", border:"1px solid black"}} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} src={`data:image/jpeg;base64,${service.image}`} alt={name}/>
                 <span style={{fontFamily:"Lato", fontSize:"120%"}}>{name}</span>
             </div>
             </div>)

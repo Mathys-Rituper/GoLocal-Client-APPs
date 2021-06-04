@@ -25,7 +25,7 @@ export function goLocalLogin(userName,Password, errorShow, previousPage){
     const instance = axios.create({
         baseURL: 'https://localhost:5000',
         method: "post",
-        timeout: 3000,
+        timeout: 30000,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -58,7 +58,7 @@ export function confirmAccountRequest(token, uid){
     const instance = axios.create({
         baseURL: 'https://localhost:5000',
         method: "post",
-        timeout: 3000,
+        timeout: 30000,
         headers: {},
     });
     const data = {
@@ -69,7 +69,7 @@ export function confirmAccountRequest(token, uid){
         return instance
         .post('/account/register/confirmation',data)
         .then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             return res.data;
         })
         .catch(error =>{
@@ -84,7 +84,7 @@ export function confirmPasswordRequest(token, uid, newPassword, newPasswordConfi
     const instance = axios.create({
         baseURL: 'https://localhost:5000',
         method: "post",
-        timeout: 3000,
+        timeout: 30000,
         headers: {},
     });
     const data = {
@@ -98,16 +98,16 @@ export function confirmPasswordRequest(token, uid, newPassword, newPasswordConfi
         .then(res => res.data)
         .catch(error =>{
             if (error.response === undefined){
-                console.log(1, error)
+                // console.log(1, error)
                 return error;
             }else{
-                console.log(2, error.response.data.message)
+                // console.log(2, error.response.data.message)
                 return error.response.data.message;
             }
         })
 }
 export function resetPasswordRequest(email, errorShow){
-    console.log("Password Reset Requested")
+    // console.log("Password Reset Requested")
     const instance = axios.create({
         baseURL: 'https://localhost:5000',
         method: "post",
@@ -120,7 +120,7 @@ export function resetPasswordRequest(email, errorShow){
     return instance
         .post('/account/password', data)
         .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             return res.data;
         })
         .catch(error =>{
@@ -138,7 +138,7 @@ export function goLocalGetUserInfo(){
         const instance = axios.create({
             baseURL: 'https://localhost:5000',
             method: "get",
-            timeout: 3000,
+            timeout: 30000,
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -161,7 +161,7 @@ export function getShops(){
         const instance = axios.create({
             baseURL: 'https://localhost:5002',
             method: "post",
-            timeout: 5000,
+            timeout: 30000,
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -195,7 +195,7 @@ export function getProductsInvoices(shopID){
         const instance = axios.create({
             baseURL: 'https://localhost:5002',
             method: "post",
-            timeout: 5000,
+            timeout: 30000,
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -231,7 +231,7 @@ export function getShopByID(id, artisanBool){
             const instance = axios.create({
                 baseURL: 'https://localhost:5001',
                 method: "get",
-                timeout: 5000,
+                timeout: 30000,
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
@@ -239,7 +239,7 @@ export function getShopByID(id, artisanBool){
             return instance
                 .get(`/api/shops/${id}`)
                 .then((response) => {
-                    console.log(response)
+                    // console.log(response)
                     return {statut: 0, data: response.data}
                 })
                 .catch((error) => {
@@ -261,7 +261,7 @@ export function getShopByID(id, artisanBool){
             return instance
                 .get(`/api/shops/${id}`)
                 .then((response) => {
-                    console.log(response)
+                    // console.log(response)
                     return {statut: 0, data: response.data}
                 })
                 .catch((error) => {
@@ -286,7 +286,7 @@ export function getItemByID(shopID, id, artisanBool){
             const instance = axios.create({
                 baseURL: 'https://localhost:5001',
                 method: "get",
-                timeout: 5000,
+                timeout: 30000,
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
@@ -351,7 +351,7 @@ export function patchShopName(shopID, oldName, newName){
         return instance
             .patch('/api/shops', data)
             .then((response) => {
-                console.log(response);
+                // console.log(response);
                 return {status: 0, message:"Changement effectué"}
             })
             .catch((error) => {
@@ -389,7 +389,7 @@ export function patchItemName(shopID, itemID, oldName, newName){
         return instance
             .patch(`/api/shops/${shopID}/items/${itemID}`, data)
             .then((response) => {
-                console.log(response);
+                // console.log(response);
                 return {status: 0, message:"Changement effectué"}
             })
             .catch((error) => {
@@ -426,7 +426,7 @@ export function patchItemDescription(shopID, itemID, description){
         return instance
             .patch(`/api/shops/${shopID}/items/description`, data)
             .then((response) => {
-                console.log(response);
+                // console.log(response);
                 return {status: 0, message:"Changement effectué"}
             })
             .catch((error) => {
@@ -470,7 +470,7 @@ export function patchShopOpening(shopID, day, morningMin, morningMax, eveningMin
         return instance
             .patch('/api/shops/openings', data)
             .then((response) => {
-                console.log(response);
+                // console.log(response);
                 return {status: 0, message:"Changement effectué"}
             })
             .catch((error) => {
@@ -559,37 +559,45 @@ export function patchPackageStocks(shopId, itemID, packageID, stock){
     }
 }
 export function patchItemVisibilityRequest(shopId, itemID, visibility){
-    console.log(shopId, itemID, visibility);
-
-    // if (middleware() === true) {
-    //     const token = getToken();
-    //     const instance = axios.create({
-    //         baseURL: 'https://localhost:5002',
-    //         method: "patch",
-    //         timeout: 30000,
-    //         headers: {
-    //             Authorization: `Bearer ${token}`,
-    //         },
-    //     });
-    //
-    //     return instance
-    //         .patch(`/api/shops/${shopId}/image`)
-    //         .then((response) => {
-    //             return {status: 0, message:"Changement effectué"}
-    //         })
-    //         .catch((error) => {
-    //             if (error.status === 401){
-    //                 oidcLogin();
-    //             }
-    //             if (error.response === undefined) {
-    //                 return {status: 1, message: error};
-    //             } else {
-    //                 return {status: 1, message: error.response.data};
-    //             }
-    //         });
-    // }else{
-    //     return oidcLogin();
-    // }
+    if (middleware() === true) {
+        const token = getToken();
+        let visibilityToApply;
+        if (visibility === "0"){
+            visibilityToApply = 1
+        }else{
+            visibilityToApply = 0
+        }
+        const instance = axios.create({
+            baseURL: 'https://localhost:5002',
+            method: "patch",
+            timeout: 30000,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        });
+        const data = {
+            "shopId": shopId,
+            "itemId": itemID,
+            "visibility": visibilityToApply
+        }
+        return instance
+            .patch(`/api/shops/${shopId}/items/visibility`, data)
+            .then((response) => {
+                return {status: 0, data: "Visibilité modifiée !"}
+            })
+            .catch((error) => {
+                if (error.response.status === 401){
+                    oidcLogin();
+                }
+                if (error.response === undefined) {
+                    return {status: 1, message: error};
+                } else {
+                    return {status: 1, message: error.response.data};
+                }
+            });
+    }else{
+        return oidcLogin();
+    }
 }
 export function patchImageItem(shopId, itemID, image){
     if (middleware() === true) {
@@ -599,7 +607,7 @@ export function patchImageItem(shopId, itemID, image){
         const instance = axios.create({
             baseURL: 'https://localhost:5002',
             method: "patch",
-            timeout: 10000,
+            timeout: 50000,
             headers: {
                 'Content-Type': 'multipart/form-data',
                 Authorization: `Bearer ${token}`,
@@ -610,7 +618,7 @@ export function patchImageItem(shopId, itemID, image){
         return instance
             .patch(`/api/shops/${shopId}/items/${itemID}/image`,formData)
             .then((response) => {
-                console.log(response);
+                // console.log(response);
                 return {status: 0, message:"Changement effectué"}
             })
             .catch((error) => {
@@ -646,7 +654,7 @@ export function patchContacts(shopID, email, phone){
         return instance
             .patch('/api/shops/contact', data)
             .then((response) => {
-                console.log(response);
+                // console.log(response);
                 return {status: 0, message:"Changement effectué"}
             })
             .catch((error) => {
@@ -687,7 +695,7 @@ export function patchLocalisation(shopID, address, street, region, postCode, cit
         return instance
             .patch('/api/shops/location', data)
             .then((response) => {
-                console.log(response);
+                // console.log(response);
                 return {status: 0, message:"Changement effectué"}
             })
             .catch((error) => {
@@ -734,11 +742,11 @@ export function createShopRequest(name, postCode, country, region, city, street,
         return instance
             .put(`/api/shops`, data)
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 return {status: 0, data: "Boutique ajouté !"}
             })
             .catch((error) => {
-                console.log(error)
+                // console.log(error)
                 if (error.response.status === 401){
                     oidcLogin();
                 }
@@ -775,7 +783,7 @@ export function createProductByShopID(id, name, description){
         return instance
             .put(`/api/shops/${id}/items/products`, data)
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 return {status: 0, data: "Produit ajouté !"}
             })
             .catch((error) => {
@@ -811,7 +819,7 @@ export function createServiceByShopID(id, name, description){
         return instance
             .put(`/api/shops/${id}/items/services`, data)
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 return {status: 0, data: "Service ajouté !"}
             })
             .catch((error) => {
@@ -850,7 +858,7 @@ export function createPackageByShopIdAndItemID(shopID, itemID, name, description
         return instance
             .put(`/api/shops/${shopID}/items/${itemID}/packages`, data)
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 return {status: 0, data: "Package ajouté !"}
             })
             .catch((error) => {
@@ -879,7 +887,7 @@ export function deleteShopWithToken(shopID, visibility){
         const instance = axios.create({
             baseURL: 'https://localhost:5002',
             method: "patch",
-            timeout: 5000,
+            timeout: 30000,
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -891,18 +899,15 @@ export function deleteShopWithToken(shopID, visibility){
         return instance
             .patch(`/api/shops/visibility`, data)
             .then((response) => {
-                console.log("1")
-                return {status: 0, data: "Boutique supprimé !"}
+                return {status: 0, data: "Visibilité modifiée !"}
             })
             .catch((error) => {
                 if (error.response.status === 401){
                     oidcLogin();
                 }
                 if (error.response === undefined) {
-                    console.log("3")
                     return {status: 1, message: error};
                 } else {
-                    console.log("4")
                     return {status: 1, message: error.response.data};
                 }
             });
@@ -916,7 +921,7 @@ export function deleteItemWithToken(shopID, id, name){
         const instance = axios.create({
             baseURL: 'https://localhost:5002',
             method: "delete",
-            timeout: 5000,
+            timeout: 30000,
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -934,7 +939,7 @@ export function deleteItemWithToken(shopID, id, name){
         return instance
             .delete(`/api/shops/${shopID}/items/${id}`, data)
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 return {status: 0, data: "Item supprimé !"}
             })
             .catch((error) => {

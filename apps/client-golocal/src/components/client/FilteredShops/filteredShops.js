@@ -54,7 +54,7 @@ export default function FilteredShops() {
     function getShopsFiltered(value2, value3) {
         getShopsFilteredRequest(value2, value3)
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 setShopsRequest({
                     loading: false,
                     shops: data,
@@ -64,7 +64,7 @@ export default function FilteredShops() {
     function resetShopsFiltered() {
         getShopsFilteredRequest('', 5)
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 setShopsRequest({
                     loading: false,
                     shops: data,

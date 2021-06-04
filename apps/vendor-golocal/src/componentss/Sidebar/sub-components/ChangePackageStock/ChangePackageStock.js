@@ -52,7 +52,7 @@ export default function ChangePackageStock(){
     }, []);
 
     const { loading, packageOfItem } = itemRequest;
-    console.log(packageOfItem)
+    // console.log(packageOfItem)
     const [value1, setValue1] = useState();
     const toast = useRef(null);
     function changeStocks(){

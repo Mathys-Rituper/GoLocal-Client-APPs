@@ -98,7 +98,7 @@ export function confirmChangeEmailRequest(token, uid, email){
             return res.data;
         })
         .catch(error =>{
-            console.log(error.response)
+            // console.log(error.response)
             if (error.response === undefined){
                 return error;
             }else{
@@ -124,16 +124,16 @@ export function confirmPasswordRequest(token, uid, newPassword, newPasswordConfi
         .then(res => res.data)
         .catch(error =>{
             if (error.response === undefined){
-                console.log(1, error)
+                // console.log(1, error)
                 return error;
             }else{
-                console.log(2, error.response.data.message)
+                // console.log(2, error.response.data.message)
                 return error.response.data.message;
             }
         })
 }
 export function resetPasswordRequest(email, errorShow){
-    console.log("Password Reset Requested")
+    // console.log("Password Reset Requested")
     const instance = axios.create({
         baseURL: 'https://localhost:5000',
         method: "post",
@@ -146,7 +146,7 @@ export function resetPasswordRequest(email, errorShow){
     return instance
         .post('/account/password', data)
         .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             return res.data;
         })
         .catch(error =>{
@@ -199,7 +199,7 @@ export function patchAvatar(avatar){
         return instance
             .patch(`/users/avatar`,formData)
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 return {status: 0, message:"Changement effectué"}
             })
             .catch((error) => {
@@ -233,11 +233,11 @@ export function patchPhone(phone){
         return instance
             .patch('/account/phone', data)
             .then((response) => {
-                console.log(response);
+                // console.log(response);
                 return {statut: 0, message:"Changement effectué"}
             })
             .catch((error) => {
-                console.log(error.response)
+                // console.log(error.response)
                 if (error.status === 401){
                     oidcLogin();
                 }

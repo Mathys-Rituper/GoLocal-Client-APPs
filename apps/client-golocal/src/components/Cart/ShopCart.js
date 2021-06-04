@@ -36,7 +36,7 @@ function stockBodyTemplate(rowData) {
 
 
 function quantityBodyTemplate(rowData) {
-    console.log(rowData)
+    // console.log(rowData)
     let originalQuantity = rowData.quantity;
     const numbers = [
         { name: '0', value: 0 },

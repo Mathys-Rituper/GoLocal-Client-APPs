@@ -40,7 +40,6 @@ export default function ResetPassword() {
         ]);
     }
     const onSubmit = async (data, form) => {
-        console.log(data)
         await resetPasswordRequest(data.email, errorShow)
         setButtonState(true)
         window.location.replace("https://localhost:3001/")

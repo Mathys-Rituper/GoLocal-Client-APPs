@@ -124,7 +124,7 @@ export function getShopByID(id){
             .get(`/api/shops/${id}`)
             .then(res => res.data)
             .catch(error =>{
-                console.log(error);
+                // console.log(error);
                 // oidcLogin();
             })
 }
@@ -140,7 +140,7 @@ export function getItemByID(shopID, itemID){
         .get(`/api/shops/${shopID}/items/${itemID}`)
         .then(res => res.data)
         .catch(error =>{
-            console.log(error);
+            // console.log(error);
         })
 }
 export function getAdressFromCoords(long, lat){
@@ -154,7 +154,7 @@ export function getAdressFromCoords(long, lat){
             return res.data.features[0].place_name
         })
         .catch((error) => {
-            console.log(error)
+            // console.log(error)
         })
 }
 export function getShopsRequest(adress){
@@ -176,7 +176,7 @@ export function getShopsRequest(adress){
                 return res.data.list;
             })
             .catch(error =>{
-                console.log(error);
+                // console.log(error);
             })
 
 }
@@ -233,7 +233,7 @@ export function getShopsFilteredRequest(filter, distance){
             return res.data.list;
         })
         .catch(error =>{
-            console.log(error);
+            // console.log(error);
         })
 
 }
@@ -262,7 +262,7 @@ export function addToCartItem(shopID, itemID, packageID, quantity){
         return instance
             .patch(`/api/carts/shops/${shopID}/add`, data)
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 return {status: 0, message: "Package ajouté au panier !"}
             })
             .catch((error) => {
@@ -303,7 +303,7 @@ export function removeItemFromCart(shopID, packageID, quantity){
         return instance
             .patch(`/api/carts/shops/${shopID}/remove`, data)
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 if (quantity > 1){
                     return {status: 0, message: "Une unité de ce package retiré du panier"}
                 }else{
@@ -351,7 +351,7 @@ export function addToCommandPackage(shopID, serviceID, packageID, price, spec){
         return instance
             .put(`/api/commands`, data)
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 return {status: 0, message: "Package ajouté à vos commandes !"}
             })
             .catch((error) => {
@@ -432,7 +432,7 @@ export function validateCart(shopID){
                 return {status: 0, message: "Panier Validé"}
             })
             .catch((error) => {
-                console.log(error)
+                // console.log(error)
                 if (error.response.status === 400){
                     return {status: 1, message: "Problème de validation de panier !"}
                 }

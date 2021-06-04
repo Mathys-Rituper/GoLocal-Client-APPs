@@ -28,7 +28,7 @@ export default function ConfirmPassword() {
     let tokenSliced = url.split("token=")
     tokenSliced = tokenSliced[1].split("&uid=")
     const [formData, setFormData] = useState({});
-    console.log({tokenSliced,token, uid})
+    // console.log({tokenSliced,token, uid})
 
 
     const formik = useFormik({
@@ -53,10 +53,10 @@ export default function ConfirmPassword() {
         },
         onSubmit: (data) => {
             setFormData(data);
-            console.log(data);
+            // console.log(data);
             confirmPasswordRequest(tokenSliced[0], tokenSliced[1], data.password, data.passwordConfirm).then(data => setResponse(data))
             if (response !== null || response !== undefined){
-                console.log(response)
+                // console.log(response)
                 errorShow(response);
             }
             formik.resetForm();

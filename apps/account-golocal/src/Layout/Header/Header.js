@@ -25,7 +25,6 @@ export default function Header() {
     }
     let avatar;
     if(oidcUser){
-        console.log(oidcUser)
         if (!oidcUser.avatar){
             avatar = AvatarDefault;
         }else{

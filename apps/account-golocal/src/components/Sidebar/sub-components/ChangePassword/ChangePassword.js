@@ -40,9 +40,9 @@ export default function ChangePassword(){
             </ul>
         </React.Fragment>
     );
-    console.log("oldpassword : " + oldPassword)
-    console.log("newPassword : " + newPassword)
-    console.log("newPasswordConfirmation : " + newPasswordConfirmation)
+    // console.log("oldpassword : " + oldPassword)
+    // console.log("newPassword : " + newPassword)
+    // console.log("newPasswordConfirmation : " + newPasswordConfirmation)
     return (
         <div className="container">
             <div className="title">Changement Mot de passe</div>

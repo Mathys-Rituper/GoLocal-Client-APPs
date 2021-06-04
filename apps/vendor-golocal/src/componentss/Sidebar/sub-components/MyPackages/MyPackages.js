@@ -39,7 +39,7 @@ export default function MyPackages(){
     }, []);
 
     const { loading, packages } = packageRequest;
-    console.log(packages)
+    // console.log(packages)
     let packagesComponentsArray = [];
     if (packages){
         packages.forEach((itemPackage) => {

@@ -32,7 +32,7 @@ export default function ModifyLocation(){
     const toast = useRef(null);
     function modifyLocation(){
         patchLocalisation(shopID, value1, value2, value3, value4, value5, value6).then(data => {
-            console.log(data);
+            // console.log(data);
             if (data.status === 1){
                 toast.current.show({severity: 'error', summary: 'Erreur', detail: data.message});
             }else{

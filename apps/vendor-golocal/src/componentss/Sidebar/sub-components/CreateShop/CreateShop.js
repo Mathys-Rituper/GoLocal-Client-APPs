@@ -30,7 +30,7 @@ export default function CreateShop(){
     const toast = useRef(null);
     function createShop(){
         createShopRequest(value1, value7, value9, value6, value8, value5, value4, value3, value2).then(data => {
-            console.log(data);
+            // console.log(data);
             if (data.status === 1){
                 toast.current.show({severity: 'error', summary: 'Erreur', detail: data.message});
             }else{

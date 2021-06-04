@@ -7,7 +7,7 @@ import React from 'react';
 import { Rating } from 'primereact/rating';
 import placeHolder from "../../assets/product-image-placeholder.jpg"
 export default function ProductCard({product, shopID}){
-    console.log(product.image)
+    // console.log(product.image)
 
     if (!product) product = {nom: "Test", image: "test.jpg", price: "55", rating: 5}
     let id = product.id;

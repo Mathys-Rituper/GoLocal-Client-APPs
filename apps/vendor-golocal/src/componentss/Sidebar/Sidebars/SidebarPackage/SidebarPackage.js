@@ -41,7 +41,7 @@ export default function SidebarPackage(){
     };
     const accept = () => {
         deleteItemWithToken(shopID, itemID, itemName).then(data =>{
-            console.log(data)
+            // console.log(data)
             if (data.status === 1){
                 toast.current.show({ severity: 'error', summary: 'Erreur', detail: data.message, life: 5000 });
             }else{

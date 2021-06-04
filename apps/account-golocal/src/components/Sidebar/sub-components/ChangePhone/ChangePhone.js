@@ -36,10 +36,8 @@ export default function ChangePhone(){
     let phoneBool = false;
     if (user){
         if (user.phoneNumber === null){
-            console.log("test");
             phone = "Aucun numéro associé au compte pour le moment";
         }else{
-            console.log("test2")
             phone = user.phoneNumber
             phoneBool = true;
         }

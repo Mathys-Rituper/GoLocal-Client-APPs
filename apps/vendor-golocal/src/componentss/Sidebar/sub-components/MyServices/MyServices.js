@@ -28,7 +28,7 @@ export default function MyServices(){
         setServiceRequest({ loading: true });
         getShopByID(shopID, true)
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 if (data.status === 1 ){
                     setError(data.message)
                 }else{
@@ -41,7 +41,7 @@ export default function MyServices(){
     }, []);
 
     const { loading, services } = serviceRequest;
-    console.log(services)
+    // console.log(services)
     let servicesComponentsArray = [];
     if (services){
         services.forEach((service) => {

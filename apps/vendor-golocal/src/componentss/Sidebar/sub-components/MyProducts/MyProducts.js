@@ -39,7 +39,7 @@ export default function MyProducts(){
     }, []);
 
     const { loading, products } = productRequest;
-    console.log(products)
+    // console.log(products)
     let productsComponentsArray = [];
     if (products){
         products.forEach((product) => {

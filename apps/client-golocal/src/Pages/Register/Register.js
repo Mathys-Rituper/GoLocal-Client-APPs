@@ -58,7 +58,7 @@ export default function Register() {
     }
     const onSubmit = async (data, form) => {
         form.restart();
-        console.log(data)
+        // console.log(data)
         await goLocalRegister(data.name, data.email, data.password, data.confirmPassword, errorShow)
         setButtonState(true)
     };

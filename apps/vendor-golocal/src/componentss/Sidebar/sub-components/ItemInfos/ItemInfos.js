@@ -26,7 +26,7 @@ export default function ItemInfos(){
         setItemRequest({ loading: true });
         getItemByID(shopID,itemID, true)
             .then(data => {
-                console.log(data.data);
+                // console.log(data.data);
                 setItemRequest({
                     loading: false,
                     item: data.data,

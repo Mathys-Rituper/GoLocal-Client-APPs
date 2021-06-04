@@ -33,7 +33,7 @@ export default function MyShops(){
     }, []);
 
     const { loading, shops } = shopsRequest;
-    console.log(shops)
+    // console.log(shops)
     let shopsComponentsArray = [];
     if (shops){
         shops.forEach((shop) => {

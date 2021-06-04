@@ -12,7 +12,7 @@ import CreateProduct from "../../sub-components/CreateProduct/CreateProduct";
 import {useLocation} from "react-router-dom";
 import {confirmDialog} from "primereact/components/confirmdialog/ConfirmDialog";
 import {Toast} from "primereact/toast";
-import {deleteItemWithToken, deleteShopWithToken} from "../../../../golocal-oidc/functions";
+import {deleteItemWithToken, deleteShopWithToken, patchItemVisibilityRequest} from "../../../../golocal-oidc/functions";
 import CreateService from "../../sub-components/CreateService/CreateService";
 import ChangeImage from "../../sub-components/ChangeImage/ChangeImage";
 import MyServices from "../../sub-components/MyServices/MyServices";
@@ -44,8 +44,8 @@ export default function SidebarItem(){
     const toast = useRef(null);
     const confirm2 = () => {
         confirmDialog({
-            message: 'Voulez-vous supprimer votre item?',
-            header: 'Cette action est irréversible',
+            message: 'Voulez-vous changer la visibilité de votre item ?',
+            header: 'Cette action est réversible',
             icon: 'pi pi-info-circle',
             acceptClassName: 'p-button-danger',
             rejectLabel: "Annuler",
@@ -55,14 +55,13 @@ export default function SidebarItem(){
         });
     };
     const accept = () => {
-        deleteItemWithToken(shopID, itemID, itemName).then(data =>{
-            console.log(data)
+        patchItemVisibilityRequest(shopID, itemID, itemName).then(data =>{
             if (data.status === 1){
                 toast.current.show({ severity: 'error', summary: 'Erreur', detail: data.message, life: 5000 });
             }else{
                 toast.current.show({ severity: 'success', summary: 'Succès', detail: data, life: 5000 });
                 setTimeout(()=> {
-                    window.location.replace("https://localhost:3002/artisan")
+                    window.location.replace(`https://localhost:3002/artisan/shop?shopID=${shopID}&shopName=${shopName}&visibility=${visibility}`)
                 }, 2000)
             }
         })
@@ -90,17 +89,12 @@ export default function SidebarItem(){
                     label:'Ajouter / Modifier Image',
                     icon:'pi pi-fw pi-image',
                     command : () => {modifyImage()}
-                },
-                // {
-                //     label:'Modifier Visibilité',
-                //     icon:'pi pi-fw pi-eye',
-                //     command : () => {modifyVisibility()}
-                //},
-                {
-                    label:'Cacher Item',
-                    icon:'pi pi pi-eye-slash',
-                    command : () => {confirm2()},
                 }
+                // {
+                //     label:'Cacher Item',
+                //     icon:'pi pi pi-eye-slash',
+                //     command : () => {confirm2()},
+                // }
             ]
         },
         {
@@ -150,12 +144,6 @@ export default function SidebarItem(){
         setDisplayGlobal(false);
         setDisplayPackagesPage(false);
     }
-    function modifyVisibility(){
-        setComponent(<ChangeItemVisibility/>)
-        setDisplayGlobal(false);
-        setDisplayPackagesPage(false);
-    }
-
 
     function RenderSidebar(){
         return(

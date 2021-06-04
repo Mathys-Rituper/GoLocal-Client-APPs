@@ -29,7 +29,7 @@ export default function CreatePackage(){
     function createProduct(){
         createPackageByShopIdAndItemID(shopID, itemID, value1, value2, value3, value4).then(data => {
             if (data.status === 1){
-                console.log(data)
+                // console.log(data)
                 toast.current.show({severity: 'error', summary: 'Erreur', detail: "Ce package existe déjà"});
             }else{
                 toast.current.show({severity: 'success', summary: 'Succès', detail: data.data});

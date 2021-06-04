@@ -13,7 +13,7 @@ export default function ConfirmAccount() {
     const url = window.location.href
     let tokenSliced = url.split("token=")
     tokenSliced = tokenSliced[1].split("&uid=")
-    console.log({tokenSliced,token, uid})
+    // console.log({tokenSliced,token, uid})
 
     const [response, setResponse] = useState({
         loading: false,

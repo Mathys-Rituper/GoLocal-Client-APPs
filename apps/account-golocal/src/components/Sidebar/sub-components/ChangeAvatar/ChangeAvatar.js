@@ -53,7 +53,7 @@ export default function ChangeAvatar(){
         _totalSize += (e.files[0].size || 0);
 
         setTotalSize(_totalSize);
-        console.log(e);
+        // console.log(e);
         patchAvatar(e).then(data => {
             if (data.status === 1){
                 toast.current.show({severity: 'error', summary: 'Erreur', detail: data.message});

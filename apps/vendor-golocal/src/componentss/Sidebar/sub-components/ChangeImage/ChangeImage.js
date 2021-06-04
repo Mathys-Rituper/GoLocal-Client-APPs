@@ -59,7 +59,7 @@ export default function ChangeImage(){
         _totalSize += (e.files[0].size || 0);
 
         setTotalSize(_totalSize);
-        console.log(e);
+        // console.log(e);
         // const reader = new FileReader();
         // reader.readAsDataURL(e.files[0]);
         // let base64Image;

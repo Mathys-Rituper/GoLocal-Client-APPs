@@ -27,7 +27,7 @@ export default function ConfirmEmailChange() {
         setResponse({ loading: true });
         confirmChangeEmailRequest(tokenFinal, tokenURL[0], tokenURL[1])
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 setResponse({
                     loading: false,
                     data: data,

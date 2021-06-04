@@ -39,7 +39,7 @@ export default function ProductInvoices(){
     }, []);
 
     const { loading, invoices } = shopsRequest;
-    console.log(invoices)
+    // console.log(invoices)
     let invoiceComponentsArray = [];
     if (invoices){
         invoices.forEach((invoice) => {

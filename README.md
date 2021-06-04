@@ -24,6 +24,11 @@ Si vous rencontrez des difficultés à définir les ports et configurations SSL 
 
 Les applications web front ne fonctionneront qu'après que les [API back](https://github.com/stupside/GoLocal/tree/dev) aient été initialisées et lancées comme indiqué dans le readme des API back GoLocal.
 
+Si vous rencontrez le problème indiquant que le module react-final-form n'a pas été trouvé, exécutez la commande suivante dans le dossier où vous vous situez : 
+```bash
+npm i final-form --save
+```
+
 
 ## Contributing
 [Artaud Alexandre](https://github.com/AlexArtaud-Dev) - [Rituper Mathys](https://github.com/Mathys-Rituper) - [Cuche Valère](https://github.com/lAsDesCartes)
